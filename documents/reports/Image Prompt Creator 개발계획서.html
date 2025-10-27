@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Prompt Creator 개발계획서</title>
+    <style>
+        @page {
+            size: A3;
+            margin: 15mm;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.3;
+            margin: 0;
+            padding: 0;
+            font-size: 11px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 8px;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin: 0 0 8px 0;
+        }
+        
+        .header p {
+            margin: 3px 0;
+            font-size: 14px;
+        }
+        
+        .section {
+            margin: 15px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fafafa;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin: -15px -15px 15px -15px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .feature-card {
+            background: #e8f4f8;
+            border: 1px solid #667eea;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            font-size: 10px;
+        }
+        
+        .feature-card h4 {
+            color: #667eea;
+            margin: 0 0 5px 0;
+            font-size: 12px;
+        }
+        
+        .requirement-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 10px;
+        }
+        
+        .requirement-table th, .requirement-table td {
+            border: 1px solid #ddd;
+            padding: 6px;
+            text-align: left;
+        }
+        
+        .requirement-table th {
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .priority-high { background: #ffebee; color: #c62828; }
+        .priority-medium { background: #fff3e0; color: #f57c00; }
+        .priority-low { background: #e8f5e8; color: #2e7d32; }
+        
+        .tech-stack {
+            background: #f0f8ff;
+            border: 1px solid #4169e1;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 Image Prompt Creator</h1>
+            <h2>AI 이미지 프롬프트 생성기 개발계획서</h2>
+            <p><strong>프로젝트 기간:</strong> 2025/8/1(목) ~ 2025/8/5(월) (5일간)</p>
+            <p><strong>작성일:</strong> 2025년 8월 1일</p>
+            <p><strong>개발자:</strong> 이승필</p>
+        </div>
+
+        <div class="section">
+            <div class="section-title">1. 프로젝트 개요</div>
+            
+            <div class="two-column">
+                <div>
+                    <h3>🎯 개발 목적</h3>
+                    <p>AI 이미지 생성을 위한 창의적이고 구체적인 프롬프트를 자동으로 생성하는 웹 기반 도구 개발. 사용자가 간단한 옵션 선택으로 전문적인 AI 이미지 생성 프롬프트를 만들 수 있도록 지원</p>
+                    
+                    <h3>🏗️ 개발 환경</h3>
+                    <ul>
+                        <li><strong>Framework:</strong> Gradio 4.0+</li>
+                        <li><strong>Language:</strong> Python 3.7+</li>
+                        <li><strong>Interface:</strong> Web-based GUI</li>
+                        <li><strong>Deployment:</strong> Hugging Face Spaces</li>
+                        <li><strong>Storage:</strong> 메모리 기반 (세션 관리)</li>
+                        <li><strong>Theme:</strong> Soft Theme (Indigo/Purple)</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>📋 주요 특징</h3>
+                    <ul>
+                        <li>직관적인 드롭다운 기반 인터페이스</li>
+                        <li>10가지 이미지 스타일 지원</li>
+                        <li>9가지 분위기/무드 옵션</li>
+                        <li>6개 프리셋 템플릿 제공</li>
+                        <li>실시간 프롬프트 생성 및 복사</li>
+                        <li>랜덤 생성 기능</li>
+                        <li>통계 정보 표시</li>
+                    </ul>
+                    
+                    <h3>⚠️ 기술적 제약사항</h3>
+                    <ul style="font-size: 9px;">
+                        <li>인터넷 연결 필요 (Gradio 웹앱)</li>
+                        <li>세션 기반 데이터 (영구 저장 없음)</li>
+                        <li>Hugging Face Spaces 리소스 제한</li>
+                        <li>실시간 이미지 생성 기능 없음</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">2. 기능 요구사항</div>
+            
+            <div class="two-column">
+                <div class="feature-card">
+                    <h4>🎨 스타일 선택</h4>
+                    <p>• 포토리얼리스틱<br>
+                    • 애니메이션/만화<br>
+                    • 디지털 아트<br>
+                    • 유화/수채화 등 예술 스타일</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h4>🌈 분위기/색상</h4>
+                    <p>• 밝고 활기찬/어둡고 신비로운<br>
+                    • 차분한/드라마틱한 분위기<br>
+                    • 따뜻한/차가운 색상<br>
+                    • 파스텔/네온 색상 팔레트</p>
+                </div>
+            </div>
+            
+            <div class="two-column">
+                <div class="feature-card">
+                    <h4>📐 구도/시점</h4>
+                    <p>• 클로즈업/와이드 샷<br>
+                    • 조감도/로우앵글<br>
+                    • 1인칭 시점<br>
+                    • 파노라마 뷰</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h4>⚙️ 고급 옵션</h4>
+                    <p>• 아티스트 스타일 (반 고흐, 피카소 등)<br>
+                    • 시간대별 조명 설정<br>
+                    • 품질/해상도 옵션<br>
+                    • 제외할 요소 지정</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">3. 상세 기능 명세</div>
+            
+            <table class="requirement-table">
+                <thead>
+                    <tr>
+                        <th>기능 분류</th>
+                        <th>세부 기능</th>
+                        <th>구현 방법</th>
+                        <th>우선순위</th>
+                        <th>예상 난이도</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="4">사용자 인터페이스</td>
+                        <td>Gradio 기반 웹 인터페이스</td>
+                        <td>gr.Blocks, 커스텀 CSS</td>
+                        <td class="priority-high">높음</td>
+                        <td>중간</td>
+                    </tr>
+                    <tr>
+                        <td>드롭다운 옵션 선택</td>
+                        <td>gr.Dropdown, 선택형 인터페이스</td>
+                        <td class="priority-high">높음</td>
+                        <td>쉬움</td>
+                    </tr>
+                    <tr>
+                        <td>텍스트 입력 및 출력</td>
+                        <td>gr.Textbox, 복사 기능</td>
+                        <td class="priority-high">높음</td>
+                        <td>쉬움</td>
+                    </tr>
+                    <tr>
+                        <td>반응형 레이아웃</td>
+                        <td>gr.Row, gr.Column</td>
+                        <td class="priority-medium">중간</td>
+                        <td>쉬움</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="4">프롬프트 생성</td>
+                        <td>기본 프롬프트 조합</td>
+                        <td>Python 문자열 처리</td>
+                        <td class="priority-high">높음</td>
+                        <td>중간</td>
+                    </tr>
+                    <tr>
+                        <td>스타일별 키워드 매핑</td>
+                        <td>딕셔너리 데이터 구조</td>
+                        <td class="priority-high">높음</td>
+                        <td>중간</td>
+                    </tr>
+                    <tr>
+                        <td>네거티브 프롬프트 처리</td>
+                        <td>제외 요소 별도 처리</td>
+                        <td class="priority-medium">중간</td>
+                        <td>쉬움</td>
+                    </tr>
+                    <tr>
+                        <td>프롬프트 최적화</td>
+                        <td>중복 제거, 순서 정렬</td>
+                        <td class="priority-low">낮음</td>
+                        <td>중간</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">템플릿 시스템</td>
+                        <td>프리셋 템플릿</td>
+                        <td>사전 정의된 옵션 조합</td>
+                        <td class="priority-medium">중간</td>
+                        <td>쉬움</td>
+                    </tr>
+                    <tr>
+                        <td>템플릿 적용</td>
+                        <td>버튼 클릭 → 옵션 자동 선택</td>
+                        <td class="priority-medium">중간</td>
+                        <td>쉬움</td>
+                    </tr>
+                    <tr>
+                        <td>랜덤 생성</td>
+                        <td>random 라이브러리 활용</td>
+                        <td class="priority-low">낮음</td>
+                        <td>쉬움</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">부가 기능</td>
+                        <td>실시간 통계</td>
+                        <td>문자/단어 수 계산</td>
+                        <td class="priority-low">낮음</td>
+                        <td>쉬움</td>
+                    </tr>
+                    <tr>
+                        <td>복사 기능</td>
+                        <td>Gradio 내장 기능</td>
+                        <td class="priority-medium">중간</td>
+                        <td>쉬움</td>
+                    </tr>
+                    <tr>
+                        <td>사용법 가이드</td>
+                        <td>gr.Accordion, Markdown</td>
+                        <td class="priority-low">낮음</td>
+                        <td>쉬움</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <div class="section-title">4. 기술 아키텍처</div>
+            
+            <div class="two-column">
+                <div>
+                    <h3>🐍 Python 백엔드</h3>
+                    <div class="tech-stack">
+                        <ul>
+                            <li><strong>Gradio Framework:</strong> 웹 인터페이스</li>
+                            <li><strong>Python Standard Library:</strong> 문자열 처리</li>
+                            <li><strong>Random Module:</strong> 랜덤 생성</li>
+                            <li><strong>JSON Module:</strong> 데이터 구조 관리</li>
+                        </ul>
+                    </div>
+                    
+                    <h3>🎨 프론트엔드 구성</h3>
+                    <ul>
+                        <li><strong>Gradio Blocks:</strong> 커스텀 레이아웃</li>
+                        <li><strong>CSS Styling:</strong> 그라데이션, 폰트</li>
+                        <li><strong>Interactive Components:</strong> 버튼, 드롭다운</li>
+                        <li><strong>Responsive Design:</strong> 모바일 지원</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>📊 데이터 구조</h3>
+                    <div class="tech-stack">
+                        <ul>
+                            <li><strong>STYLES:</strong> 10가지 이미지 스타일</li>
+                            <li><strong>MOODS:</strong> 9가지 분위기 옵션</li>
+                            <li><strong>COLORS:</strong> 9가지 색상 팔레트</li>
+                            <li><strong>COMPOSITIONS:</strong> 8가지 구도</li>
+                            <li><strong>TEMPLATES:</strong> 6개 프리셋</li>
+                        </ul>
+                    </div>
+                    
+                    <h3>🚀 배포 환경</h3>
+                    <ul>
+                        <li><strong>Platform:</strong> Hugging Face Spaces</li>
+                        <li><strong>Runtime:</strong> Python 3.9+</li>
+                        <li><strong>Requirements:</strong> gradio>=4.0.0</li>
+                        <li><strong>Port:</strong> 7860 (기본)</li>
+                        <li><strong>Share:</strong> 공개 링크 생성</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">5. 개발 일정</div>
+            
+            <table class="requirement-table">
+                <thead>
+                    <tr>
+                        <th>단계</th>
+                        <th>기간</th>
+                        <th>주요 작업</th>
+                        <th>산출물</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1단계</td>
+                        <td>8/1 (Day 1)</td>
+                        <td>프로젝트 구조 설계 및 기본 Gradio 앱</td>
+                        <td>app.py 기본 구조, requirements.txt</td>
+                    </tr>
+                    <tr>
+                        <td>2단계</td>
+                        <td>8/2 (Day 2)</td>
+                        <td>프롬프트 생성 로직 및 데이터 구조</td>
+                        <td>스타일/옵션 딕셔너리, 생성 함수</td>
+                    </tr>
+                    <tr>
+                        <td>3단계</td>
+                        <td>8/3 (Day 3)</td>
+                        <td>사용자 인터페이스 및 인터랙션</td>
+                        <td>드롭다운, 버튼, 레이아웃 구성</td>
+                    </tr>
+                    <tr>
+                        <td>4단계</td>
+                        <td>8/4 (Day 4)</td>
+                        <td>템플릿 시스템 및 고급 기능</td>
+                        <td>프리셋, 랜덤 생성, 통계 기능</td>
+                    </tr>
+                    <tr>
+                        <td>5단계</td>
+                        <td>8/5 (Day 5)</td>
+                        <td>UI/UX 개선, 테스트 및 배포</td>
+                        <td>완성된 Gradio 앱</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <div class="section-title">6. 프롬프트 데이터베이스 설계</div>
+            
+            <div class="two-column">
+                <div>
+                    <h3>📚 스타일 카테고리</h3>
+                    <ul style="font-size: 9px;">
+                        <li><strong>사실적:</strong> photorealistic, ultra realistic</li>
+                        <li><strong>예술적:</strong> oil painting, watercolor</li>
+                        <li><strong>디지털:</strong> digital art, 3D render</li>
+                        <li><strong>만화:</strong> anime, comic book style</li>
+                    </ul>
+                    
+                    <h3>🎭 분위기 매핑</h3>
+                    <ul style="font-size: 9px;">
+                        <li><strong>밝은:</strong> bright, cheerful, vibrant</li>
+                        <li><strong>어두운:</strong> dark, mysterious, moody</li>
+                        <li><strong>환상적:</strong> dreamy, ethereal, magical</li>
+                        <li><strong>미래적:</strong> futuristic, sci-fi, cyberpunk</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>🌈 색상 키워드</h3>
+                    <ul style="font-size: 9px;">
+                        <li><strong>따뜻한:</strong> warm colors, golden hour</li>
+                        <li><strong>차가운:</strong> cool colors, blue tones</li>
+                        <li><strong>생생한:</strong> vibrant, saturated, bright</li>
+                        <li><strong>파스텔:</strong> pastel colors, soft tones</li>
+                    </ul>
+                    
+                    <h3>📐 구도 용어</h3>
+                    <ul style="font-size: 9px;">
+                        <li><strong>거리:</strong> close-up, medium shot, wide shot</li>
+                        <li><strong>각도:</strong> low angle, high angle, bird's eye</li>
+                        <li><strong>시점:</strong> first person, panoramic view</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">7. 사용자 경험 (UX) 설계</div>
+            
+            <div class="two-column">
+                <div>
+                    <h3>🎯 사용자 플로우</h3>
+                    <ol style="font-size: 10px;">
+                        <li>웹 앱 접속 및 메인 화면 확인</li>
+                        <li>기본 아이디어 입력 (필수)</li>
+                        <li>드롭다운에서 스타일/옵션 선택</li>
+                        <li>필요시 고급 설정 활용</li>
+                        <li>'프롬프트 생성' 버튼 클릭</li>
+                        <li>생성된 프롬프트 확인 및 복사</li>
+                        <li>AI 이미지 생성기에서 활용</li>
+                    </ol>
+                    
+                    <h3>💡 사용성 개선 방안</h3>
+                    <ul style="font-size: 10px;">
+                        <li>단계별 가이드 제공</li>
+                        <li>프리셋 템플릿으로 빠른 시작</li>
+                        <li>실시간 프롬프트 미리보기</li>
+                        <li>복사 버튼으로 편리한 사용</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>📱 인터페이스 설계</h3>
+                    <ul style="font-size: 10px;">
+                        <li><strong>상단:</strong> 제목 및 설명</li>
+                        <li><strong>좌측:</strong> 입력 및 옵션 선택</li>
+                        <li><strong>우측:</strong> 생성된 프롬프트 출력</li>
+                        <li><strong>하단:</strong> 템플릿 및 가이드</li>
+                    </ul>
+                    
+                    <h3>🎨 디자인 시스템</h3>
+                    <ul style="font-size: 10px;">
+                        <li><strong>컬러:</strong> Indigo/Purple 그라데이션</li>
+                        <li><strong>폰트:</strong> Inter, 산세리프</li>
+                        <li><strong>스타일:</strong> Soft Theme, 부드러운 모서리</li>
+                        <li><strong>아이콘:</strong> 이모지 활용</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">8. 위험 요소 및 대응 방안</div>
+            
+            <table class="requirement-table">
+                <thead>
+                    <tr>
+                        <th>위험 요소</th>
+                        <th>발생 확률</th>
+                        <th>영향도</th>
+                        <th>대응 방안</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Gradio 버전 호환성</td>
+                        <td class="priority-medium">중간</td>
+                        <td class="priority-high">높음</td>
+                        <td>최신 안정 버전 사용, requirements.txt 명시</td>
+                    </tr>
+                    <tr>
+                        <td>Hugging Face Spaces 제한</td>
+                        <td class="priority-medium">중간</td>
+                        <td class="priority-medium">중간</td>
+                        <td>경량화된 코드, 효율적인 메모리 사용</td>
+                    </tr>
+                    <tr>
+                        <td>프롬프트 품질 이슈</td>
+                        <td class="priority-low">낮음</td>
+                        <td class="priority-high">높음</td>
+                        <td>전문가 검토, 사용자 피드백 반영</td>
+                    </tr>
+                    <tr>
+                        <td>사용자 인터페이스 복잡성</td>
+                        <td class="priority-medium">중간</td>
+                        <td class="priority-medium">중간</td>
+                        <td>단순화된 UI, 단계별 가이드 제공</td>
+                    </tr>
+                    <tr>
+                        <td>모바일 호환성</td>
+                        <td class="priority-low">낮음</td>
+                        <td class="priority-medium">중간</td>
+                        <td>반응형 레이아웃, 모바일 테스트</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <div class="section-title">9. 확장 계획</div>
+            
+            <div class="two-column">
+                <div>
+                    <h3>🚀 단기 확장 (1-3개월)</h3>
+                    <ul>
+                        <li><strong>더 많은 스타일:</strong> 50+ 예술 스타일</li>
+                        <li><strong>언어 지원:</strong> 영어 프롬프트 생성</li>
+                        <li><strong>저장 기능:</strong> 프롬프트 히스토리</li>
+                        <li><strong>공유 기능:</strong> 생성된 프롬프트 공유</li>
+                    </ul>
+                    
+                    <h3>🔮 중기 확장 (3-6개월)</h3>
+                    <ul>
+                        <li><strong>AI 통합:</strong> 실제 이미지 생성</li>
+                        <li><strong>사용자 계정:</strong> 개인화된 템플릿</li>
+                        <li><strong>커뮤니티:</strong> 프롬프트 공유 플랫폼</li>
+                        <li><strong>API 제공:</strong> 외부 서비스 연동</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>💫 장기 확장 (6개월+)</h3>
+                    <ul>
+                        <li><strong>멀티모달:</strong> 이미지 기반 프롬프트</li>
+                        <li><strong>AI 개선:</strong> 맞춤형 프롬프트 추천</li>
+                        <li><strong>모바일 앱:</strong> 네이티브 앱 개발</li>
+                        <li><strong>상업화:</strong> 프리미엄 기능</li>
+                    </ul>
+                    
+                    <h3>📊 성공 지표</h3>
+                    <ul>
+                        <li><strong>사용자 수:</strong> 월 1000명 이상</li>
+                        <li><strong>만족도:</strong> 4.5/5.0 이상</li>
+                        <li><strong>재사용률:</strong> 70% 이상</li>
+                        <li><strong>프롬프트 품질:</strong> 전문가 평가 A급</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

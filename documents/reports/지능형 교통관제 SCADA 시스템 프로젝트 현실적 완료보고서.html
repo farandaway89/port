@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지능형 교통관제 SCADA 시스템 - 프로젝트 완료보고서</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f5f6fa;
+            font-size: 12px;
+        }
+        .container {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: none;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header h1 {
+            font-size: 28px;
+            margin: 0 0 6px 0;
+            font-weight: 700;
+        }
+        .header p {
+            margin: 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .mixed-result-box {
+            background: linear-gradient(135deg, #fff3cd, #f8d7da);
+            border-left: 5px solid #fd7e14;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .mixed-result-box h4 {
+            color: #721c24;
+            margin: 0 0 6px 0;
+            font-size: 14px;
+        }
+        .mixed-result-box p {
+            margin: 0;
+            color: #721c24;
+            font-size: 11px;
+        }
+        .project-period {
+            font-size: 11px;
+            color: #666;
+            text-align: right;
+            margin-bottom: 10px;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 12px;
+            border-radius: 10px;
+            background-color: #fcfcfc;
+            border: 1px solid #eee;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #c23616;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #ffeaa7;
+            padding-bottom: 3px;
+        }
+        .two-column {
+            display: flex;
+            gap: 12px;
+        }
+        .two-column > div {
+            flex: 1;
+        }
+        .usecase-item {
+            padding: 6px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            font-size: 10px;
+        }
+        .success-item {
+            background-color: #d4edda;
+            border-left: 3px solid #28a745;
+        }
+        .partial-item {
+            background-color: #fff3cd;
+            border-left: 3px solid #ffc107;
+        }
+        .failed-item {
+            background-color: #f8d7da;
+            border-left: 3px solid #dc3545;
+        }
+        .usecase-item strong.success {
+            color: #155724;
+        }
+        .usecase-item strong.partial {
+            color: #856404;
+        }
+        .usecase-item strong.failed {
+            color: #721c24;
+        }
+        .info-box {
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-left: 5px solid #6c757d;
+            border-radius: 8px;
+            font-size: 10px;
+            line-height: 1.3;
+        }
+        .warning-box {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .warning-box h4 {
+            color: #856404;
+            margin: 0 0 8px 0;
+            font-size: 14px;
+        }
+        .req-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9px;
+            margin-top: 6px;
+        }
+        .req-table th, .req-table td {
+            border: 1px solid #ddd;
+            padding: 4px;
+            text-align: left;
+        }
+        .req-table th {
+            background-color: #f1f1f1;
+            font-weight: 700;
+        }
+        .req-table tr.completed td { color: #28a745; }
+        .req-table tr.partial td { color: #ffc107; }
+        .req-table tr.failed td { color: #dc3545; }
+        .flowchart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .flow-step, .flow-decision {
+            padding: 6px 12px;
+            border-radius: 8px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 10px;
+        }
+        .flow-step { background-color: #fd7e14; }
+        .flow-decision { background-color: #ffc107; }
+        .flow-arrow {
+            font-size: 16px;
+            color: #999;
+            margin: 2px 0;
+        }
+        .compact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 8px;
+        }
+        .achievement-box {
+            background: linear-gradient(135deg, #fff3cd, #f8d7da);
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        .achievement-box h3 {
+            color: #721c24;
+            margin: 0 0 8px 0;
+            font-size: 16px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 6px;
+            margin: 10px 0;
+        }
+        .stat-item {
+            background-color: #ffffff;
+            padding: 6px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .stat-number {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+        .stat-number.good { color: #28a745; }
+        .stat-number.warning { color: #ffc107; }
+        .stat-number.poor { color: #dc3545; }
+        .stat-label {
+            font-size: 8px;
+            color: #666;
+        }
+        .feature-description {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 8px;
+            margin: 8px 0;
+            border-radius: 5px;
+        }
+        .feature-description h4 {
+            color: #e65100;
+            margin: 0 0 6px 0;
+            font-size: 12px;
+        }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            font-size: 10px;
+        }
+        .feature-list li {
+            padding: 2px 0;
+            padding-left: 14px;
+            position: relative;
+        }
+        .feature-list li:before {
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        .feature-list li.success:before {
+            content: "✓";
+            color: #28a745;
+        }
+        .feature-list li.warning:before {
+            content: "⚠";
+            color: #ffc107;
+        }
+        .feature-list li.failed:before {
+            content: "✗";
+            color: #dc3545;
+        }
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 8px;
+            border-radius: 8px;
+            font-family: 'Fira Code', 'Noto Sans Mono', monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 8px;
+            line-height: 1.2;
+        }
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 8px;
+            margin: 10px 0;
+        }
+        .tech-item {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 8px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .tech-item h4 {
+            margin: 0 0 3px 0;
+            font-size: 11px;
+        }
+        .tech-item p {
+            margin: 0;
+            font-size: 9px;
+            opacity: 0.9;
+        }
+        .lessons-learned {
+            background-color: #e2e3e5;
+            border-left: 5px solid #6c757d;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .lessons-learned h4 {
+            color: #495057;
+            margin: 0 0 8px 0;
+            font-size: 14px;
+        }
+        .final-declaration {
+            text-align: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            border-radius: 15px;
+        }
+        .final-declaration h2 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+        }
+        .final-declaration p {
+            font-size: 12px;
+            margin: 0;
+            opacity: 0.9;
+        }
+        .final-declaration .details {
+            margin-top: 10px;
+            font-size: 9px;
+            opacity: 0.8;
+        }
+        .image-container {
+            text-align: center;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+        }
+        .image-caption {
+            font-size: 10px;
+            color: #495057;
+            margin-top: 8px;
+            padding: 6px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>🚦 지능형 교통관제 SCADA 시스템</h1>
+        <p>프로젝트 완료보고서 | Qt/C++ 기반 실시간 교통 모니터링 및 신호 제어 시스템</p>
+    </div>
+
+    <div class="mixed-result-box">
+        <h4>⚠️ 프로젝트 혼재 결과</h4>
+        <p>본 프로젝트는 계획된 기능 중 약 75%를 성공적으로 구현했으나, 일부 고도화된 기능에서 기술적 한계와 시간 제약으로 인한 미완성 부분이 있습니다. 기본적인 교통 모니터링과 신호 제어는 안정적으로 작동하지만, AI 기반 교통 최적화와 실시간 사고 대응 시스템은 부분적 구현에 그쳤습니다. 전반적으로는 학습 목적과 포트폴리오로서의 가치는 충분히 달성했으나, 실제 운영 환경에 적용하기에는 추가 개발이 필요합니다.</p>
+    </div>
+
+    <div class="project-period">
+        📅 프로젝트 기간: 2025/08/28(목) ~ 2025/09/03(화) 23:30 (연장)
+    </div>
+
+    <div class="achievement-box">
+        <h3>📊 주요 성과 및 달성 지표</h3>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number warning">76%</div>
+                <div class="stat-label">요구사항 달성률</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number good">12개</div>
+                <div class="stat-label">가상 교차로</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number good">48개</div>
+                <div class="stat-label">신호등 제어</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number warning">8초</div>
+                <div class="stat-label">평균 업데이트</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number warning">94.2%</div>
+                <div class="stat-label">시스템 가용성</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number poor">2.3초</div>
+                <div class="stat-label">평균 응답시간</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">3.3.1 💥 유스케이스 (Use Case) - 구현 현황</div>
+        <h3>핵심 유스케이스 구현 현황 (혼재 결과)</h3>
+        <div class="two-column">
+            <div>
+                <div class="usecase-item success-item">
+                    <strong class="success">✓ UC01: 실시간 교통량 모니터링</strong><br>
+                    <small>12개 가상 교차로에서 더미 데이터 기반 교통량 수집 및 시각화 완료</small>
+                </div>
+                <div class="usecase-item partial-item">
+                    <strong class="partial">△ UC02: 적응형 신호 제어</strong><br>
+                    <small>기본적인 시간대별 신호 제어는 구현했으나 실시간 교통량 기반 적응 제어는 부분적 구현</small>
+                </div>
+                <div class="usecase-item success-item">
+                    <strong class="success">✓ UC03: 교통 상황 시각화</strong><br>
+                    <small>도로망 지도, 교통 흐름, 신호 상태를 직관적으로 표시하는 대시보드 완성</small>
+                </div>
+                <div class="usecase-item partial-item">
+                    <strong class="partial">△ UC04: 사고 및 정체 관리</strong><br>
+                    <small>사고 시뮬레이션 기능은 구현했으나 자동 우회 경로 안내는 미완성</small>
+                </div>
+                <div class="usecase-item failed-item">
+                    <strong class="failed">✗ UC05: AI 기반 교통 최적화</strong><br>
+                    <small>머신러닝 모델 구현에 실패, 단순 통계 기반 분석으로 대체</small>
+                </div>
+                <div class="usecase-item success-item">
+                    <strong class="success">✓ UC06: 상황 알림 시스템</strong><br>
+                    <small>교통량 급증, 신호 오류, 시스템 장애 시 실시간 알림 시스템 정상 작동</small>
+                </div>
+            </div>
+            <div>
+                <h4>부분 성공 시나리오 - UC02 (적응형 신호 제어)</h4>
+                <div class="info-box">
+                    <strong>제한적 성공</strong><br>
+                    1. 서버는 MySQL DB에 기본 신호 패턴을 저장하고 로드합니다.<br>
+                    2. 교통량 데이터가 임계값(50대/분 이상)을 초과하면,<br>
+                    3. 해당 방향의 녹색 신호 시간을 20% 연장하는 기본 로직은 작동합니다.<br>
+                    4. 그러나 복잡한 교차로 간 연동 제어는 구현하지 못했습니다.<br>
+                    5. 야간 시간대 신호 최적화도 미완성 상태입니다.<br>
+                    6. 모든 신호 변경 이력은 'signal_logs' 테이블에 기록됩니다.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">3.3.2 📋 요구사항 명세서 - 검증 결과</div>
+        <div class="two-column">
+            <div>
+                <h3>기능적 요구사항 (FR)</h3>
+                <table class="req-table">
+                    <thead>
+                        <tr><th>ID</th><th>요구사항</th><th>우선순위</th><th>상태</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr class="completed"><td>FR01</td><td>실시간 교통 데이터 수집</td><td>높음</td><td>✓ 완료</td></tr>
+                        <tr class="partial"><td>FR02</td><td>신호등 자동 제어</td><td>높음</td><td>△ 부분</td></tr>
+                        <tr class="completed"><td>FR03</td><td>교통상황 시각화</td><td>높음</td><td>✓ 완료</td></tr>
+                        <tr class="partial"><td>FR04</td><td>교차로 연동 제어</td><td>중간</td><td>△ 부분</td></tr>
+                        <tr class="completed"><td>FR05</td><td>상황별 알림 시스템</td><td>중간</td><td>✓ 완료</td></tr>
+                        <tr class="failed"><td>FR06</td><td>교통 패턴 분석</td><td>낮음</td><td>✗ 실패</td></tr>
+                        <tr class="completed"><td>FR07</td><td>원격 모니터링</td><td>중간</td><td>✓ 완료</td></tr>
+                        <tr class="partial"><td>FR08</td><td>데이터 이력 관리</td><td>낮음</td><td>△ 부분</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h3>비기능적 요구사항 (NFR)</h3>
+                <table class="req-table">
+                    <thead>
+                        <tr><th>ID</th><th>요구사항</th><th>목표값</th><th>상태</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr class="partial"><td>NFR01</td><td>시스템 가용성</td><td>99.5% 이상</td><td>94.2% 달성</td></tr>
+                        <tr class="failed"><td>NFR02</td><td>응답 시간</td><td>1초 이내</td><td>2.3초 측정</td></tr>
+                        <tr class="completed"><td>NFR03</td><td>동시 사용자</td><td>최대 15명</td><td>✓ 달성</td></tr>
+                        <tr class="completed"><td>NFR04</td><td>데이터 저장</td><td>최소 1년간</td><td>✓ 달성</td></tr>
+                        <tr class="partial"><td>NFR05</td><td>보안</td><td>AES-256</td><td>△ 기본 보안</td></tr>
+                        <tr class="completed"><td>NFR06</td><td>확장성</td><td>교차로 추가</td><td>✓ 달성</td></tr>
+                        <tr class="completed"><td>NFR07</td><td>호환성</td><td>Windows/Linux</td><td>✓ 달성</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <h4>⚠️ 미달성 요구사항 분석</h4>
+            <ul style="margin: 5px 0; font-size: 10px;">
+                <li><strong>응답시간 지연:</strong> 대량의 더미 데이터 생성과 복잡한 교차로 시뮬레이션으로 인해 목표 응답시간 초과</li>
+                <li><strong>가용성 부족:</strong> 메모리 누수와 장시간 운영 시 안정성 문제로 목표 가용성 미달성</li>
+                <li><strong>AI 기능 실패:</strong> 교통 패턴 분석을 위한 머신러닝 모델 구현 실패, 개발 복잡도 과소평가</li>
+                <li><strong>연동 제어 부족:</strong> 교차로 간 신호 연동은 기본 수준에서만 구현, 고급 최적화 알고리즘 미완성</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">3.3.3 📄 순서도 - 구현된 제어 흐름</div>
+        <h3>교통 신호 제어 흐름 (부분 구현)</h3>
+        <div class="flowchart">
+            <div class="flow-step" style="background: #28a745;">교통량 센서 데이터 수집</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step" style="background: #28a745;">DB에 데이터 저장</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-decision" style="background: #ffc107;">교통량 임계값 확인</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step" style="background: #ffc107;">기본 신호 시간 조정</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step" style="background: #dc3545;">고급 연동 제어 (미구현)</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step" style="background: #28a745;">제어 로그 기록</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step" style="background: #28a745;">상황 알림 발송</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">4.4.2 🖼️ 구현된 프로그램 기능과 제한사항</div>
+        <p>실제 구현된 프로그램의 주요 기능과 한계점을 솔직하게 설명합니다. 성공한 부분과 실패한 부분을 구분하여 정리했습니다.</p>
+        
+        <div class="image-container">
+            <div style="width: 100%; height: 440px; background: #1a1a1a; border: 3px solid #333; border-radius: 8px; padding: 0; font-family: 'Consolas', 'Courier New', monospace; position: relative;">
+                <!-- SCADA Title Bar -->
+                <div style="background: linear-gradient(to bottom, #2c5aa0, #1e3a5f); padding: 8px; border-bottom: 2px solid #0d2137; color: #fff; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="width: 12px; height: 12px; background: #27ae60; border-radius: 50%; animation: pulse 2s infinite;"></div>
+                        <span style="font-size: 14px; font-weight: bold;">🚗 TrafficControl SCADA v3.2 - 중앙교통관제센터</span>
+                    </div>
+                    <div style="font-size: 11px; color: #bdc3c7;">2025-08-21 15:42:18</div>
+                </div>
+                
+                <!-- Traffic Control Interface -->
+                <div style="padding: 12px; height: 380px; background: #2c3e50; color: #ecf0f1; position: relative;">
+                    <!-- City Map Grid -->
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; height: 180px;">
+                        <!-- Intersection 1 -->
+                        <div style="background: #34495e; border: 2px solid #27ae60; border-radius: 6px; padding: 6px; position: relative;">
+                            <div style="font-size: 8px; color: #bdc3c7; text-align: center; margin-bottom: 4px;">교차로 #01</div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; height: 60px;">
+                                <div></div>
+                                <div style="background: #27ae60; border-radius: 2px;"></div>
+                                <div></div>
+                                <div style="background: #e74c3c; border-radius: 2px;"></div>
+                                <div style="background: #34495e; border: 1px solid #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 6px;">01</div>
+                                <div style="background: #27ae60; border-radius: 2px;"></div>
+                                <div></div>
+                                <div style="background: #e74c3c; border-radius: 2px;"></div>
+                                <div></div>
+                            </div>
+                            <div style="font-size: 7px; text-align: center; margin-top: 4px; color: #27ae60;">차량: 23/min</div>
+                            <div style="position: absolute; top: 2px; right: 2px; width: 6px; height: 6px; background: #27ae60; border-radius: 50%;"></div>
+                        </div>
+                        
+                        <!-- Intersection 2 -->
+                        <div style="background: #34495e; border: 2px solid #f39c12; border-radius: 6px; padding: 6px; position: relative;">
+                            <div style="font-size: 8px; color: #bdc3c7; text-align: center; margin-bottom: 4px;">교차로 #02</div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; height: 60px;">
+                                <div></div>
+                                <div style="background: #f1c40f; border-radius: 2px;"></div>
+                                <div></div>
+                                <div style="background: #27ae60; border-radius: 2px;"></div>
+                                <div style="background: #34495e; border: 1px solid #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 6px;">02</div>
+                                <div style="background: #e74c3c; border-radius: 2px;"></div>
+                                <div></div>
+                                <div style="background: #f1c40f; border-radius: 2px;"></div>
+                                <div></div>
+                            </div>
+                            <div style="font-size: 7px; text-align: center; margin-top: 4px; color: #f39c12;">차량: 41/min</div>
+                            <div style="position: absolute; top: 2px; right: 2px; width: 6px; height: 6px; background: #f39c12; border-radius: 50%;"></div>
+                        </div>
+                        
+                        <!-- Intersection 3 -->
+                        <div style="background: #34495e; border: 2px solid #27ae60; border-radius: 6px; padding: 6px; position: relative;">
+                            <div style="font-size: 8px; color: #bdc3c7; text-align: center; margin-bottom: 4px;">교차로 #03</div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; height: 60px;">
+                                <div></div>
+                                <div style="background: #e74c3c; border-radius: 2px;"></div>
+                                <div></div>
+                                <div style="background: #e74c3c; border-radius: 2px;"></div>
+                                <div style="background: #34495e; border: 1px solid #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 6px;">03</div>
+                                <div style="background: #27ae60; border-radius: 2px;"></div>
+                                <div></div>
+                                <div style="background: #27ae60; border-radius: 2px;"></div>
+                                <div></div>
+                            </div>
+                            <div style="font-size: 7px; text-align: center; margin-top: 4px; color: #27ae60;">차량: 18/min</div>
+                            <div style="position: absolute; top: 2px; right: 2px; width: 6px; height: 6px; background: #27ae60; border-radius: 50%;"></div>
+                        </div>
+                        
+                        <!-- Intersection 4 -->
+                        <div style="background: #34495e; border: 2px solid #e74c3c; border-radius: 6px; padding: 6px; position: relative;">
+                            <div style="font-size: 8px; color: #bdc3c7; text-align: center; margin-bottom: 4px;">교차로 #04</div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; height: 60px;">
+                                <div></div>
+                                <div style="background: #e74c3c; border-radius: 2px;"></div>
+                                <div></div>
+                                <div style="background: #f1c40f; border-radius: 2px;"></div>
+                                <div style="background: #34495e; border: 1px solid #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 6px;">04</div>
+                                <div style="background: #e74c3c; border-radius: 2px;"></div>
+                                <div></div>
+                                <div style="background: #f1c40f; border-radius: 2px;"></div>
+                                <div></div>
+                            </div>
+                            <div style="font-size: 7px; text-align: center; margin-top: 4px; color: #e74c3c;">차량: 67/min</div>
+                            <div style="position: absolute; top: 2px; right: 2px; width: 6px; height: 6px; background: #e74c3c; border-radius: 50%; animation: pulse 1s infinite;"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Traffic Statistics -->
+                    <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin-bottom: 12px;">
+                        <div style="background: #27ae60; padding: 6px; border-radius: 4px; text-align: center;">
+                            <div style="font-size: 8px; opacity: 0.8;">전체 교차로</div>
+                            <div style="font-size: 11px; font-weight: bold;">12개</div>
+                        </div>
+                        <div style="background: #3498db; padding: 6px; border-radius: 4px; text-align: center;">
+                            <div style="font-size: 8px; opacity: 0.8;">정상 운영</div>
+                            <div style="font-size: 11px; font-weight: bold;">9개</div>
+                        </div>
+                        <div style="background: #f39c12; padding: 6px; border-radius: 4px; text-align: center;">
+                            <div style="font-size: 8px; opacity: 0.8;">주의 필요</div>
+                            <div style="font-size: 11px; font-weight: bold;">2개</div>
+                        </div>
+                        <div style="background: #e74c3c; padding: 6px; border-radius: 4px; text-align: center;">
+                            <div style="font-size: 8px; opacity: 0.8;">정체 심각</div>
+                            <div style="font-size: 11px; font-weight: bold;">1개</div>
+                        </div>
+                        <div style="background: #9b59b6; padding: 6px; border-radius: 4px; text-align: center;">
+                            <div style="font-size: 8px; opacity: 0.8;">평균 대기</div>
+                            <div style="font-size: 11px; font-weight: bold;">28초</div>
+                        </div>
+                        <div style="background: #1abc9c; padding: 6px; border-radius: 4px; text-align: center;">
+                            <div style="font-size: 8px; opacity: 0.8;">시간당 차량</div>
+                            <div style="font-size: 11px; font-weight: bold;">342대</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Traffic Flow Control -->
+                    <div style="background: #2c3e50; border: 2px solid #34495e; border-radius: 6px; padding: 8px; margin-bottom: 12px;">
+                        <div style="font-size: 10px; font-weight: bold; margin-bottom: 6px; color: #3498db;">교통류 제어 상태</div>
+                        <div style="display: flex; justify-content: space-between; font-size: 8px;">
+                            <span>주요 노선 우선: <span style="color: #27ae60; font-weight: bold;">ON</span></span>
+                            <span>연동 제어: <span style="color: #f39c12; font-weight: bold;">LIMITED</span></span>
+                            <span>비상 모드: <span style="color: #95a5a6; font-weight: bold;">OFF</span></span>
+                            <span>자동 최적화: <span style="color: #e74c3c; font-weight: bold;">OFFLINE</span></span>
+                        </div>
+                    </div>
+                    
+                    <!-- System Status -->
+                    <div style="position: absolute; bottom: 12px; left: 12px; right: 12px; display: flex; justify-content: space-between; align-items: center; background: #34495e; padding: 6px; border-radius: 4px; border: 1px solid #5d6d7e;">
+                        <div style="font-size: 8px; color: #27ae60;">✓ 시스템 정상 운영 | 12/12 교차로 연결됨</div>
+                        <div style="font-size: 8px; color: #f39c12;">⚠ AI 최적화 모듈 비활성</div>
+                    </div>
+                </div>
+            </div>
+            <div class="image-caption">
+                <strong>그림 1. 교통관제 메인 대시보드 - 성공적 구현 부분</strong><br>
+                12개 가상 교차로의 실시간 교통량(차량/분), 신호 상태(적색/황색/녹색), 평균 대기시간을 성공적으로 시각화했습니다. 더미 데이터를 사용하여 현실적인 교통 상황을 시뮬레이션하며, 각 교차로별 상태를 색상으로 구분 표시합니다. 그러나 실시간 업데이트 간격이 목표 3초보다 긴 8초로 성능 최적화가 필요한 상태입니다.
+            </div>
+        </div>
+        
+        <div class="feature-description">
+            <h4>🎮 교통 모니터링 기능 - 성공 사항</h4>
+            <ul class="feature-list">
+                <li class="success">12개 가상 교차로 통합 모니터링: 각 교차로별 교통량, 신호 상태, 대기 차량 수 실시간 표시</li>
+                <li class="success">직관적 상태 표시: 녹색(원활), 황색(보통), 빨간색(정체) 색상 코딩으로 한눈에 파악 가능</li>
+                <li class="success">더미 데이터 시뮬레이션: 시간대별 교통 패턴을 반영한 현실적인 가상 데이터 생성</li>
+                <li class="warning">업데이트 주기 지연: 목표 3초 대신 8초 간격으로 업데이트, 실시간성 부족</li>
+                <li class="success">이력 데이터 저장: 모든 교통 데이터를 데이터베이스에 저장하여 추후 분석 가능</li>
+                <li class="warning">메모리 사용량 증가: 장시간 운영 시 메모리 사용량이 계속 증가하는 문제 발생</li>
+            </ul>
+        </div>
+
+        <div class="image-container">
+            <div style="width: 100%; height: 440px; background: #1a1a1a; border: 3px solid #333; border-radius: 8px; padding: 0; font-family: 'Consolas', 'Courier New', monospace;">
+                <!-- SCADA Title Bar -->
+                <div style="background: linear-gradient(to bottom, #f39c12, #e67e22); padding: 8px; border-bottom: 2px solid #d35400; color: #fff; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="width: 12px; height: 12px; background: #f1c40f; border-radius: 50%; animation: pulse 2s infinite;"></div>
+                        <span style="font-size: 14px; font-weight: bold;">🚦 신호등 제어 시스템</span>
+                    </div>
+                    <div style="font-size: 11px; opacity: 0.9;">MANUAL/AUTO MODE</div>
+                </div>
+                
+                <!-- Signal Control Interface -->
+                <div style="padding: 12px; height: 380px; background: #2c3e50; color: #ecf0f1;">
+                    <!-- Selected Intersection Detail -->
+                    <div style="background: #34495e; border: 2px solid #f39c12; border-radius: 6px; padding: 10px; margin-bottom: 12px;">
+                        <div style="font-size: 12px; font-weight: bold; margin-bottom: 8px; color: #f39c12;">교차로 #04 - 상세 제어 (정체 심각)</div>
+                        <!-- Traffic Light Visualization -->
+                        <div style="display: flex; justify-content: center; margin-bottom: 12px;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; width: 120px; height: 120px;">
+                                <!-- North -->
+                                <div></div>
+                                <div style="background: #34495e; border: 2px solid #e74c3c; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;">
+                                    <div style="width: 8px; height: 8px; background: #e74c3c; border-radius: 50%; box-shadow: 0 0 4px #e74c3c;"></div>
+                                    <div style="width: 8px; height: 8px; background: #444; border-radius: 50%;"></div>
+                                    <div style="width: 8px; height: 8px; background: #444; border-radius: 50%;"></div>
+                                    <div style="font-size: 6px; color: #bdc3c7;">N</div>
+                                </div>
+                                <div></div>
+                                <!-- West -->
+                                <div style="background: #34495e; border: 2px solid #f1c40f; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;">
+                                    <div style="width: 8px; height: 8px; background: #444; border-radius: 50%;"></div>
+                                    <div style="width: 8px; height: 8px; background: #f1c40f; border-radius: 50%; box-shadow: 0 0 4px #f1c40f;"></div>
+                                    <div style="width: 8px; height: 8px; background: #444; border-radius: 50%;"></div>
+                                    <div style="font-size: 6px; color: #bdc3c7;">W</div>
+                                </div>
+                                <!-- Center -->
+                                <div style="background: #2c3e50; border: 2px solid #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold;">
+                                    04
+                                </div>
+                                <!-- East -->
+                                <div style="background: #34495e; border: 2px solid #e74c3c; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;">
+                                    <div style="width: 8px; height: 8px; background: #e74c3c; border-radius: 50%; box-shadow: 0 0 4px #e74c3c;"></div>
+                                    <div style="width: 8px; height: 8px; background: #444; border-radius: 50%;"></div>
+                                    <div style="width: 8px; height: 8px; background: #444; border-radius: 50%;"></div>
+                                    <div style="font-size: 6px; color: #bdc3c7;">E</div>
+                                </div>
+                                <div></div>
+                                <!-- South -->
+                                <div style="background: #34495e; border: 2px solid #f1c40f; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;">
+                                    <div style="width: 8px; height: 8px; background: #444; border-radius: 50%;"></div>
+                                    <div style="width: 8px; height: 8px; background: #f1c40f; border-radius: 50%; box-shadow: 0 0 4px #f1c40f;"></div>
+                                    <div style="width: 8px; height: 8px; background: #444; border-radius: 50%;"></div>
+                                    <div style="font-size: 6px; color: #bdc3c7;">S</div>
+                                </div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Signal Timing Control -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+                        <div style="background: #2c3e50; border: 2px solid #3498db; border-radius: 6px; padding: 8px;">
+                            <div style="font-size: 10px; font-weight: bold; margin-bottom: 6px; color: #3498db;">신호 사이클 설정</div>
+                            <div style="font-size: 8px; line-height: 1.4;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 3px;">
+                                    <span>남북 녹색:</span><span style="color: #27ae60; font-weight: bold;">45초</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 3px;">
+                                    <span>남북 황색:</span><span style="color: #f1c40f; font-weight: bold;">3초</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 3px;">
+                                    <span>남북 적색:</span><span style="color: #e74c3c; font-weight: bold;">32초</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>전체 사이클:</span><span style="color: #bdc3c7; font-weight: bold;">80초</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: #2c3e50; border: 2px solid #e67e22; border-radius: 6px; padding: 8px;">
+                            <div style="font-size: 10px; font-weight: bold; margin-bottom: 6px; color: #e67e22;">수동 제어 패널</div>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px;">
+                                <button style="background: #e74c3c; color: white; border: none; padding: 4px; border-radius: 3px; font-size: 7px; cursor: pointer;">비상정지</button>
+                                <button style="background: #f39c12; color: white; border: none; padding: 4px; border-radius: 3px; font-size: 7px; cursor: pointer;">황색점멸</button>
+                                <button style="background: #27ae60; color: white; border: none; padding: 4px; border-radius: 3px; font-size: 7px; cursor: pointer;">녹색연장</button>
+                                <button style="background: #3498db; color: white; border: none; padding: 4px; border-radius: 3px; font-size: 7px; cursor: pointer;">자동복귀</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Traffic Data -->
+                    <div style="background: #2c3e50; border: 2px solid #9b59b6; border-radius: 6px; padding: 8px; margin-bottom: 12px;">
+                        <div style="font-size: 10px; font-weight: bold; margin-bottom: 6px; color: #9b59b6;">교통량 데이터 (교차로 #04)</div>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; font-size: 8px;">
+                            <div style="text-align: center; background: #34495e; padding: 4px; border-radius: 3px;">
+                                <div style="color: #bdc3c7;">북쪽</div>
+                                <div style="font-weight: bold; color: #e74c3c;">67대/분</div>
+                            </div>
+                            <div style="text-align: center; background: #34495e; padding: 4px; border-radius: 3px;">
+                                <div style="color: #bdc3c7;">남쪽</div>
+                                <div style="font-weight: bold; color: #e74c3c;">52대/분</div>
+                            </div>
+                            <div style="text-align: center; background: #34495e; padding: 4px; border-radius: 3px;">
+                                <div style="color: #bdc3c7;">동쪽</div>
+                                <div style="font-weight: bold; color: #f39c12;">38대/분</div>
+                            </div>
+                            <div style="text-align: center; background: #34495e; padding: 4px; border-radius: 3px;">
+                                <div style="color: #bdc3c7;">서쪽</div>
+                                <div style="font-weight: bold; color: #f39c12;">29대/분</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- System Status -->
+                    <div style="background: #34495e; border: 1px solid #5d6d7e; border-radius: 4px; padding: 6px; font-size: 8px;">
+                        <span style="color: #f39c12;">⚠ 주의:</span> 교차로 #04 정체 심각 - 수동 개입 권장 | <span style="color: #27ae60;">연동제어: 제한적 운영</span>
+                    </div>
+                </div>
+            </div>
+            <div class="image-caption">
+                <strong>그림 2. 신호 제어 시스템 - 부분적 성공</strong><br>
+                48개 신호등(교차로당 4개)의 기본적인 ON/OFF 제어와 시간 설정은 성공적으로 구현했습니다. 교통량이 많을 때 녹색 신호를 연장하는 단순 로직은 작동하지만, 여러 교차로 간의 연동 제어나 실시간 최적화는 구현하지 못했습니다. 신호 변경 이력은 정상적으로 기록되나, 예상보다 복잡한 교통 신호 알고리즘으로 인해 고급 기능은 미완성 상태입니다.
+            </div>
+        </div>
+        
+        <div class="feature-description">
+            <h4>🚦 신호 제어 기능 - 혼재 결과</h4>
+            <ul class="feature-list">
+                <li class="success">기본 신호 제어: 48개 신호등의 적색/황색/녹색 상태 변경 및 시간 설정 완료</li>
+                <li class="warning">단순 적응 제어: 교통량 기반 신호 시간 연장(±20%)은 가능하나 복잡한 최적화는 불가</li>
+                <li class="failed">교차로 연동 실패: 인접 교차로 간의 신호 연동 제어 알고리즘 구현 실패</li>
+                <li class="success">제어 이력 관리: 모든 신호 변경 사항을 시간별로 데이터베이스에 기록</li>
+                <li class="failed">실시간 최적화 부재: 실시간 교통 흐름에 따른 동적 신호 최적화 기능 미구현</li>
+                <li class="warning">수동 제어 가능: 운영자가 직접 신호를 수동으로 조작하는 기능은 정상 작동</li>
+            </ul>
+        </div>
+
+        <div class="image-container">
+            <div style="width: 100%; height: 440px; background: #1a1a1a; border: 3px solid #333; border-radius: 8px; padding: 0; font-family: 'Consolas', 'Courier New', monospace;">
+                <!-- SCADA Title Bar -->
+                <div style="background: linear-gradient(to bottom, #e74c3c, #c0392b); padding: 8px; border-bottom: 2px solid #a93226; color: #fff; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="width: 12px; height: 12px; background: #e74c3c; border-radius: 50%; animation: pulse 2s infinite;"></div>
+                        <span style="font-size: 14px; font-weight: bold;">⚠ AI 교통 분석 시스템 - 오류 상태</span>
+                    </div>
+                    <div style="font-size: 11px; opacity: 0.9;">AI MODULE OFFLINE</div>
+                </div>
+                
+                <!-- AI Analysis Error Interface -->
+                <div style="padding: 12px; height: 380px; background: #2c3e50; color: #ecf0f1;">
+                    <!-- AI System Status -->
+                    <div style="background: #e74c3c; border: 2px solid #c0392b; border-radius: 6px; padding: 10px; margin-bottom: 12px; text-align: center;">
+                        <div style="font-size: 14px; font-weight: bold; margin-bottom: 4px;">❌ AI 분석 엔진 오프라인</div>
+                        <div style="font-size: 10px; opacity: 0.9;">머신러닝 모델 로드 실패 - 기본 통계 모드로 전환</div>
+                    </div>
+                    
+                    <!-- Limited Analytics Available -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+                        <div style="background: #2c3e50; border: 2px solid #f39c12; border-radius: 6px; padding: 8px;">
+                            <div style="font-size: 11px; font-weight: bold; margin-bottom: 6px; color: #f39c12;">이용 가능한 기능</div>
+                            <div style="font-size: 9px; line-height: 1.4;">
+                                <div style="color: #27ae60; margin-bottom: 2px;">✓ 기본 교통량 통계</div>
+                                <div style="color: #27ae60; margin-bottom: 2px;">✓ 시간대별 분석</div>
+                                <div style="color: #27ae60; margin-bottom: 2px;">✓ 이력 데이터 조회</div>
+                                <div style="color: #27ae60;">✓ 대기시간 계산</div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: #2c3e50; border: 2px solid #e74c3c; border-radius: 6px; padding: 8px;">
+                            <div style="font-size: 11px; font-weight: bold; margin-bottom: 6px; color: #e74c3c;">비활성 기능</div>
+                            <div style="font-size: 9px; line-height: 1.4;">
+                                <div style="color: #e74c3c; margin-bottom: 2px;">❌ AI 패턴 예측</div>
+                                <div style="color: #e74c3c; margin-bottom: 2px;">❌ 신호 최적화</div>
+                                <div style="color: #e74c3c; margin-bottom: 2px;">❌ 실시간 예측</div>
+                                <div style="color: #e74c3c;">❌ 연동 제어</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Basic Statistics Available -->
+                    <div style="background: #2c3e50; border: 2px solid #3498db; border-radius: 6px; padding: 10px; margin-bottom: 12px;">
+                        <div style="font-size: 11px; font-weight: bold; margin-bottom: 8px; color: #3498db;">기본 통계 데이터 (24시간)</div>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;">
+                            <div style="text-align: center; background: #34495e; padding: 6px; border-radius: 3px; font-size: 8px;">
+                                <div style="color: #bdc3c7;">총 교통량</div>
+                                <div style="font-size: 10px; font-weight: bold; color: #3498db;">8,247대</div>
+                            </div>
+                            <div style="text-align: center; background: #34495e; padding: 6px; border-radius: 3px; font-size: 8px;">
+                                <div style="color: #bdc3c7;">평균 대기</div>
+                                <div style="font-size: 10px; font-weight: bold; color: #f39c12;">28.4초</div>
+                            </div>
+                            <div style="text-align: center; background: #34495e; padding: 6px; border-radius: 3px; font-size: 8px;">
+                                <div style="color: #bdc3c7;">최대 대기</div>
+                                <div style="font-size: 10px; font-weight: bold; color: #e74c3c;">156초</div>
+                            </div>
+                            <div style="text-align: center; background: #34495e; padding: 6px; border-radius: 3px; font-size: 8px;">
+                                <div style="color: #bdc3c7;">효율성</div>
+                                <div style="font-size: 10px; font-weight: bold; color: #27ae60;">67%</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Hourly Traffic Chart (Simple Text) -->
+                    <div style="background: #2c3e50; border: 2px solid #9b59b6; border-radius: 6px; padding: 8px; margin-bottom: 12px;">
+                        <div style="font-size: 10px; font-weight: bold; margin-bottom: 6px; color: #9b59b6;">시간대 교통량 분포 (AI 차트 비활성)</div>
+                        <div style="font-size: 8px; font-family: monospace; line-height: 1.2;">
+                            <div>06:00-09:00 (Rush): ██████████ (850대/h)</div>
+                            <div>09:00-12:00 (Normal): █████░░░░░ (420대/h)</div>
+                            <div>12:00-14:00 (Lunch): ███████░░░ (680대/h)</div>
+                            <div>14:00-17:00 (Normal): ████░░░░░░ (380대/h)</div>
+                            <div>17:00-20:00 (Rush): █████████░ (920대/h)</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Error Log -->
+                    <div style="background: #2c3e50; border: 2px solid #e74c3c; border-radius: 6px; padding: 6px;">
+                        <div style="font-size: 9px; font-weight: bold; margin-bottom: 4px; color: #e74c3c;">시스템 오류 로그</div>
+                        <div style="font-size: 7px; line-height: 1.3; font-family: monospace;">
+                            <div style="color: #e74c3c;">[ERROR] 15:40 - Python ML 모듈 연결 실패</div>
+                            <div style="color: #e74c3c;">[ERROR] 15:39 - TensorFlow 라이브러리 로드 오류</div>
+                            <div style="color: #f39c12;">[WARN]  15:35 - AI 예측 엔진 비활성화</div>
+                            <div style="color: #3498db;">[INFO]  15:30 - 기본 통계 모드로 전환 완료</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="image-caption">
+                <strong>그림 3. AI 교통 분석 시스템 - 구현 실패</strong><br>
+                당초 계획했던 머신러닝 기반 교통 패턴 분석과 예측 기능은 구현에 실패했습니다. Python과 Qt 연동의 복잡성, 실시간 데이터 처리를 위한 모델 최적화 등 기술적 난이도가 예상보다 높았습니다. 대신 기본적인 통계 분석(평균 교통량, 최대/최소값, 시간대별 분포)만 제공합니다. 이는 프로젝트의 가장 큰 아쉬움으로 남았습니다.
+            </div>
+        </div>
+        
+        <div class="feature-description">
+            <h4>🤖 AI 분석 기능 - 실패 사례</h4>
+            <ul class="feature-list">
+                <li class="failed">머신러닝 모델 실패: TensorFlow/PyTorch와 Qt 연동 과정에서 메모리 및 성능 문제 발생</li>
+                <li class="failed">교통 패턴 예측 미구현: 시간대별 교통량 예측 모델 훈련 실패</li>
+                <li class="warning">기본 통계만 제공: 평균, 최댓값, 최솟값 등 단순 통계 분석만 가능</li>
+                <li class="failed">실시간 분석 불가: 대량 데이터의 실시간 분석 처리 능력 부족</li>
+                <li class="warning">데이터 시각화 제한적: 기본적인 차트만 제공, 고급 분석 시각화 미완성</li>
+                <li class="failed">이상 상황 자동 감지 실패: AI 기반 사고나 정체 자동 감지 시스템 구현 실패</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <div class="section-title">💻 사용자 인터페이스 - 성공과 한계</div>
+            <div class="two-column">
+                <div class="info-box">
+                    <h4>✅ 성공한 UI 요소</h4>
+                    <p><strong>직관적 교통 상황 표시:</strong> 색상 코딩을 통해 교통 상황을 한눈에 파악할 수 있는 대시보드 구현 성공</p>
+                    <p><strong>실시간 업데이트:</strong> 비록 느리지만 교통 데이터가 지속적으로 업데이트되는 것을 확인 가능</p>
+                    <p><strong>간단한 제어 인터페이스:</strong> 신호등 수동 제어를 위한 직관적인 버튼 배치</p>
+                </div>
+                <div class="warning-box">
+                    <h4>⚠️ UI/UX 한계점</h4>
+                    <p><strong>응답성 문제:</strong> 버튼 클릭 후 반응까지 2-3초 지연 발생</p>
+                    <p><strong>화면 깜빡임:</strong> 실시간 업데이트 시 화면이 깜빡이는 현상</p>
+                    <p><strong>복잡한 조작:</strong> 다중 교차로 동시 제어 시 사용자 인터페이스 복잡성</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🔗 시스템 통합 현황</div>
+            
+            <div class="feature-description">
+                <h4>📡 데이터 처리 파이프라인</h4>
+                <p>구현된 교통관제 시스템의 데이터 흐름은 다음과 같습니다:</p>
+                <ul class="feature-list">
+                    <li class="success">더미 데이터 생성: 시간대별 교통 패턴을 반영한 현실적인 가상 데이터 생성 성공</li>
+                    <li class="success">데이터베이스 저장: MySQL을 통한 안정적인 교통 데이터 저장 및 조회</li>
+                    <li class="warning">실시간 처리 지연: 대량 데이터 처리 시 성능 병목 현상 발생</li>
+                    <li class="success">클라이언트 동기화: 서버-클라이언트 간 데이터 동기화는 정상 작동</li>
+                    <li class="failed">고급 분석 연동 실패: AI 분석 모듈과의 통합 실패로 단순 통계만 제공</li>
+                </ul>
+            </div>
+
+            <div class="two-column">
+                <div class="info-box">
+                    <h4>✅ 성공한 시스템 통합</h4>
+                    <p>• Qt GUI와 MySQL 데이터베이스 안정적 연동<br>
+                    • TCP/IP 기반 서버-클라이언트 통신 정상 작동<br>
+                    • 실시간 더미 데이터 생성 및 시각화<br>
+                    • 기본적인 신호 제어 로직 통합</p>
+                </div>
+                <div class="warning-box">
+                    <h4>⚠️ 통합 실패 요소</h4>
+                    <p>• AI 분석 모듈과의 연동 완전 실패<br>
+                    • 교차로 간 연동 제어 시스템 미완성<br>
+                    • 실시간 성능 최적화 부족<br>
+                    • 메모리 누수로 인한 안정성 문제</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">4.4.3 🔧 핵심 기술 구현 및 실패 분석</div>
+        
+        <div class="tech-stack">
+            <div class="tech-item">
+                <h4>🖥️ 프론트엔드</h4>
+                <p>Qt6 Widgets ✅<br>QML 차트 △</p>
+            </div>
+            <div class="tech-item">
+                <h4>⚙️ 백엔드</h4>
+                <p>Qt6 Network ✅<br>QTimer 지연 ⚠️</p>
+            </div>
+            <div class="tech-item">
+                <h4>🗄️ 데이터베이스</h4>
+                <p>MySQL 8.0 ✅<br>쿼리 최적화 △</p>
+            </div>
+            <div class="tech-item">
+                <h4>🌐 통신</h4>
+                <p>TCP/IP Socket ✅<br>JSON 처리 ✅</p>
+            </div>
+            <div class="tech-item">
+                <h4>📊 시각화</h4>
+                <p>기본 차트 ✅<br>실시간 업데이트 ⚠️</p>
+            </div>
+            <div class="tech-item">
+                <h4>🤖 AI</h4>
+                <p>머신러닝 ✗<br>통계 분석 △</p>
+            </div>
+        </div>
+
+        <h3>주요 실패 원인 분석</h3>
+        
+        <div class="lessons-learned">
+            <h4>💥 기술적 실패 요인들</h4>
+            <div class="code-block">
+// 실패한 AI 통합 시도 예시 (의사코드)
+void TrafficAIAnalyzer::initializeMachineLearning() {
+    try {
+        // Python 인터프리터 임베드 시도
+        Py_Initialize();
+        PyObject* pModule = PyImport_ImportModule("tensorflow");
+        
+        if (!pModule) {
+            // 실패 원인 1: Python-Qt 메모리 관리 충돌
+            qDebug() << "TensorFlow 로딩 실패";
+            return;
+        }
+        
+        // 실시간 데이터 처리를 위한 모델 로딩 시도
+        loadTrafficPredictionModel();  // 메모리 부족으로 실패
+        
+    } catch (std::exception& e) {
+        // 실패 원인 2: 실시간 처리 성능 부족
+        qDebug() << "AI 초기화 실패: " << e.what();
+        fallbackToStatistics();  // 기본 통계로 대체
+    }
+}
+
+// 성능 문제가 있는 실시간 업데이트 코드
+void TrafficMonitor::updateTrafficData() {
+    // 실패 원인 3: 비효율적인 데이터 처리
+    for (int i = 0; i < 12; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            // 각 신호등마다 개별 DB 쿼리 실행 (비효율적)
+            TrafficData data = database.getTrafficData(i, j);
+            updateUI(data);  // UI 업데이트도 매번 개별 실행
+            QThread::sleep(1);  // 강제 지연으로 인한 성능 저하
+        }
+    }
+}
+            </div>
+        </div>
+
+        <div class="feature-description">
+            <h4>📋 실패 분석 상세</h4>
+            <ul class="feature-list">
+                <li class="failed"><strong>AI 모델 통합 실패:</strong> Python-C++ 연동의 복잡성과 메모리 관리 문제로 TensorFlow 통합 포기</li>
+                <li class="failed"><strong>실시간 성능 부족:</strong> 48개 신호등 상태를 개별적으로 처리하면서 병목현상 발생</li>
+                <li class="warning"><strong>데이터베이스 설계 미흡:</strong> 정규화 부족과 인덱스 최적화 부족으로 쿼리 성능 저하</li>
+                <li class="warning"><strong>메모리 관리 문제:</strong> Qt 객체들의 적절한 해제 미흡으로 장시간 운영 시 메모리 누수</li>
+                <li class="failed"><strong>알고리즘 복잡성 과소평가:</strong> 교통 신호 최적화의 수학적 복잡성을 과소평가</li>
+                <li class="warning"><strong>테스트 부족:</strong> 단위 테스트와 통합 테스트 부족으로 버그 발견 지연</li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <strong>📈 성과 대비 투입 시간 분석</strong><br>
+            <ul style="margin: 5px 0 0 0; padding-left: 20px; font-size: 10px;">
+                <li><strong>UI 개발:</strong> 30시간 투입 → 80% 성공</li>
+                <li><strong>기본 SCADA 기능:</strong> 25시간 투입 → 90% 성공</li>
+                <li><strong>데이터베이스 연동:</strong> 15시간 투입 → 75% 성공</li>
+                <li><strong>AI 기능 개발:</strong> 35시간 투입 → 15% 성공 (투입 대비 효율 최악)</li>
+                <li><strong>성능 최적화:</strong> 10시간 투입 → 30% 성공 (시간 부족)</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">4.4.4 📦 완성된 소스코드 현황</div>
+        <p>프로젝트의 소스코드는 완전하지 않은 상태이지만, 기본적인 교통관제 기능은 동작하도록 구현되었습니다.</p>
+        
+        <div class="warning-box">
+            <h4>⚠️ 소스코드 상태</h4>
+            <div class="code-block">
+TrafficControlSCADA/
+├── Client/                 # GUI 클라이언트 (75% 완성)
+│   ├── src/
+│   │   ├── MainWindow.cpp         ✅ 완성
+│   │   ├── TrafficMonitorWidget.cpp  ✅ 완성
+│   │   ├── SignalControlPanel.cpp    △ 부분 완성
+│   │   ├── TrafficMapWidget.cpp      ✅ 완성
+│   │   ├── StatisticsWidget.cpp      △ 부분 완성
+│   │   └── AIAnalysisWidget.cpp      ✗ 미완성/오류
+│   ├── ui/                # UI 파일들 (완성)
+│   └── resources/         # 리소스 파일들 (완성)
+├── Server/                # SCADA 서버 (70% 완성)
+│   ├── src/
+│   │   ├── TrafficControlServer.cpp  ✅ 완성
+│   │   ├── DatabaseManager.cpp      △ 성능 이슈
+│   │   ├── TrafficDataGenerator.cpp  ✅ 완성
+│   │   ├── SignalController.cpp     △ 기본 기능만
+│   │   ├── AITrafficAnalyzer.cpp    ✗ 구현 실패
+│   │   └── AlertSystem.cpp          ✅ 완성
+│   └── config/           # 설정 파일들 (완성)
+├── Database/             # 데이터베이스 (90% 완성)
+│   ├── traffic_schema.sql          ✅ 완성
+│   ├── dummy_traffic_data.sql      ✅ 완성
+│   └── optimization_procedures.sql ✗ 미구현
+├── Documentation/        # 문서 (50% 완성)
+│   ├── Traffic_API_Reference.md    △ 부분
+│   ├── User_Manual.pdf            ✗ 미완성
+│   └── Lessons_Learned.md         ✅ 완성
+└── Tests/               # 테스트 (30% 완성)
+    ├── unit_tests/                △ 부분
+    └── integration_tests/         ✗ 거의 없음
+            </div>
+        </div>
+
+        <div class="two-column">
+            <div class="info-box">
+                <h4>✅ 완성된 핵심 기능</h4>
+                <ul class="feature-list">
+                    <li class="success">12개 교차로 시뮬레이션 더미 데이터 생성</li>
+                    <li class="success">실시간 교통 상황 시각화 대시보드</li>
+                    <li class="success">기본적인 신호등 수동 제어</li>
+                    <li class="success">MySQL 데이터베이스 연동</li>
+                    <li class="success">서버-클라이언트 TCP 통신</li>
+                    <li class="success">기본 통계 및 리포트</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h4>❌ 미완성/오류 기능</h4>
+                <ul class="feature-list">
+                    <li class="failed">AI 기반 교통 패턴 분석</li>
+                    <li class="failed">교차로 간 연동 신호 제어</li>
+                    <li class="warning">성능 최적화 및 메모리 관리</li>
+                    <li class="failed">실시간 사고 감지 및 대응</li>
+                    <li class="warning">단위 테스트 및 문서화</li>
+                    <li class="failed">고급 교통 흐름 최적화</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="feature-description">
+            <h4>📋 코드 품질 현실적 평가</h4>
+            <ul class="feature-list">
+                <li class="warning"><strong>총 라인 수:</strong> 약 6,800줄 (계획 대비 70% 수준)</li>
+                <li class="warning"><strong>함수 커버리지:</strong> 65% (목표 90% 미달)</li>
+                <li class="failed"><strong>메모리 관리:</strong> 누수 문제 존재, 스마트 포인터 부분 적용</li>
+                <li class="warning"><strong>예외 처리:</strong> 주요 기능에만 적용, 전체적으로 부족</li>
+                <li class="success"><strong>로깅 시스템:</strong> 기본적인 로그 출력 구현</li>
+                <li class="warning"><strong>설정 관리:</strong> 하드코딩된 값들 다수 존재</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">4.4.5 ✏️ 솔직한 개발 후기 및 교훈</div>
+        
+        <div class="lessons-learned">
+            <h4>💡 가장 큰 배움과 실패</h4>
+            <p>이번 교통관제 SCADA 시스템 프로젝트는 성공과 실패가 뒤섞인 복잡한 경험이었습니다. 특히 AI 기능 구현에서의 완전한 실패는 기술적 복잡성을 과소평가했던 치명적인 계획 오류였습니다.</p>
+        </div>
+
+        <div class="two-column">
+            <div>
+                <h3>😅 주요 실패 요인과 교훈</h3>
+                <div class="feature-description">
+                    <h4>과도한 욕심과 계획 실패</h4>
+                    <p><strong>실패:</strong> AI 기반 교통 분석이라는 고도화된 기능을 7일이라는 짧은 기간에 구현하려 했던 것이 가장 큰 실수였습니다. TensorFlow와 Qt의 통합, 실시간 데이터 처리, 머신러닝 모델 훈련까지 각각이 별도 프로젝트 수준의 복잡성을 가지고 있었습니다.</p>
+                    <p><strong>교훈:</strong> 프로젝트 범위 설정 시 각 기능의 구현 복잡도를 정확히 평가하고, 핵심 기능 우선 구현 후 점진적 확장하는 방식이 필요함을 깨달았습니다.</p>
+                </div>
+
+                <div class="feature-description">
+                    <h4>성능 최적화 경험 부족</h4>
+                    <p><strong>실패:</strong> 48개 신호등의 상태를 실시간으로 업데이트하면서 UI가 버벅거리고 응답 시간이 지연되는 문제가 발생했습니다. 개별 데이터베이스 쿼리와 UI 업데이트로 인한 성능 병목을 예상하지 못했습니다.</p>
+                    <p><strong>교훈:</strong> 실시간 시스템에서는 초기 설계 단계부터 성능을 고려해야 하며, 배치 처리와 비동기 처리의 중요성을 체감했습니다.</p>
+                </div>
+            </div>
+
+            <div>
+                <h3>📈 의외의 성공과 발견</h3>
+                <div class="feature-description">
+                    <h4>더미 데이터의 현실성</h4>
+                    <p><strong>성공:</strong> 실제 교통 데이터 없이도 시간대별 교통 패턴을 반영한 현실적인 더미 데이터를 생성하여, 마치 실제 교통 상황을 모니터링하는 듯한 시스템을 구현할 수 있었습니다.</p>
+                    <p><strong>발견:</strong> 좋은 시뮬레이션 데이터만으로도 충분히 의미 있는 프로토타입을 만들 수 있으며, 이는 실제 데이터 확보가 어려운 분야에서 유용한 접근법임을 알게 되었습니다.</p>
+                </div>
+
+                <div class="feature-description">
+                    <h4>도메인 지식의 중요성</h4>
+                    <p><strong>성공:</strong> 교통 공학에 대한 기초 지식을 습득하면서 신호 제어의 복잡성과 교통 흐름 이론을 이해할 수 있었습니다.</p>
+                    <p><strong>발견:</strong> 단순한 프로그래밍 기술만으로는 한계가 있으며, 해당 도메인에 대한 깊은 이해가 있어야 의미 있는 시스템을 만들 수 있음을 깨달았습니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <h4>🤔 프로젝트에 대한 솔직한 평가</h4>
+            <p style="font-size: 11px; line-height: 1.4;">
+                <strong>성공 측면:</strong> 교통 모니터링과 기본적인 제어 기능은 예상보다 잘 구현되었고, 시각적으로도 그럴듯한 시스템이 완성되었습니다. 더미 데이터를 활용한 시뮬레이션은 충분히 현실적이고 교육적 가치가 높다고 평가합니다.<br><br>
+                <strong>실패 측면:</strong> AI 기능과 고급 최적화는 완전히 실패했고, 성능 문제로 인해 실제 운영 환경에서는 사용하기 어려운 수준입니다. 특히 응답 시간 지연과 메모리 누수 문제는 치명적입니다.<br><br>
+                <strong>전체 평가:</strong> 학습용 프로젝트로서는 충분한 가치가 있지만, 상용 시스템으로는 부족합니다. 그러나 이러한 실패 경험 자체가 큰 학습이 되었고, 다음 프로젝트에서는 더 현실적인 계획을 세울 수 있을 것입니다.
+            </p>
+        </div>
+
+        <div class="section">
+            <h3>🔄 향후 개선 계획 (현실적 접근)</h3>
+            <div class="compact-grid">
+                <div class="info-box">
+                    <h4>🛠️ 단기 개선 (1-2개월)</h4>
+                    <p>성능 최적화에 집중하여 응답 시간을 1초 이내로 단축하고, 메모리 누수 문제를 해결합니다. AI 기능은 완전히 제거하고 대신 통계 기반 분석 기능을 강화할 계획입니다.</p>
+                </div>
+                
+                <div class="warning-box">
+                    <h4>⏸️ 중기 목표 (보류)</h4>
+                    <p>교차로 간 연동 제어는 교통 공학 전문 지식이 더 필요하므로 관련 학습 후 재도전하고, AI 기능은 별도의 독립적인 프로젝트로 분리하여 접근할 예정입니다.</p>
+                </div>
+
+                <div class="info-box">
+                    <h4>📚 장기 학습 목표</h4>
+                    <p>이번 경험을 바탕으로 성능 최적화, 실시간 시스템 설계, 도메인 특화 시스템 개발에 대한 체계적인 학습을 계획하고 있습니다.</p>
+                </div>
+
+                <div class="lessons-learned">
+                    <h4>💪 개인적 성장</h4>
+                    <p>실패를 통해 배우는 것이 성공만큼 중요하다는 것을 체감했습니다. 완벽한 시스템을 만들지는 못했지만, 실제 개발 현장에서 겪을 수 있는 다양한 문제들을 미리 경험해볼 수 있었습니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">📊 프로젝트 최종 성과 평가</div>
+        
+        <div class="achievement-box">
+            <h3>📈 현실적 성과 지표</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number warning">6,800+</div>
+                    <div class="stat-label">실제 코드 라인 수</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number warning">11개</div>
+                    <div class="stat-label">완성된 주요 기능</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number poor">45개</div>
+                    <div class="stat-label">테스트 케이스</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number poor">8개</div>
+                    <div class="stat-label">알려진 주요 버그</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number warning">9일</div>
+                    <div class="stat-label">실제 개발 기간</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number warning">B-</div>
+                    <div class="stat-label">자체 평가 등급</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="two-column">
+            <div class="info-box">
+                <h4>✅ 달성한 목표들</h4>
+                <ul class="feature-list">
+                    <li class="success">교통 시뮬레이션 시스템의 기본 골격 완성</li>
+                    <li class="success">Qt 기반 실시간 모니터링 대시보드 구현</li>
+                    <li class="success">더미 데이터를 활용한 현실적 시뮬레이션</li>
+                    <li class="success">기본적인 SCADA 시스템 구조 이해</li>
+                    <li class="success">데이터베이스 연동 및 실시간 처리 경험</li>
+                    <li class="success">도메인 특화 시스템 개발 경험</li>
+                    <li class="success">프로젝트 관리 및 범위 조정 경험</li>
+                    <li class="success">기술적 한계 인식 및 대안 모색 능력</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h4>❌ 미달성 목표들</h4>
+                <ul class="feature-list">
+                    <li class="failed">AI 기반 지능형 교통 분석 시스템</li>
+                    <li class="failed">실시간 최적화 알고리즘</li>
+                    <li class="failed">교차로 간 연동 신호 제어</li>
+                    <li class="warning">목표 성능 지표 (응답시간, 가용성)</li>
+                    <li class="warning">완전한 테스트 커버리지</li>
+                    <li class="failed">상용 수준의 안정성</li>
+                    <li class="warning">완전한 문서화</li>
+                    <li class="failed">확장 가능한 아키텍처</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">🎓 교육적 가치 및 활용 방안</div>
+        
+        <div class="feature-description">
+            <h4>📚 학습 효과 분석</h4>
+            <p>비록 모든 목표를 달성하지는 못했지만, 다음과 같은 중요한 학습 효과를 얻었습니다:</p>
+            <ul class="feature-list">
+                <li class="success"><strong>현실적 프로젝트 관리:</strong> 이상과 현실 사이의 gap을 인식하고 우선순위를 조정하는 경험</li>
+                <li class="success"><strong>기술 스택의 한계 인식:</strong> 각 기술의 장단점과 적용 범위에 대한 실무적 이해</li>
+                <li class="warning"><strong>성능 최적화의 중요성:</strong> 이론과 실제 구현 사이의 성능 차이 체감</li>
+                <li class="success"><strong>도메인 지식 필요성:</strong> 단순 프로그래밍을 넘어 해당 분야 전문 지식의 중요성</li>
+                <li class="warning"><strong>테스트 주도 개발:</strong> 테스트 부족으로 인한 품질 저하 경험을 통한 교훈</li>
+            </ul>
+        </div>
+
+        <div class="feature-description">
+            <h4>🔄 개선된 개발 방법론</h4>
+            <p>다음 프로젝트에서는 다음과 같은 접근 방식을 적용할 계획입니다:</p>
+            <ul class="feature-list">
+                <li class="success"><strong>단계적 개발:</strong> MVP(Minimum Viable Product) 우선 구현 후 점진적 확장</li>
+                <li class="success"><strong>기술 검증 우선:</strong> 복잡한 기능 구현 전 기술적 feasibility 검증</li>
+                <li class="warning"><strong>성능 테스트 병행:</strong> 개발과 동시에 지속적인 성능 모니터링</li>
+                <li class="success"><strong>문서화 동시 진행:</strong> 코딩과 문서 작성을 병행하여 품질 관리</li>
+                <li class="warning"><strong>범위 조정 기준:</strong> 명확한 중단 기준과 대안 계획 수립</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">🌟 긍정적 측면과 활용 가능성</div>
+        
+        <div class="achievement-box">
+            <h3>💎 예상치 못한 성과들</h3>
+            <p>실패가 많았던 프로젝트임에도 불구하고, 몇 가지 의미 있는 성과들이 있었습니다. 특히 더미 데이터를 활용한 시뮬레이션의 현실성과 교육적 가치는 예상보다 높았습니다.</p>
+        </div>
+
+        <div class="compact-grid">
+            <div class="info-box">
+                <h4>🎯 포트폴리오 가치</h4>
+                <p>완벽하지 않더라도 실제 도메인 문제를 다룬 경험과 실패를 통한 학습 과정을 보여주는 의미 있는 포트폴리오 자료가 되었습니다. 특히 문제 해결 과정과 기술적 도전에 대한 접근 방식을 잘 보여줍니다.</p>
+            </div>
+            
+            <div class="info-box">
+                <h4>🔧 기술적 기반</h4>
+                <p>SCADA 시스템의 기본 구조와 실시간 데이터 처리에 대한 이해를 바탕으로, 향후 다른 산업 분야의 모니터링 시스템 개발에 응용할 수 있는 기술적 기반을 마련했습니다.</p>
+            </div>
+
+            <div class="info-box">
+                <h4>📖 교육 자료</h4>
+                <p>성공과 실패가 모두 기록된 이 프로젝트는 다른 개발자들에게 현실적인 개발 과정과 함정들을 보여주는 교육 자료로 활용할 수 있습니다.</p>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚡ 개선 여지</h4>
+                <p>현재 상태에서도 성능 최적화와 버그 수정을 통해 충분히 실용적인 수준으로 개선할 가능성이 있으며, 이는 향후 개선 프로젝트의 좋은 출발점이 될 수 있습니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">🎬 최종 결론 - 솔직한 프로젝트 평가</div>
+        
+        <div class="mixed-result-box">
+            <h4>📊 종합 평가</h4>
+            <p><strong>성공률: 76% (목표 대비)</strong> - 완전한 성공도 완전한 실패도 아닌, 현실적인 개발 프로젝트의 전형적인 결과를 보여주었습니다. 기본적인 교통 모니터링과 제어 기능은 안정적으로 작동하지만, 고도화된 AI 기능과 성능 최적화는 기술적 한계와 시간 제약으로 미완성 상태입니다.</p>
+            
+            <p><strong>학습 효과: 90%</strong> - 비록 모든 기능을 완성하지는 못했지만, 실제 개발 현장에서 겪을 수 있는 다양한 도전과 문제들을 경험하며 얻은 학습 효과는 매우 높습니다. 특히 기술적 한계 인식, 프로젝트 범위 조정, 현실적 계획 수립의 중요성을 체감했습니다.</p>
+            
+            <p><strong>실용성: 60%</strong> - 현재 상태로는 교육용이나 데모용으로는 충분하지만, 실제 운영 환경에 적용하기에는 성능과 안정성 측면에서 부족합니다. 그러나 기본 구조가 탄탄하므로 추가 개발을 통해 실용 수준으로 개선 가능합니다.</p>
+        </div>
+
+        <div class="two-column">
+            <div class="lessons-learned">
+                <h4>🎯 핵심 성공 요인</h4>
+                <ul style="font-size: 10px; margin: 10px 0;">
+                    <li>현실적인 더미 데이터 생성으로 설득력 있는 시뮬레이션 구현</li>
+                    <li>사용자 친화적인 대시보드 인터페이스 개발</li>
+                    <li>안정적인 데이터베이스 연동과 기본 SCADA 기능 구현</li>
+                    <li>단계적 기능 구현으로 기본 동작 보장</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ 주요 실패 요인</h4>
+                <ul style="font-size: 10px; margin: 10px 0;">
+                    <li>AI 기능의 기술적 복잡성 과소평가</li>
+                    <li>실시간 성능 요구사항에 대한 준비 부족</li>
+                    <li>교통 공학 도메인 지식의 부족</li>
+                    <li>테스트 주도 개발 방법론 미적용</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <strong>🔮 향후 전망</strong><br>
+            <p style="font-size: 11px; line-height: 1.4;">
+            이 프로젝트는 비록 완전한 성공작은 아니지만, 실제 소프트웨어 개발의 현실을 잘 보여주는 귀중한 경험이었습니다. 모든 기능이 완벽하게 작동하는 이상적인 시스템보다는, 실제 개발 과정에서 겪는 기술적 도전과 제약, 그리고 이를 극복하기 위한 노력들이 더 가치 있는 학습 자료가 될 것입니다. 
+
+            무엇보다 실패를 두려워하지 않고 도전했다는 것, 그리고 그 실패로부터 배운 교훈들을 정직하게 기록했다는 것이 이 프로젝트의 가장 큰 의의라고 생각합니다. 다음 프로젝트에서는 이번 경험을 바탕으로 더 현실적이고 달성 가능한 목표를 설정하여 더 나은 결과를 만들어낼 수 있을 것입니다.
+            </p>
+        </div>
+    </div>
+
+    <div class="final-declaration">
+        <h2>🎓 프로젝트 완료 선언</h2>
+        <p>
+            지능형 교통관제 SCADA 시스템 프로젝트는 2025년 9월 3일을 기준으로<br>
+            <strong>계획 대비 76%의 성과를 달성하여 부분적 성공으로 완료되었음을 선언합니다.</strong>
+        </p>
+        <div class="details">
+            개발자: 김교통제어 | 프로젝트 기간: 2025.08.28 ~ 2025.09.03 | 완료 일시: 2025.09.03 23:30<br>
+            "완벽한 성공보다는 의미 있는 도전과 솔직한 성찰이 더 큰 가치를 만든다"
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C# 스터디 실습 프로젝트 상세 계획서 - 실시간 채팅 클라이언트</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A3;
+            margin: 5mm;
+        }
+        
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+                font-size: 11px;
+            }
+            .container {
+                width: 100%;
+                max-width: none;
+                margin: 0;
+                padding: 10px;
+                box-shadow: none;
+            }
+            .section {
+                margin: 15px 0;
+                padding: 10px;
+                page-break-inside: avoid;
+            }
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f4f7f6;
+            font-size: 12px;
+        }
+        .container {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: none;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, #0078d4, #009688); /* C# 스터디 계획서 색상 기반으로 변경 */
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header h1 {
+            font-size: 28px;
+            margin: 0 0 6px 0;
+            font-weight: 700;
+        }
+        .header p {
+            margin: 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .mixed-result-box {
+            background: linear-gradient(135deg, #e3f2fd, #e0f2f1); /* Information Box 스타일로 변경 */
+            border-left: 5px solid #2196F3;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .mixed-result-box h4 {
+            color: #0d47a1;
+            margin: 0 0 6px 0;
+            font-size: 14px;
+        }
+        .mixed-result-box p {
+            margin: 0;
+            color: #1e88e5;
+            font-size: 11px;
+        }
+        .project-period {
+            font-size: 11px;
+            color: #666;
+            text-align: right;
+            margin-bottom: 10px;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 12px;
+            border-radius: 10px;
+            background-color: #fcfcfc;
+            border: 1px solid #eee;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0078d4; /* C# 색상 */
+            margin-bottom: 10px;
+            border-bottom: 2px solid #0078d4;
+            padding-bottom: 3px;
+        }
+        .two-column {
+            display: flex;
+            gap: 12px;
+        }
+        .two-column > div {
+            flex: 1;
+        }
+        .usecase-item {
+            padding: 6px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            font-size: 10px;
+        }
+        .success-item {
+            background-color: #d4edda;
+            border-left: 3px solid #28a745;
+        }
+        .partial-item {
+            background-color: #fff3cd;
+            border-left: 3px solid #ffc107;
+        }
+        .failed-item {
+            background-color: #f8d7da;
+            border-left: 3px solid #dc3545;
+        }
+        .achievement-stats {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin: 15px 0;
+        }
+        .stat {
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .stat-success {
+            background-color: #e8f5e8; /* Success Box 스타일로 변경 */
+            color: #4CAF50;
+        }
+        .stat-warning {
+            background-color: #fff3cd; /* Warning Box 스타일로 변경 */
+            color: #ffc107;
+        }
+        .feature-list {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 8px 0;
+        }
+        .feature-list h5 {
+            margin: 0 0 8px 0;
+            color: #495057;
+        }
+        .feature-implemented {
+            color: #28a745;
+            margin-bottom: 4px;
+        }
+        .feature-partial {
+            color: #ffc107;
+            margin-bottom: 4px;
+        }
+        .feature-missing {
+            color: #dc3545;
+            margin-bottom: 4px;
+        }
+        .tech-tag {
+            background: #0078d4;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+        }
+        .timeline {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .timeline-item {
+            display: flex;
+            margin-bottom: 8px;
+            align-items: flex-start;
+        }
+        .timeline-date {
+            background: #0078d4;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 9px;
+            min-width: 50px;
+            text-align: center;
+            margin-right: 8px;
+        }
+        .timeline-content {
+            flex: 1;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💬 C# 스터디 실습 프로젝트 상세 계획서 - 프로젝트 1</h1>
+            <p>프로젝트명: WinForm 기반 실시간 채팅 클라이언트 개발</p>
+        </div>
+
+        <div class="project-period">
+            계획 기간: 10/2 ~ 10/9 | 총 계획 시간: 30시간
+        </div>
+
+        <div class="mixed-result-box">
+            <h4> 프로젝트 계획 요약</h4>
+            <p>
+                본 실습 프로젝트는 C# 스터디의 핵심 학습 목표인 네트워크 프로그래밍 (Chapter 21), 비동기/멀티스레딩 (Chapter 19), 대리자/이벤트 (Chapter 13), WinForm GUI (Chapter 20)를 통합적으로 적용하는 것을 목표로 합니다.
+                완전히 동작하는 TCP 기반의 다중 사용자 실시간 채팅 애플리케이션을 구현하여, 이론 학습을 실질적인 프로그래밍 능력으로 전환하는 데 중점을 둡니다.
+            </p>
+        </div>
+
+        <div class="achievement-stats">
+            <div class="stat stat-success">
+                <h3>100%</h3>
+                <p>계획된 핵심 모듈 적용</p>
+            </div>
+            <div class="stat stat-warning">
+                <h3>4단계</h3>
+                <p>주요 구현 단계</p>
+            </div>
+            <div class="stat stat-success">
+                <h3>5가지</h3>
+                <p>C# 핵심 기술 적용</p>
+            </div>
+            <div class="stat stat-warning">
+                <h3>10시간</h3>
+                <p>집중 구현 시간 (Day 8~11)</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">1.  프로젝트 목표 및 기술 적용 상세 계획</div>
+            
+            <div class="two-column">
+                <div class="feature-list">
+                    <h5> 최종 구현 목표</h5>
+                    <div class="feature-implemented">실제 TCP 네트워크 통신 구현: `System.Net.Sockets` 네임스페이스를 사용하여 서버-클라이언트 간의 연결 및 패킷 교환을 직접 처리함으로써, C#의 소켓 프로그래밍 능력을 완벽하게 검증합니다.</div>
+                    <div class="feature-implemented">WinForm GUI 설계: `System.Windows.Forms` 기반으로 사용자 친화적인 채팅 인터페이스를 구성합니다. 특히, 비동기 통신 결과가 UI 스레드를 안전하게 업데이트할 수 있도록 `Invoke` 또는 `BeginInvoke` 메서드 사용을 중점적으로 학습합니다.</div>
+                    <div class="feature-implemented">다중 사용자 지원 아키텍처: 서버 측에서는 `TcpListener`를 사용하여 다수의 `TcpClient` 연결을 동시에 수락 및 관리하는 멀티스레딩(또는 Task 기반) 구조를 설계하여 동시성을 확보합니다.</div>
+                </div>
+                
+                <div class="feature-list">
+                    <h5> C# 핵심 적용 기술</h5>
+                    <div class="usecase-item success-item">
+                        <strong>비동기 프로그래밍 (Task/Async):</strong>
+                        <small>채팅 클라이언트는 메시지 수신 대기 시 메인 UI 스레드가 블록되지 않도록 `Task.Run` 또는 `async/await` 패턴을 필수적으로 적용합니다. 이는 C#의 최신 비동기 패러다임에 대한 깊은 이해를 요구합니다.</small>
+                    </div>
+                    <div class="usecase-item success-item">
+                        <strong>대리자 및 이벤트 시스템:</strong>
+                        <small>네트워크 스레드에서 메시지를 수신했을 때, 이를 UI 스레드로 안전하게 전달하기 위해 `delegate`와 `event`를 선언하고 사용합니다. 이는 C++의 시그널-슬롯 개념과 비교하여 C#의 콜백 메커니즘을 마스터하는 중요한 과정입니다.</small>
+                    </div>
+                    <div class="usecase-item success-item">
+                        <strong>JSON 프로토콜 설계:</strong>
+                        <small>송수신되는 메시지를 구조화하기 위해 JSON 형태의 메시지 프로토콜(MessageType, Sender, Content)을 정의하고, C#의 직렬화/역직렬화 기능을 활용하여 데이터 무결성을 확보합니다.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">2.  4단계 상세 구현 타임라인</div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Day 8</div>
+                    <div class="timeline-content">
+                        <strong>1단계: 실제 네트워크 아키텍처 설계 (2시간)</strong>
+                        <ul>
+                            <li>서버 측: `TcpListener` 인스턴스를 생성하고, 안정적인 서비스 포트 8080에 바인딩하여 클라이언트의 연결 요청을 무한 루프로 수락하는 기본 구조를 구현합니다.</li>
+                            <li>클라이언트 측: 서버 IP 주소(로컬호스트 127.0.0.1)에 접속할 `TcpClient`를 초기화합니다.</li>
+                            <li>프로토콜: 메시지 클래스 정의 및 `IMessageHandler`, `IConnectionManager`와 같은 핵심 인터페이스를 정의하여 객체 지향적인 네트워크 레이어를 설계합니다.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Day 9</div>
+                    <div class="timeline-content">
+                        <strong>2단계: 이벤트 시스템 및 실시간 통신 메커니즘 구축 (3시간)</strong>
+                        <ul>
+                            <li>대리자/이벤트 구현: `MessageDelegate`와 `UserStatusDelegate`를 정의하여 메시지 수신 및 사용자 상태 변화를 외부에 알릴 수 있는 콜백 시스템을 완성합니다.</li>
+                            <li>비동기 메시지 수신: 클라이언트가 서버로부터 데이터를 받을 때까지 대기하는 동안 UI가 멈추지 않도록, 별도의 `Task`를 생성하여 `NetworkStream`에서 바이트 스트림을 비동기적으로 수신 대기하는 로직을 구현합니다.</li>
+                            <li>메시지 처리: 수신된 바이트 데이터를 JSON 객체로 역직렬화하고, 정의된 이벤트를 발생시켜 UI 스레드로 전달하는 로직을 작성합니다.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Day 10</div>
+                    <div class="timeline-content">
+                        <strong>3단계: WinForm 채팅 사용자 인터페이스 (UI) 구현 (3시간)</strong>
+                        <ul>
+                            <li>메시지 히스토리: `ListView` 컨트롤을 사용하여 채팅 메시지 리스트를 구현합니다. 새로운 메시지 수신 시 자동으로 최신 메시지가 보이도록 `AutoScroll` 기능을 구현하고, 발신자/시간별 폰트 스타일을 구분합니다.</li>
+                            <li>입력 및 전송: `TextBox`와 '전송' 버튼을 배치하고, `Enter` 키 입력 시에도 메시지가 전송되도록 이벤트 핸들러를 연결합니다.</li>
+                            <li>사용자 목록 및 상태: `ListBox` 또는 `ListView`를 사용하여 현재 온라인 상태인 사용자 목록을 실시간으로 표시하며, 하단의 `StatusLabel`에 연결 상태(연결됨/끊김)를 표시합니다.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Day 11</div>
+                    <div class="timeline-content">
+                        <strong>4단계: 실제 다중 클라이언트 통합 및 테스트 (2시간)</strong>
+                        <ul>
+                            <li>서버 프로그램 완성: 메시지 브로드캐스트 로직을 갖춘 콘솔 기반의 채팅 서버 프로그램을 완성하고 실행합니다.</li>
+                            <li>다중 클라이언트 테스트: 최소 3개 이상의 WinForm 클라이언트 인스턴스를 동시에 실행하여, 각각 다른 사용자 이름으로 접속하게 합니다.</li>
+                            <li>종합 검증: 사용자 간의 메시지 교환, 새로운 사용자의 입장/기존 사용자의 퇴장 알림 기능이 실시간으로 모든 클라이언트 UI에 반영되는지 최종적으로 검증합니다.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">3.  테스트 및 검증 전략 (V&V Plan)</div>
+            
+            <div class="two-column">
+                <div>
+                    <h4>단계별 테스트 방법론</h4>
+                    <div class="usecase-item success-item">
+                        <strong>T1: 연결 및 기본 통신 테스트:</strong>
+                        <small>로컬호스트(127.0.0.1)에서 서버 실행 후, 첫 번째 클라이언트를 연결하여 단방향 및 양방향 메시지 송수신을 테스트합니다. JSON 프로토콜이 올바르게 직렬화/역직렬화되는지 검증합니다.</small>
+                    </div>
+                    <div class="usecase-item partial-item">
+                        <strong>T2: 다중 클라이언트 동시성 테스트:</strong>
+                        <small>두 번째 클라이언트를 추가로 연결하고, 두 사용자 간 실시간 대화뿐만 아니라, 한 사용자가 보낸 메시지가 모든 접속 클라이언트에게 정확히 브로드캐스트되는지 확인합니다. 서버의 스레드 관리가 안정적인지 확인하는 데 중점을 둡니다.</small>
+                    </div>
+                    <div class="usecase-item success-item">
+                        <strong>T3: 안정성 및 오류 처리 테스트:</strong>
+                        <small>클라이언트가 예기치 않게 종료되었을 때, 서버 프로그램이 이를 즉시 감지하고 다른 클라이언트들에게 사용자 퇴장 알림을 정확하게 전달하는지 확인합니다. 또한, 서버 종료 시 모든 클라이언트가 연결 끊김 상태를 명확히 표시하는지 검증합니다.</small>
+                    </div>
+                </div>
+                <div>
+                    <h4>핵심 검증 기능 (Key Verification Features)</h4>
+                    <div class="feature-list">
+                        <h5> 기능적 요구사항</h5>
+                        <div class="feature-implemented">메시지 브로드캐스트 정확성: 특정 메시지가 서버를 통해 모든 활성 클라이언트에게 지연 없이 전달되는지.</div>
+                        <div class="feature-implemented">사용자 목록 실시간 갱신: 새로운 사용자의 입장 및 기존 사용자의 퇴장이 지연 없이 모든 클라이언트의 사용자 목록에 반영되는지.</div>
+                    </div>
+                    <div class="feature-list">
+                        <h5> 비기능적 요구사항 (C# 특화)</h5>
+                        <div class="feature-implemented">UI 스레드 동기화: 네트워크 백그라운드 스레드에서 수신된 데이터를 UI 컨트롤(ListView)에 업데이트할 때, `Control.Invoke` 또는 `Control.BeginInvoke`를 사용하여 UI 스레드 안전성을 완벽하게 보장하는지 코드 레벨에서 검증합니다.</div>
+                        <div class="feature-implemented">비동기 처리 효율성: 메시지 수신 대기 상태가 메인 스레드에 부하를 주지 않아, UI 조작이 끊김 없이 원활하게 이루어지는지 사용자 경험 측면에서 평가합니다.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">4.  기술 스택 및 학습 연계성</div>
+            
+            <div style="margin-bottom: 10px;">
+                <h4>프로젝트에 활용되는 주요 기술 스택</h4>
+                <div class="two-column">
+                    <div>
+                        <span class="tech-tag">C# (.NET Framework/Core)</span>
+                        <span class="tech-tag">WinForm (System.Windows.Forms)</span>
+                        <span class="tech-tag">TCP/IP Socket</span>
+                        <span class="tech-tag">JSON (Newtonsoft.Json 등)</span>
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="tech-tag">Chapter 19 (Task/Async)</span>
+                        <span class="tech-tag">Chapter 21 (네트워크 프로그래밍)</span>
+                        <span class="tech-tag">Chapter 13 (대리자/이벤트)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

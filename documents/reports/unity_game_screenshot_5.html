@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeInputHandler 예외 처리 시도</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            overflow: hidden;
+        }
+        
+        .unity-interface {
+            width: 100vw;
+            height: 100vh;
+            background: #393939;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .unity-header {
+            background: #2c2c2c;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            border-bottom: 1px solid #555;
+        }
+        
+        .unity-logo {
+            color: #fff;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .unity-content {
+            display: flex;
+            flex: 1;
+        }
+        
+        .code-editor {
+            flex: 1.5;
+            background: #1e1e1e;
+            padding: 20px;
+            font-family: 'Consolas', monospace;
+            font-size: 12px;
+            color: #d4d4d4;
+            overflow-y: auto;
+        }
+        
+        .console-panel {
+            flex: 1;
+            background: #393939;
+            padding: 20px;
+            font-family: 'Consolas', monospace;
+            font-size: 11px;
+            overflow-y: auto;
+            border-left: 1px solid #555;
+        }
+        
+        .code-line {
+            margin: 2px 0;
+            padding: 2px 0;
+        }
+        
+        .line-number {
+            color: #858585;
+            margin-right: 12px;
+            user-select: none;
+            width: 30px;
+            display: inline-block;
+            text-align: right;
+        }
+        
+        .keyword {
+            color: #569cd6;
+        }
+        
+        .string {
+            color: #ce9178;
+        }
+        
+        .comment {
+            color: #6a9955;
+        }
+        
+        .method {
+            color: #dcdcaa;
+        }
+        
+        .type {
+            color: #4ec9b0;
+        }
+        
+        .highlight-line {
+            background: rgba(107, 207, 127, 0.1);
+            border-left: 3px solid #6bcf7f;
+        }
+        
+        .error-line {
+            color: #ff6b6b;
+            margin: 5px 0;
+            padding: 8px;
+            background: rgba(255, 107, 107, 0.15);
+            border-left: 4px solid #ff6b6b;
+            border-radius: 3px;
+        }
+        
+        .warning-line {
+            color: #ffd93d;
+            margin: 5px 0;
+            padding: 8px;
+            background: rgba(255, 217, 61, 0.15);
+            border-left: 4px solid #ffd93d;
+            border-radius: 3px;
+        }
+        
+        .success-line {
+            color: #6bcf7f;
+            margin: 5px 0;
+            padding: 5px;
+            background: rgba(107, 207, 127, 0.1);
+            border-left: 3px solid #6bcf7f;
+        }
+        
+        .timestamp {
+            color: #888;
+            font-size: 9px;
+        }
+    </style>
+</head>
+<body>
+    <div class="unity-interface">
+        <div class="unity-header">
+            <div class="unity-logo">🎮 Unity Script Editor - SafeInputHandler 구현</div>
+        </div>
+        
+        <div class="unity-content">
+            <div class="code-editor">
+                <h4 style="color: #fff; margin: 0 0 15px 0;">📝 SafeInputHandler.cs - Input System 예외 처리</h4>
+                
+                <div class="code-line">
+                    <span class="line-number">1</span>
+                    <span class="keyword">using</span> <span class="type">UnityEngine</span>;
+                </div>
+                <div class="code-line">
+                    <span class="line-number">2</span>
+                    <span class="keyword">using</span> <span class="type">System</span>;
+                </div>
+                <div class="code-line">
+                    <span class="line-number">3</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">4</span>
+                    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="type">SafeInputHandler</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">5</span>
+                    {
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">6</span>
+                    　　<span class="comment">// Input System 충돌 문제 해결을 위한 안전한 입력 래퍼</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">7</span>
+                    　　<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">bool</span> <span class="method">GetKey</span>(<span class="type">KeyCode</span> key)
+                </div>
+                <div class="code-line">
+                    <span class="line-number">8</span>
+                    　　{
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">9</span>
+                    　　　　<span class="keyword">try</span>
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">10</span>
+                    　　　　{
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">11</span>
+                    　　　　　　<span class="keyword">return</span> <span class="type">Input</span>.<span class="method">GetKey</span>(key);
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">12</span>
+                    　　　　}
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">13</span>
+                    　　　　<span class="keyword">catch</span> (<span class="type">InvalidOperationException</span>)
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">14</span>
+                    　　　　{
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">15</span>
+                    　　　　　　<span class="comment">// Input System 충돌 시 false 반환</span>
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">16</span>
+                    　　　　　　<span class="keyword">return</span> <span class="keyword">false</span>;
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">17</span>
+                    　　　　}
+                </div>
+                <div class="code-line">
+                    <span class="line-number">18</span>
+                    　　}
+                </div>
+                <div class="code-line">
+                    <span class="line-number">19</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">20</span>
+                    　　<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">bool</span> <span class="method">GetMouseButton</span>(<span class="keyword">int</span> button)
+                </div>
+                <div class="code-line">
+                    <span class="line-number">21</span>
+                    　　{
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">22</span>
+                    　　　　<span class="keyword">try</span>
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">23</span>
+                    　　　　{
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">24</span>
+                    　　　　　　<span class="keyword">return</span> <span class="type">Input</span>.<span class="method">GetMouseButton</span>(button);
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">25</span>
+                    　　　　}
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">26</span>
+                    　　　　<span class="keyword">catch</span> (<span class="type">InvalidOperationException</span>)
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">27</span>
+                    　　　　{
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">28</span>
+                    　　　　　　<span class="keyword">return</span> <span class="keyword">false</span>;
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">29</span>
+                    　　　　}
+                </div>
+                <div class="code-line">
+                    <span class="line-number">30</span>
+                    　　}
+                </div>
+                <div class="code-line">
+                    <span class="line-number">31</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">32</span>
+                    　　<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> <span class="method">GetAxis</span>(<span class="keyword">string</span> axisName)
+                </div>
+                <div class="code-line">
+                    <span class="line-number">33</span>
+                    　　{
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">34</span>
+                    　　　　<span class="keyword">try</span>
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">35</span>
+                    　　　　{
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">36</span>
+                    　　　　　　<span class="keyword">return</span> <span class="type">Input</span>.<span class="method">GetAxis</span>(axisName);
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">37</span>
+                    　　　　}
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">38</span>
+                    　　　　<span class="keyword">catch</span> (<span class="type">InvalidOperationException</span>)
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">39</span>
+                    　　　　{
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">40</span>
+                    　　　　　　<span class="keyword">return</span> <span class="string">0f</span>;
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">41</span>
+                    　　　　}
+                </div>
+                <div class="code-line">
+                    <span class="line-number">42</span>
+                    　　}
+                </div>
+                <div class="code-line">
+                    <span class="line-number">43</span>
+                    }
+                </div>
+                
+                <div style="margin-top: 20px; padding: 10px; background: rgba(107, 207, 127, 0.1); border-left: 3px solid #6bcf7f; border-radius: 3px;">
+                    <strong style="color: #6bcf7f;">✅ SafeInputHandler 구현 완료</strong><br>
+                    <span style="color: #ccc; font-size: 11px;">
+                    • try-catch로 InvalidOperationException 처리<br>
+                    • 모든 Input 호출을 안전한 래퍼로 감쌈<br>
+                    • 예외 발생 시 기본값 반환 (false, 0f)<br>
+                    • 게임 크래시 방지
+                    </span>
+                </div>
+            </div>
+            
+            <div class="console-panel">
+                <h3 style="color: #ffd93d; margin: 0 0 15px 0;">⚠️ Console - 예외 처리 결과</h3>
+                
+                <div class="success-line">
+                    <span class="timestamp">[2025-09-13 13:15:42]</span><br>
+                    <strong>✅ SafeInputHandler:</strong> 클래스 생성 완료
+                </div>
+                
+                <div class="success-line">
+                    <span class="timestamp">[2025-09-13 13:15:43]</span><br>
+                    <strong>✅ Build Succeeded:</strong> 0 errors, 0 warnings (0:01.523)
+                </div>
+                
+                <div class="warning-line">
+                    <span class="timestamp">[2025-09-13 13:15:45]</span><br>
+                    <strong>⚠️ SafeInputHandler:</strong> InvalidOperationException caught in GetKey(W)<br>
+                    <em>Returning default value: false</em>
+                </div>
+                
+                <div class="warning-line">
+                    <span class="timestamp">[2025-09-13 13:15:45]</span><br>
+                    <strong>⚠️ SafeInputHandler:</strong> InvalidOperationException caught in GetMouseButton(0)<br>
+                    <em>Returning default value: false</em>
+                </div>
+                
+                <div class="warning-line">
+                    <span class="timestamp">[2025-09-13 13:15:46]</span><br>
+                    <strong>⚠️ SafeInputHandler:</strong> InvalidOperationException caught in GetAxis("Mouse X")<br>
+                    <em>Returning default value: 0.0</em>
+                </div>
+                
+                <div class="error-line">
+                    <span class="timestamp">[2025-09-13 13:15:47]</span><br>
+                    <strong>❌ 사용자 피드백:</strong> "키보드, 마우스 다 안된다. 디자인인 변한게 없다"
+                </div>
+                
+                <div style="color: #888; margin-top: 20px; font-size: 10px; padding: 10px; background: rgba(255, 107, 107, 0.1); border-left: 3px solid #ff6b6b; border-radius: 3px;">
+                    <strong style="color: #ff6b6b;">❌ 근본 문제 미해결</strong><br>
+                    <span style="color: #ccc;">
+                    • 예외는 처리되지만 실제 입력은 여전히 작동 안함<br>
+                    • SafeInputHandler가 항상 기본값만 반환<br>
+                    • 캐릭터 움직임, 마우스 클릭 모두 무반응<br>
+                    • Input System vs Legacy Input 근본 충돌 지속<br>
+                    • 사용자 경험 개선 없음
+                    </span>
+                </div>
+                
+                <div style="color: #888; margin-top: 15px; font-size: 10px; padding: 10px; background: rgba(255, 217, 61, 0.1); border-left: 3px solid #ffd93d; border-radius: 3px;">
+                    <strong style="color: #ffd93d;">⚠️ 다음 시도 필요</strong><br>
+                    <span style="color: #ccc;">
+                    • ProjectSettings.asset 직접 수정<br>
+                    • m_ActiveInputHandling 설정 변경<br>
+                    • Input System 패키지 완전 제거<br>
+                    • 새로운 Input System API 사용
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

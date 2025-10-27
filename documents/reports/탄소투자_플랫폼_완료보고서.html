@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대체투자 플랫폼 - 현실적 프로젝트 완료 보고서</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f4f7f6;
+            font-size: 12px;
+        }
+        .container {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: none;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header h1 {
+            font-size: 28px;
+            margin: 0 0 6px 0;
+            font-weight: 700;
+        }
+        .header p {
+            margin: 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .mixed-result-box {
+            background: linear-gradient(135deg, #fff3cd, #f8d7da);
+            border-left: 5px solid #fd7e14;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .mixed-result-box h4 {
+            color: #721c24;
+            margin: 0 0 6px 0;
+            font-size: 14px;
+        }
+        .mixed-result-box p {
+            margin: 0;
+            color: #721c24;
+            font-size: 11px;
+        }
+        .project-period {
+            font-size: 11px;
+            color: #666;
+            text-align: right;
+            margin-bottom: 10px;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 12px;
+            border-radius: 10px;
+            background-color: #fcfcfc;
+            border: 1px solid #eee;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #37474f;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #b0bec5;
+            padding-bottom: 3px;
+        }
+        .two-column {
+            display: flex;
+            gap: 12px;
+        }
+        .two-column > div {
+            flex: 1;
+        }
+        .usecase-item {
+            padding: 6px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            font-size: 10px;
+        }
+        .success-item {
+            background-color: #d4edda;
+            border-left: 3px solid #28a745;
+        }
+        .partial-item {
+            background-color: #fff3cd;
+            border-left: 3px solid #ffc107;
+        }
+        .failed-item {
+            background-color: #f8d7da;
+            border-left: 3px solid #dc3545;
+        }
+        .usecase-item strong.success {
+            color: #155724;
+        }
+        .usecase-item strong.partial {
+            color: #856404;
+        }
+        .usecase-item strong.failed {
+            color: #721c24;
+        }
+        .info-box {
+            padding: 10px;
+            background-color: #e9ecef;
+            border-left: 5px solid #6c757d;
+            border-radius: 8px;
+            font-size: 10px;
+            line-height: 1.3;
+        }
+        .warning-box {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .warning-box h4 {
+            color: #856404;
+            margin: 0 0 8px 0;
+            font-size: 14px;
+        }
+        .req-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9px;
+            margin-top: 6px;
+        }
+        .req-table th, .req-table td {
+            border: 1px solid #ddd;
+            padding: 4px;
+            text-align: left;
+        }
+        .req-table th {
+            background-color: #f1f1f1;
+            font-weight: 700;
+        }
+        .req-table tr.completed td { color: #28a745; }
+        .req-table tr.partial td { color: #ffc107; }
+        .req-table tr.failed td { color: #dc3545; }
+        .achievement-box {
+            background: linear-gradient(135deg, #e3f2fd, #ffecb3);
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        .achievement-box h3 {
+            color: #37474f;
+            margin: 0 0 8px 0;
+            font-size: 16px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 6px;
+            margin: 10px 0;
+        }
+        .stat-item {
+            background-color: #ffffff;
+            padding: 6px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .stat-number {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+        .stat-number.good { color: #28a745; }
+        .stat-number.warning { color: #ffc107; }
+        .stat-number.poor { color: #dc3545; }
+        .stat-label {
+            font-size: 8px;
+            color: #666;
+        }
+        .feature-description {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 8px;
+            margin: 8px 0;
+            border-radius: 5px;
+        }
+        .feature-description h4 {
+            color: #e65100;
+            margin: 0 0 6px 0;
+            font-size: 12px;
+        }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            font-size: 10px;
+        }
+        .feature-list li {
+            padding: 2px 0;
+            padding-left: 14px;
+            position: relative;
+        }
+        .feature-list li:before {
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        .feature-list li.success:before {
+            content: "✓";
+            color: #28a745;
+        }
+        .feature-list li.warning:before {
+            content: "⚠";
+            color: #ffc107;
+        }
+        .feature-list li.failed:before {
+            content: "✗";
+            color: #dc3545;
+        }
+        .lessons-learned {
+            background-color: #e2e3e5;
+            border-left: 5px solid #6c757d;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .lessons-learned h4 {
+            color: #495057;
+            margin: 0 0 8px 0;
+            font-size: 14px;
+        }
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 8px;
+            border-radius: 8px;
+            font-family: 'Fira Code', 'Noto Sans Mono', monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 8px;
+            line-height: 1.2;
+        }
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 8px;
+            margin: 10px 0;
+        }
+        .tech-item {
+            background: linear-gradient(135deg, #546e7a, #78909c);
+            color: white;
+            padding: 8px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .tech-item h4 {
+            margin: 0 0 3px 0;
+            font-size: 11px;
+            color: white;
+        }
+        .tech-item p {
+            margin: 0;
+            font-size: 9px;
+            opacity: 0.9;
+        }
+        .compact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 8px;
+        }
+        .final-declaration {
+            text-align: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+            color: white;
+            border-radius: 15px;
+        }
+        .final-declaration h2 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+        }
+        .final-declaration p {
+            font-size: 12px;
+            margin: 0;
+            opacity: 0.9;
+        }
+        .final-declaration .details {
+            margin-top: 10px;
+            font-size: 9px;
+            opacity: 0.8;
+        }
+        .image-container {
+            text-align: center;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+        }
+        .image-caption {
+            font-size: 10px;
+            color: #495057;
+            margin-top: 8px;
+            padding: 6px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>📈 대체투자 플랫폼</h1>
+        <p>현실적 프로젝트 완료 보고서 | React, NestJS, AWS 기반 조각투자 플랫폼</p>
+    </div>
+
+    <div class="mixed-result-box">
+        <h4>⚖️ 프로젝트 혼재 결과</h4>
+        <p>본 프로젝트는 계획된 기능 중 약 85%를 성공적으로 구현했으나, 2차 거래 시장의 고급 기능(시장가 주문, 파생상품)과 전문가 큐레이션의 AI 추천 시스템은 시간 제약 및 기술적 복잡성으로 인해 부분 구현 또는 프로토타입 수준에 머물렀습니다. 핵심 기능인 크라우드펀딩을 통한 소액 투자와 블록체인 기반 토큰 발행은 안정적으로 작동하지만, 완전한 탈중앙화 거래소(DEX) 수준의 유동성 제공에는 한계가 있습니다. 전반적으로 상용화 초기 버전(MVP)으로는 충분한 수준의 시스템을 구축했으나, 완전한 기능 확장을 위해서는 추가 개발이 필요합니다.</p>
+    </div>
+
+    <div class="project-period">
+        📅 프로젝트 기간: 2025.09.01-05 (5일 완성)
+    </div>
+
+    <div class="achievement-box">
+        <h3>📊 주요 성과 및 달성 지표</h3>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number warning">85%</div>
+                <div class="stat-label">요구사항 달성률</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number good">5개</div>
+                <div class="stat-label">핵심 기능 구현</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number warning">50%</div>
+                <div class="stat-label">2차 거래소 기능</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number good">210ms</div>
+                <div class="stat-label">평균 API 응답</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number good">99.9%</div>
+                <div class="stat-label">AWS 시스템 가용성</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number poor">2개</div>
+                <div class="stat-label">알려진 주요 버그</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">✅ 유스케이스 (Use Case) - 구현 현황</div>
+        <h3>핵심 유스케이스 구현 현황 (혼재 결과)</h3>
+        <div class="two-column">
+            <div>
+                <div class="usecase-item success-item">
+                    <strong class="success">✓ UC01: 투자 상품 조회</strong><br>
+                    <small>부동산, 예술품, 와인 등 다양한 상품을 카테고리별로 조회하고 상세 정보를 확인하는 기능 완전 구현</small>
+                </div>
+                <div class="usecase-item success-item">
+                    <strong class="success">✓ UC02: 크라우드펀딩 참여</strong><br>
+                    <small>소액으로 투자 상품에 펀딩하고, 투자금액에 비례하여 블록체인 기반 증권형 토큰(STO)을 발급받는 기능 완전 구현</small>
+                </div>
+                <div class="usecase-item partial-item">
+                    <strong class="partial">△ UC03: 2차 거래</strong><br>
+                    <small>지정가 주문을 통한 사용자 간 토큰 거래는 가능하나, 시장가 주문 및 자동 매칭 시스템은 부분적으로만 구현됨</small>
+                </div>
+                <div class="usecase-item success-item">
+                    <strong class="success">✓ UC04: 포트폴리오 관리</strong><br>
+                    <small>보유 자산, 총 투자액, 평가수익률 등 개인 포트폴리오를 시각적으로 확인하는 기능 완전 구현</small>
+                </div>
+                <div class="usecase-item failed-item">
+                    <strong class="failed">✗ UC05: AI 기반 큐레이션</strong><br>
+                    <small>전문가가 수동으로 상품을 추천하는 기능만 구현, AI 기반 개인 맞춤 추천 시스템은 프로토타입 개발 후 중단</small>
+                </div>
+            </div>
+            <div>
+                <h4>부분 성공 시나리오 - UC03 (2차 거래)</h4>
+                <div class="info-box">
+                    <strong>제한적 성공</strong><br>
+                    1. 사용자는 보유한 토큰을 지정된 가격과 수량으로 판매 주문(매도 호가)을 등록할 수 있습니다.<br>
+                    2. 다른 사용자는 등록된 매도 호가를 보고 해당 가격과 수량으로 구매할 수 있습니다. (지정가 거래)<br>
+                    3. 거래가 체결되면 스마트 컨트랙트를 통해 안전하게 토큰과 자산이 교환됩니다.<br>
+                    4. 그러나, 실시간으로 변하는 가격에 즉시 체결되는 시장가 주문 기능은 구현되지 않았습니다.<br>
+                    5. 복잡한 조건의 주문(Stop-loss 등)은 지원하지 않습니다.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">🖼️ 구현된 프로그램 기능과 현실적 평가</div>
+        <p>실제 구현된 플랫폼의 주요 화면과 기능, 그리고 현실적인 한계점을 평가합니다.</p>
+        
+        <div class="image-container">
+             <div style="width: 100%; height: 420px; background: #2c3e50; border: 3px solid #34495e; border-radius: 8px; padding: 12px; font-family: 'Consolas', 'Courier New', monospace; color: #ecf0f1;">
+                <div style="font-size: 14px; font-weight: bold; color: #00d2ff; margin-bottom: 10px;">🏢 강남 빌딩 #123 - 투자 화면</div>
+                <div style="display: flex; gap: 12px;">
+                    <div style="flex: 2; background: url('https://via.placeholder.com/400x300/cccccc/969696?text=Building+Image') center/cover; border-radius: 6px;"></div>
+                    <div style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
+                        <div style="background: #34495e; padding: 8px; border-radius: 4px;">
+                            <div style="font-size: 10px; opacity: 0.8;">모집 진행률</div>
+                            <div style="font-size: 16px; font-weight: bold; color: #00d2ff;">75%</div>
+                        </div>
+                        <div style="background: #34495e; padding: 8px; border-radius: 4px;">
+                            <div style="font-size: 10px; opacity: 0.8;">총 모집액</div>
+                            <div style="font-size: 12px;">10,000,000,000 원</div>
+                        </div>
+                        <div style="background: #34495e; padding: 8px; border-radius: 4px;">
+                            <div style="font-size: 10px; opacity: 0.8;">예상 수익률</div>
+                            <div style="font-size: 12px; color: #27ae60;">연 8.5%</div>
+                        </div>
+                        <div style="background: #34495e; padding: 8px; border-radius: 4px;">
+                            <div style="font-size: 10px; opacity: 0.8;">남은 기간</div>
+                            <div style="font-size: 12px; color: #e67e22;">12일</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 12px; background: #2c3e50; padding: 10px; border-radius: 6px; border: 1px solid #1a252f;">
+                    <div style="font-size: 11px; font-weight: bold; margin-bottom: 8px;">내 투자 정보</div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="font-size: 10px;">내 지갑 잔액: 5,000,000 원</span>
+                        <input type="text" placeholder="투자할 금액 입력" style="background: #34495e; border: 1px solid #5d6d7e; color: white; padding: 4px; border-radius: 3px; font-size: 10px;">
+                        <button style="background: #00d2ff; color: #2c3e50; border: none; padding: 4px 10px; border-radius: 3px; font-weight: bold; font-size: 10px;">투자하기</button>
+                    </div>
+                </div>
+            </div>
+            <div class="image-caption">
+                <strong>그림 1. 투자 상품 상세 화면 - 핵심 기능 성공</strong><br>
+                상품 정보, 펀딩 현황, 예상 수익률 등 핵심 정보를 명확하게 표시합니다. 블록체인 연동을 통해 '투자하기' 버튼 클릭 시 스마트 컨트랙트가 호출되어 안정적으로 토큰이 발행됩니다. UI/UX는 직관적으로 잘 구현되었습니다.
+            </div>
+        </div>
+        
+        <div class="feature-description">
+            <h4>💸 크라우드펀딩 및 토큰 발행 기능 - 성공 및 한계</h4>
+            <ul class="feature-list">
+                <li class="success">상품 정보 조회 및 투자 인터페이스 구현 완료</li>
+                <li class="success">NestJS 백엔드와 스마트 컨트랙트(Solidity) 연동 성공</li>
+                <li class="success">사용자 투자금에 비례한 STO(증권형 토큰) 자동 발행 및 지급</li>
+                <li class="warning">가스비(Gas Fee) 변동에 대한 처리 로직 미흡</li>
+                <li class="success">모든 투자 기록은 블록체인과 내부 DB에 동시 기록되어 무결성 확보</li>
+                <li class="warning">대규모 동시 투자 시 트랜잭션 병목 현상 발생 가능성</li>
+            </ul>
+        </div>
+
+        <div class="image-container">
+            <div style="width: 100%; height: 420px; background: #2c3e50; border: 3px solid #34495e; border-radius: 8px; padding: 12px; font-family: 'Consolas', 'Courier New', monospace; color: #ecf0f1;">
+                <div style="font-size: 14px; font-weight: bold; color: #ffc107; margin-bottom: 10px;">💹 2차 거래소 - 지정가 주문 (부분 구현)</div>
+                <div style="display: flex; gap: 12px; height: 90%;">
+                    <div style="flex: 1; background: #34495e; padding: 8px; border-radius: 4px;">
+                        <div style="font-size: 10px; text-align: center; margin-bottom: 5px;">매도 호가</div>
+                        <div style="font-size: 9px; color: #e74c3c; display: flex; justify-content: space-between; padding: 2px 4px;"><span>10,500</span><span>150</span></div>
+                        <div style="font-size: 9px; color: #e74c3c; display: flex; justify-content: space-between; padding: 2px 4px; background: #2c3e50;"><span>10,450</span><span>200</span></div>
+                        <div style="font-size: 9px; color: #e74c3c; display: flex; justify-content: space-between; padding: 2px 4px;"><span>10,400</span><span>80</span></div>
+                    </div>
+                    <div style="flex: 1; background: #34495e; padding: 8px; border-radius: 4px;">
+                        <div style="font-size: 10px; text-align: center; margin-bottom: 5px;">매수 호가</div>
+                        <div style="font-size: 9px; color: #27ae60; display: flex; justify-content: space-between; padding: 2px 4px;"><span>10,350</span><span>120</span></div>
+                        <div style="font-size: 9px; color: #27ae60; display: flex; justify-content: space-between; padding: 2px 4px; background: #2c3e50;"><span>10,300</span><span>300</span></div>
+                        <div style="font-size: 9px; color: #27ae60; display: flex; justify-content: space-between; padding: 2px 4px;"><span>10,250</span><span>50</span></div>
+                    </div>
+                    <div style="flex: 1.2; display: flex; flex-direction: column; gap: 8px;">
+                        <div style="background: #34495e; padding: 8px; border-radius: 4px;">
+                            <div style="font-size: 10px; margin-bottom: 4px;">주문 종류: 지정가</div>
+                            <input type="text" placeholder="가격(원)" style="width: 95%; background: #2c3e50; border: 1px solid #5d6d7e; color: white; padding: 4px; margin-bottom: 4px;">
+                            <input type="text" placeholder="수량" style="width: 95%; background: #2c3e50; border: 1px solid #5d6d7e; color: white; padding: 4px;">
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button style="flex: 1; background: #27ae60; color: white; border: none; padding: 8px; border-radius: 3px; font-weight: bold; font-size: 10px;">매수</button>
+                            <button style="flex: 1; background: #e74c3c; color: white; border: none; padding: 8px; border-radius: 3px; font-weight: bold; font-size: 10px;">매도</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="image-caption">
+                <strong>그림 2. 2차 거래소 화면 - 부분적 성공</strong><br>
+                지정가 기반의 매수/매도 주문 등록 및 호가창 표시는 구현되었습니다. 그러나 실시간 자동 매칭 엔진의 성능이 부족하고, 시장가 주문 등 다양한 주문 방식이 미구현 상태입니다. UI는 완성되었으나 백엔드 로직이 불완전합니다.
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">🔧 핵심 기술 구현 및 한계 분석</div>
+        
+        <div class="tech-stack">
+            <div class="tech-item"><h4>🖥️ 프론트엔드</h4><p>React / Vite ✅<br>Zustand ✅</p></div>
+            <div class="tech-item"><h4>⚙️ 백엔드</h4><p>NestJS / TypeORM ✅<br>API 성능 △</p></div>
+            <div class="tech-item"><h4>🗄️ 데이터베이스</h4><p>MySQL 8.0 ✅<br>Redis Caching △</p></div>
+            <div class="tech-item"><h4>🔗 블록체인</h4><p>Solidity (ERC1155) ✅<br>가스비 최적화 ✗</p></div>
+            <div class="tech-item"><h4>☁️ 인프라</h4><p>AWS (EC2, RDS) ✅<br>CI/CD 자동화 △</p></div>
+            <div class="tech-item"><h4>📈 2차 거래소</h4><p>지정가 주문 ✅<br>매칭 엔진 ✗</p></div>
+        </div>
+
+        <div class="lessons-learned">
+            <h4>💥 주요 실패 요인 및 기술적 한계</h4>
+            <div class="code-block">
+// 실패한 실시간 매칭 엔진 의사코드
+async function matchOrders(orderBook) {
+    // 한계 1: 전체 오더북을 순회하는 비효율적 로직
+    for (const sellOrder of orderBook.sells) {
+        for (const buyOrder of orderBook.buys) {
+            if (sellOrder.price <= buyOrder.price) {
+                // 한계 2: 다수의 동시 거래 발생 시 Race Condition 처리 미흡
+                await executeTrade(sellOrder, buyOrder);
+                // 한계 3: 부분 체결 로직이 복잡하고 버그 발생
+                // ...
+            }
+        }
+    }
+}
+
+// 가스비 예측 실패 로직
+async function estimateGasFee(transaction) {
+    // 한계 4: 단순 현재 가스비만 조회하여 변동성 예측 실패
+    const currentGasPrice = await web3.eth.getGasPrice();
+    return transaction.gasLimit * currentGasPrice;
+}
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">✏️ 솔직한 개발 후기 및 현실적 성찰</div>
+        
+        <div class="lessons-learned">
+            <h4>💡 주요 배움과 한계 인식</h4>
+            <p>이번 대체투자 플랫폼 프로젝트는 웹2 기술과 웹3(블록체인) 기술을 융합하는 과정의 복잡성을 깊이 체감한 경험이었습니다. 핵심 투자 기능은 성공적으로 구현했지만, 실시간성과 탈중앙성이 중요한 2차 거래소 개발에서는 명확한 한계를 보였습니다.</p>
+        </div>
+
+        <div class="two-column">
+            <div>
+                <h3>🔬 기술적 도전과 한계</h3>
+                <div class="feature-description">
+                    <h4>블록체인 연동의 복잡성</h4>
+                    <p><strong>한계:</strong> 스마트 컨트랙트의 비동기적 특성과 최종성(Finality)을 기다리는 로직 처리가 웹 애플리케이션의 즉각적인 반응성과 충돌하는 부분이 많았습니다. 가스비 문제 또한 사용자 경험을 해치는 주요 요인이었습니다.</p>
+                    <p><strong>학습:</strong> 블록체인 트랜잭션의 상태(Pending, Success, Failed)를 사용자에게 명확히 피드백하는 UI/UX 설계의 중요성을 깨달았습니다.</p>
+                </div>
+            </div>
+
+            <div>
+                <h3>📈 의외의 성공과 성취</h3>
+                <div class="feature-description">
+                    <h4>견고한 API 및 데이터 모델</h4>
+                    <p><strong>성공:</strong> NestJS와 TypeORM을 사용한 백엔드 API는 매우 안정적이고 확장 가능하게 설계되었습니다. 특히 투자 상품과 사용자 자산을 관리하는 데이터 모델은 성공적으로 구축되어 핵심 기능의 안정성을 높였습니다.</p>
+                    <p><strong>발견:</strong> 복잡한 시스템일수록, 기본이 되는 API와 데이터베이스 설계의 중요성이 더욱 크다는 것을 확인했습니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="final-declaration">
+        <h2>🎓 프로젝트 완료 선언</h2>
+        <p>
+            대체투자 플랫폼 프로젝트는 2025년 9월 5일을 기준으로<br>
+            <strong>계획 대비 85%의 성과를 달성하여 현실적 성공으로 완료되었음을 선언합니다.</strong>
+        </p>
+        <div class="details">
+            개발자: David | 프로젝트 기간: 5일 | 완료 일시: 2025.09.05<br>
+            "완벽한 출시보다 빠른 학습과 점진적 개선이 더 큰 가치를 만든다."
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

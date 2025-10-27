@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>산업용 수처리 시설 SCADA 시스템 - 현실적 프로젝트 완료 보고서</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f4f7f6;
+            font-size: 12px;
+        }
+        .container {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: none;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, #2196F3, #607d8b);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header h1 {
+            font-size: 28px;
+            margin: 0 0 6px 0;
+            font-weight: 700;
+        }
+        .header p {
+            margin: 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .mixed-result-box {
+            background: linear-gradient(135deg, #fff3cd, #f8d7da);
+            border-left: 5px solid #fd7e14;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .mixed-result-box h4 {
+            color: #721c24;
+            margin: 0 0 6px 0;
+            font-size: 14px;
+        }
+        .mixed-result-box p {
+            margin: 0;
+            color: #721c24;
+            font-size: 11px;
+        }
+        .project-period {
+            font-size: 11px;
+            color: #666;
+            text-align: right;
+            margin-bottom: 10px;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 12px;
+            border-radius: 10px;
+            background-color: #fcfcfc;
+            border: 1px solid #eee;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #37474f;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #b0bec5;
+            padding-bottom: 3px;
+        }
+        .two-column {
+            display: flex;
+            gap: 12px;
+        }
+        .two-column > div {
+            flex: 1;
+        }
+        .usecase-item {
+            padding: 6px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            font-size: 10px;
+        }
+        .success-item {
+            background-color: #d4edda;
+            border-left: 3px solid #28a745;
+        }
+        .partial-item {
+            background-color: #fff3cd;
+            border-left: 3px solid #ffc107;
+        }
+        .failed-item {
+            background-color: #f8d7da;
+            border-left: 3px solid #dc3545;
+        }
+        .usecase-item strong.success {
+            color: #155724;
+        }
+        .usecase-item strong.partial {
+            color: #856404;
+        }
+        .usecase-item strong.failed {
+            color: #721c24;
+        }
+        .info-box {
+            padding: 10px;
+            background-color: #e9ecef;
+            border-left: 5px solid #6c757d;
+            border-radius: 8px;
+            font-size: 10px;
+            line-height: 1.3;
+        }
+        .warning-box {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .warning-box h4 {
+            color: #856404;
+            margin: 0 0 8px 0;
+            font-size: 14px;
+        }
+        .req-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9px;
+            margin-top: 6px;
+        }
+        .req-table th, .req-table td {
+            border: 1px solid #ddd;
+            padding: 4px;
+            text-align: left;
+        }
+        .req-table th {
+            background-color: #f1f1f1;
+            font-weight: 700;
+        }
+        .req-table tr.completed td { color: #28a745; }
+        .req-table tr.partial td { color: #ffc107; }
+        .req-table tr.failed td { color: #dc3545; }
+        .achievement-box {
+            background: linear-gradient(135deg, #e3f2fd, #ffecb3);
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        .achievement-box h3 {
+            color: #37474f;
+            margin: 0 0 8px 0;
+            font-size: 16px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 6px;
+            margin: 10px 0;
+        }
+        .stat-item {
+            background-color: #ffffff;
+            padding: 6px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .stat-number {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+        .stat-number.good { color: #28a745; }
+        .stat-number.warning { color: #ffc107; }
+        .stat-number.poor { color: #dc3545; }
+        .stat-label {
+            font-size: 8px;
+            color: #666;
+        }
+        .feature-description {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 8px;
+            margin: 8px 0;
+            border-radius: 5px;
+        }
+        .feature-description h4 {
+            color: #e65100;
+            margin: 0 0 6px 0;
+            font-size: 12px;
+        }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            font-size: 10px;
+        }
+        .feature-list li {
+            padding: 2px 0;
+            padding-left: 14px;
+            position: relative;
+        }
+        .feature-list li:before {
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        .feature-list li.success:before {
+            content: "✓";
+            color: #28a745;
+        }
+        .feature-list li.warning:before {
+            content: "⚠";
+            color: #ffc107;
+        }
+        .feature-list li.failed:before {
+            content: "✗";
+            color: #dc3545;
+        }
+        .lessons-learned {
+            background-color: #e2e3e5;
+            border-left: 5px solid #6c757d;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .lessons-learned h4 {
+            color: #495057;
+            margin: 0 0 8px 0;
+            font-size: 14px;
+        }
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 8px;
+            border-radius: 8px;
+            font-family: 'Fira Code', 'Noto Sans Mono', monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 8px;
+            line-height: 1.2;
+        }
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 8px;
+            margin: 10px 0;
+        }
+        .tech-item {
+            background: linear-gradient(135deg, #546e7a, #78909c);
+            color: white;
+            padding: 8px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .tech-item h4 {
+            margin: 0 0 3px 0;
+            font-size: 11px;
+        }
+        .tech-item p {
+            margin: 0;
+            font-size: 9px;
+            opacity: 0.9;
+        }
+        .compact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 8px;
+        }
+        .final-declaration {
+            text-align: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, #546e7a, #78909c);
+            color: white;
+            border-radius: 15px;
+        }
+        .final-declaration h2 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+        }
+        .final-declaration p {
+            font-size: 12px;
+            margin: 0;
+            opacity: 0.9;
+        }
+        .final-declaration .details {
+            margin-top: 10px;
+            font-size: 9px;
+            opacity: 0.8;
+        }
+        .image-container {
+            text-align: center;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+        }
+        .image-caption {
+            font-size: 10px;
+            color: #495057;
+            margin-top: 8px;
+            padding: 6px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>💧 산업용 수처리 시설 SCADA 시스템</h1>
+        <p>현실적 프로젝트 완료 보고서 | Qt/C++ 기반 수질 모니터링 및 제어 시스템</p>
+    </div>
+
+    <div class="mixed-result-box">
+        <h4>⚖️ 프로젝트 혼재 결과</h4>
+        <p>본 프로젝트는 계획된 기능 중 약 82%를 성공적으로 구현했으나, 고도화된 AI 분석 기능과 일부 성능 최적화 부분에서 기술적 한계와 시간 제약으로 인한 미완성 구간이 있습니다. 기본적인 수질 모니터링과 화학 약품 자동 투입 시스템은 안정적으로 작동하지만, 예측 분석과 다중 시설 연동 기능은 프로토타입 수준에 그쳤습니다. 전반적으로는 실무 적용 가능한 수준의 시스템을 구축했으나, 상용화를 위해서는 추가 개발이 필요합니다.</p>
+    </div>
+
+    <div class="project-period">
+        📅 프로젝트 기간: 2025/08/21(목) ~ 2025/08/28(월) 18:30 (1일 연장)
+    </div>
+
+    <div class="achievement-box">
+        <h3>📊 주요 성과 및 달성 지표</h3>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number warning">82%</div>
+                <div class="stat-label">요구사항 달성률</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number good">8개</div>
+                <div class="stat-label">수질 센서 통합</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number good">6개</div>
+                <div class="stat-label">처리장비 제어</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number warning">5초</div>
+                <div class="stat-label">실시간 업데이트</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number warning">97.2%</div>
+                <div class="stat-label">시스템 가용성</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number warning">1.2초</div>
+                <div class="stat-label">평균 응답시간</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">3.3.1 💥 유스케이스 (Use Case) - 구현 현황</div>
+        <h3>핵심 유스케이스 구현 현황 (혼재 결과)</h3>
+        <div class="two-column">
+            <div>
+                <div class="usecase-item success-item">
+                    <strong class="success">✓ UC01: 실시간 수질 모니터링</strong><br>
+                    <small>8개 센서(pH, DO, 탁도, TDS, 온도, 유량, 압력, 염소)에서 실시간 데이터 수집 성공</small>
+                </div>
+                <div class="usecase-item partial-item">
+                    <strong class="partial">△ UC02: 자동 수처리 제어</strong><br>
+                    <small>기본적인 펌프/밸브 제어는 구현했으나 고급 최적화 알고리즘은 부분적 구현</small>
+                </div>
+                <div class="usecase-item success-item">
+                    <strong class="success">✓ UC03: 화학 약품 주입 관리</strong><br>
+                    <small>pH 조절제, 응집제, 소독제 자동 투입 시스템 안정적 작동</small>
+                </div>
+                <div class="usecase-item partial-item">
+                    <strong class="partial">△ UC04: 처리 공정별 설정 관리</strong><br>
+                    <small>기본 설정 저장/로드는 가능하나 고급 프로파일 관리 기능은 미완성</small>
+                </div>
+                <div class="usecase-item failed-item">
+                    <strong class="failed">✗ UC05: 예측 분석 및 보고</strong><br>
+                    <small>기본 통계 분석만 구현, AI 기반 예측 분석 기능은 구현 실패</small>
+                </div>
+                <div class="usecase-item success-item">
+                    <strong class="success">✓ UC06: 알림 및 경보 시스템</strong><br>
+                    <small>4단계 경보 시스템(정보/주의/경고/긴급) 완전 구현</small>
+                </div>
+            </div>
+            <div>
+                <h4>부분 성공 시나리오 - UC02 (자동 수처리 제어)</h4>
+                <div class="info-box">
+                    <strong>제한적 성공</strong><br>
+                    1. 서버는 MySQL DB에 기본 처리 설정값을 저장하고 로드합니다.<br>
+                    2. pH 데이터가 기준값(7.0±0.5) 범위를 벗어나면,<br>
+                    3. 해당 조절제 펌프를 자동으로 가동하는 기본 로직은 작동합니다.<br>
+                    4. 그러나 복합 수질 파라미터 연동 제어는 구현하지 못했습니다.<br>
+                    5. 화학 약품 재고 관리와 연동된 제어도 미완성 상태입니다.<br>
+                    6. 기본 제어 이력은 'treatment_logs' 테이블에 기록됩니다.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">3.3.2 📋 요구사항 명세서 - 검증 결과</div>
+        <div class="two-column">
+            <div>
+                <h3>기능적 요구사항 (FR)</h3>
+                <table class="req-table">
+                    <thead>
+                        <tr><th>ID</th><th>요구사항</th><th>우선순위</th><th>상태</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr class="completed"><td>FR01</td><td>실시간 수질 센서 데이터 수집</td><td>높음</td><td>✓ 완료</td></tr>
+                        <tr class="partial"><td>FR02</td><td>자동 펌프 및 밸브 제어</td><td>높음</td><td>△ 부분</td></tr>
+                        <tr class="completed"><td>FR03</td><td>실시간 수질 데이터 시각화</td><td>높음</td><td>✓ 완료</td></tr>
+                        <tr class="partial"><td>FR04</td><td>화학 약품 주입 제어</td><td>중간</td><td>△ 부분</td></tr>
+                        <tr class="completed"><td>FR05</td><td>수질 이상 알림 시스템</td><td>중간</td><td>✓ 완료</td></tr>
+                        <tr class="failed"><td>FR06</td><td>고급 분석 및 예측</td><td>낮음</td><td>✗ 실패</td></tr>
+                        <tr class="completed"><td>FR07</td><td>원격 제어 기능</td><td>중간</td><td>✓ 완료</td></tr>
+                        <tr class="partial"><td>FR08</td><td>처리 이력 관리</td><td>낮음</td><td>△ 부분</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h3>비기능적 요구사항 (NFR)</h3>
+                <table class="req-table">
+                    <thead>
+                        <tr><th>ID</th><th>요구사항</th><th>목표값</th><th>상태</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr class="partial"><td>NFR01</td><td>시스템 가용성</td><td>99.8% 이상</td><td>97.2% 달성</td></tr>
+                        <tr class="partial"><td>NFR02</td><td>응답 시간</td><td>0.5초 이내</td><td>1.2초 측정</td></tr>
+                        <tr class="completed"><td>NFR03</td><td>동시 사용자</td><td>최대 20명</td><td>✓ 달성</td></tr>
+                        <tr class="completed"><td>NFR04</td><td>데이터 저장</td><td>최소 5년간</td><td>✓ 달성</td></tr>
+                        <tr class="partial"><td>NFR05</td><td>보안</td><td>AES-256</td><td>△ 기본 보안</td></tr>
+                        <tr class="completed"><td>NFR06</td><td>확장성</td><td>센서 추가 가능</td><td>✓ 달성</td></tr>
+                        <tr class="completed"><td>NFR07</td><td>호환성</td><td>Windows/Linux</td><td>✓ 달성</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <h4>⚠️ 미달성 요구사항 분석</h4>
+            <ul style="margin: 5px 0; font-size: 10px;">
+                <li><strong>응답시간 지연:</strong> 대량의 수질 데이터 처리와 복잡한 차트 렌더링으로 인해 목표 응답시간 초과</li>
+                <li><strong>가용성 부족:</strong> 장시간 운영 시 메모리 사용량 증가와 간헐적 데이터베이스 연결 오류로 목표 가용성 미달성</li>
+                <li><strong>예측 분석 실패:</strong> 머신러닝 모델 개발의 복잡성과 실시간 처리 요구사항 충족의 어려움</li>
+                <li><strong>고급 제어 부족:</strong> 단순 임계값 기반 제어는 가능하나 복합 파라미터 연동 최적화는 미완성</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">4.4.2 🖼️ 구현된 프로그램 기능과 현실적 평가</div>
+        <p>실제 구현된 프로그램의 주요 기능과 한계점을 솔직하게 평가합니다. 성공한 부분과 미완성 부분을 명확히 구분하여 정리했습니다.</p>
+        
+        <div class="image-container">
+            <div style="width: 100%; height: 420px; background: #2c3e50; border: 3px solid #34495e; border-radius: 8px; padding: 0; font-family: 'Consolas', 'Courier New', monospace; position: relative;">
+                <!-- SCADA Title Bar -->
+                <div style="background: linear-gradient(to bottom, #34495e, #2c3e50); padding: 8px; border-bottom: 2px solid #1a252f; color: #ecf0f1; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="width: 12px; height: 12px; background: #27ae60; border-radius: 50%; animation: pulse 2s infinite;"></div>
+                        <span style="font-size: 14px; font-weight: bold;">🏭 WaterTreatment SCADA v2.1 - 메인 감시 시스템</span>
+                    </div>
+                    <div style="font-size: 11px; color: #bdc3c7;">2025-08-28 14:23:45</div>
+                </div>
+                
+                <!-- Main SCADA Interface -->
+                <div style="padding: 12px; height: 360px; background: #34495e; color: #ecf0f1;">
+                    <!-- Process Flow Diagram -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; position: relative;">
+                        <!-- Raw Water Tank -->
+                        <div style="background: #3498db; width: 80px; height: 60px; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;">
+                            <div style="font-size: 10px; font-weight: bold;">원수조</div>
+                            <div style="font-size: 12px; color: #fff;">85%</div>
+                            <div style="position: absolute; top: -8px; right: -8px; width: 12px; height: 12px; background: #27ae60; border-radius: 50%;"></div>
+                        </div>
+                        
+                        <!-- Pipe Connection -->
+                        <div style="width: 40px; height: 4px; background: #3498db; position: relative;">
+                            <div style="position: absolute; top: -6px; left: 50%; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 12px solid #3498db;"></div>
+                        </div>
+                        
+                        <!-- Treatment Process -->
+                        <div style="background: #f39c12; width: 100px; height: 80px; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;">
+                            <div style="font-size: 9px; font-weight: bold; text-align: center;">처리 공정</div>
+                            <div style="font-size: 8px;">pH: 7.1</div>
+                            <div style="font-size: 8px;">DO: 6.2mg/L</div>
+                            <div style="position: absolute; top: -8px; right: -8px; width: 12px; height: 12px; background: #f1c40f; border-radius: 50%; animation: pulse 1.5s infinite;"></div>
+                        </div>
+                        
+                        <div style="width: 40px; height: 4px; background: #27ae60;"></div>
+                        
+                        <!-- Clean Water Tank -->
+                        <div style="background: #27ae60; width: 80px; height: 60px; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;">
+                            <div style="font-size: 10px; font-weight: bold;">정수조</div>
+                            <div style="font-size: 12px; color: #fff;">92%</div>
+                            <div style="position: absolute; top: -8px; right: -8px; width: 12px; height: 12px; background: #27ae60; border-radius: 50%;"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sensor Data Grid -->
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px;">
+                        <div style="background: #27ae60; padding: 6px; border-radius: 4px; text-align: center;">
+                            <div style="font-size: 9px; opacity: 0.8;">탁도</div>
+                            <div style="font-size: 12px; font-weight: bold;">1.1 NTU</div>
+                        </div>
+                        <div style="background: #3498db; padding: 6px; border-radius: 4px; text-align: center;">
+                            <div style="font-size: 9px; opacity: 0.8;">TDS</div>
+                            <div style="font-size: 12px; font-weight: bold;">285 ppm</div>
+                        </div>
+                        <div style="background: #e67e22; padding: 6px; border-radius: 4px; text-align: center;">
+                            <div style="font-size: 9px; opacity: 0.8;">온도</div>
+                            <div style="font-size: 12px; font-weight: bold;">19.2°C</div>
+                        </div>
+                        <div style="background: #9b59b6; padding: 6px; border-radius: 4px; text-align: center;">
+                            <div style="font-size: 9px; opacity: 0.8;">유량</div>
+                            <div style="font-size: 12px; font-weight: bold;">22 ㎥/h</div>
+                        </div>
+                        <div style="background: #1abc9c; padding: 6px; border-radius: 4px; text-align: center;">
+                            <div style="font-size: 9px; opacity: 0.8;">압력</div>
+                            <div style="font-size: 12px; font-weight: bold;">2.1 bar</div>
+                        </div>
+                        <div style="background: #34495e; padding: 6px; border-radius: 4px; text-align: center; border: 1px solid #5d6d7e;">
+                            <div style="font-size: 9px; opacity: 0.8;">염소</div>
+                            <div style="font-size: 12px; font-weight: bold;">0.4 ppm</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Equipment Status -->
+                    <div style="background: #2c3e50; border: 1px solid #34495e; border-radius: 4px; padding: 8px;">
+                        <div style="font-size: 10px; font-weight: bold; margin-bottom: 6px; color: #ecf0f1;">주요 장비 상태:</div>
+                        <div style="display: flex; justify-content: space-between; font-size: 8px;">
+                            <span>원수펌프: <span style="color: #27ae60; font-weight: bold;">ON</span></span>
+                            <span>응집제펌프: <span style="color: #27ae60; font-weight: bold;">AUTO</span></span>
+                            <span>침전조교반기: <span style="color: #f39c12; font-weight: bold;">RUN</span></span>
+                            <span>여과펌프: <span style="color: #27ae60; font-weight: bold;">ON</span></span>
+                            <span>소독제펌프: <span style="color: #27ae60; font-weight: bold;">AUTO</span></span>
+                            <span>송수펌프: <span style="color: #27ae60; font-weight: bold;">ON</span></span>
+                        </div>
+                    </div>
+                    
+                    <!-- System Alerts -->
+                    <div style="position: absolute; bottom: 12px; right: 12px; background: #27ae60; padding: 4px 8px; border-radius: 4px; font-size: 8px;">
+                        시스템 정상 운영 중
+                    </div>
+                </div>
+            </div>
+            <div class="image-caption">
+                <strong>그림 1. 수처리 메인 대시보드 - 핵심 기능 성공적 구현</strong><br>
+                8개 수질 센서(pH: 7.1, DO: 6.2mg/L, 탁도: 1.1NTU, TDS: 285ppm, 온도: 19.2℃, 유량: 22㎥/h, 압력: 2.1bar, 염소: 0.4ppm)의 실시간 데이터를 안정적으로 표시합니다. 기본적인 트렌드 차트와 처리 공정 상태 표시는 잘 작동하지만, 업데이트 간격이 목표 3초보다 긴 5초로 성능 개선이 필요한 상태입니다.
+            </div>
+        </div>
+        
+        <div class="feature-description">
+            <h4>🎮 수질 모니터링 기능 - 성공 및 한계</h4>
+            <ul class="feature-list">
+                <li class="success">8개 센서 통합 모니터링: pH, DO, 탁도, TDS, 온도, 유량, 압력, 염소 데이터 실시간 수집</li>
+                <li class="success">직관적 상태 표시: 색상 코딩(녹색/황색/빨간색)으로 즉시 상황 파악 가능</li>
+                <li class="success">안정적 데이터 저장: MySQL 데이터베이스에 모든 센서 데이터 정상 기록</li>
+                <li class="warning">업데이트 지연: 목표 3초 대신 5초 간격 업데이트, 실시간성 부족</li>
+                <li class="success">기본 차트 기능: 시간대별 트렌드 분석을 위한 기본 차트 제공</li>
+                <li class="warning">고급 분석 부족: 센서 간 상관관계 분석이나 예측 기능은 구현되지 않음</li>
+            </ul>
+        </div>
+
+        <div class="image-container">
+            <div style="width: 100%; height: 420px; background: #2c3e50; border: 3px solid #34495e; border-radius: 8px; padding: 0; font-family: 'Consolas', 'Courier New', monospace;">
+                <!-- SCADA Title Bar -->
+                <div style="background: linear-gradient(to bottom, #f39c12, #e67e22); padding: 8px; border-bottom: 2px solid #d35400; color: #fff; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="width: 12px; height: 12px; background: #f1c40f; border-radius: 50%; animation: pulse 2s infinite;"></div>
+                        <span style="font-size: 14px; font-weight: bold;">⚙️ 화학 약품 제어 시스템</span>
+                    </div>
+                    <div style="font-size: 11px; opacity: 0.9;">AUTO MODE</div>
+                </div>
+                
+                <!-- Chemical Control Interface -->
+                <div style="padding: 12px; height: 360px; background: #34495e; color: #ecf0f1;">
+                    <!-- Chemical Tank Status -->
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px;">
+                        <div style="background: #3498db; padding: 8px; border-radius: 6px; text-align: center; position: relative;">
+                            <div style="font-size: 10px; font-weight: bold;">응집제</div>
+                            <div style="font-size: 14px; font-weight: bold; margin: 4px 0;">78%</div>
+                            <div style="font-size: 8px;">245L / 315L</div>
+                            <div style="position: absolute; top: 4px; right: 4px; width: 8px; height: 8px; background: #27ae60; border-radius: 50%;"></div>
+                        </div>
+                        <div style="background: #9b59b6; padding: 8px; border-radius: 6px; text-align: center; position: relative;">
+                            <div style="font-size: 10px; font-weight: bold;">소독제</div>
+                            <div style="font-size: 14px; font-weight: bold; margin: 4px 0;">65%</div>
+                            <div style="font-size: 8px;">130L / 200L</div>
+                            <div style="position: absolute; top: 4px; right: 4px; width: 8px; height: 8px; background: #f39c12; border-radius: 50%;"></div>
+                        </div>
+                        <div style="background: #1abc9c; padding: 8px; border-radius: 6px; text-align: center; position: relative;">
+                            <div style="font-size: 10px; font-weight: bold;">중화제</div>
+                            <div style="font-size: 14px; font-weight: bold; margin: 4px 0;">82%</div>
+                            <div style="font-size: 8px;">164L / 200L</div>
+                            <div style="position: absolute; top: 4px; right: 4px; width: 8px; height: 8px; background: #27ae60; border-radius: 50%;"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pump Control Panel -->
+                    <div style="background: #2c3e50; border: 2px solid #34495e; border-radius: 6px; padding: 10px; margin-bottom: 12px;">
+                        <div style="font-size: 11px; font-weight: bold; margin-bottom: 8px; color: #f39c12;">펌프 제어 패널</div>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; background: #34495e; padding: 6px; border-radius: 4px;">
+                                <span style="font-size: 9px;">응집제 펌프:</span>
+                                <div style="display: flex; gap: 4px;">
+                                    <div style="width: 20px; height: 12px; background: #27ae60; border-radius: 2px; font-size: 7px; color: #fff; text-align: center; line-height: 12px;">ON</div>
+                                    <div style="width: 30px; height: 12px; background: #3498db; border-radius: 2px; font-size: 7px; color: #fff; text-align: center; line-height: 12px;">AUTO</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; background: #34495e; padding: 6px; border-radius: 4px;">
+                                <span style="font-size: 9px;">소독제 펌프:</span>
+                                <div style="display: flex; gap: 4px;">
+                                    <div style="width: 20px; height: 12px; background: #27ae60; border-radius: 2px; font-size: 7px; color: #fff; text-align: center; line-height: 12px;">ON</div>
+                                    <div style="width: 30px; height: 12px; background: #3498db; border-radius: 2px; font-size: 7px; color: #fff; text-align: center; line-height: 12px;">AUTO</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Dosing Status -->
+                    <div style="background: #2c3e50; border: 2px solid #34495e; border-radius: 6px; padding: 10px; margin-bottom: 12px;">
+                        <div style="font-size: 11px; font-weight: bold; margin-bottom: 8px; color: #f39c12;">약품 투입 상태</div>
+                        <div style="display: flex; justify-content: space-between; font-size: 9px;">
+                            <div>
+                                <div>응집제: <span style="color: #27ae60; font-weight: bold;">2.3 L/min</span></div>
+                                <div>소독제: <span style="color: #27ae60; font-weight: bold;">0.8 L/min</span></div>
+                            </div>
+                            <div>
+                                <div>pH 조정: <span style="color: #3498db; font-weight: bold;">7.1 → 7.3</span></div>
+                                <div>염소 농도: <span style="color: #1abc9c; font-weight: bold;">0.4 ppm</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Alarms & Events -->
+                    <div style="background: #2c3e50; border: 2px solid #34495e; border-radius: 6px; padding: 8px;">
+                        <div style="font-size: 10px; font-weight: bold; margin-bottom: 6px; color: #f39c12;">경보 및 이벤트</div>
+                        <div style="font-size: 8px; line-height: 1.3;">
+                            <div style="color: #27ae60;">✓ 14:23 - 응집제 자동 투입 시작</div>
+                            <div style="color: #f39c12;">⚠ 14:18 - 소독제 탱크 저수위 경보 (<70%)</div>
+                            <div style="color: #27ae60;">✓ 14:15 - 시스템 정상 운전 복구</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="image-caption">
+                <strong>그림 2. 화학 약품 제어 시스템 - 부분적 성공</strong><br>
+                6개 주요 장비(원수펌프, 응집제펌프, 침전조교반기, 여과펌프, 소독제펌프, 송수펌프)의 기본적인 ON/OFF 제어는 성공적으로 구현했습니다. pH 기반 자동 약품 투입은 작동하지만, 복합 수질 파라미터를 고려한 최적화된 투입량 계산은 미완성 상태입니다. 수동 제어와 기본적인 제어 이력 기록은 정상 작동합니다.
+            </div>
+        </div>
+        
+        <div class="feature-description">
+            <h4>🧪 화학 약품 제어 기능 - 혼재 결과</h4>
+            <ul class="feature-list">
+                <li class="success">기본 자동 제어: pH 기반 알칼리/산성 조절제 자동 투입 시스템 작동</li>
+                <li class="warning">단순 투입 로직: 고정된 투입량으로만 제어, 동적 계산 알고리즘 부족</li>
+                <li class="success">안전 기능: 과투입 방지를 위한 최대 투입량 제한 기능 구현</li>
+                <li class="failed">재고 관리 연동 실패: 화학 약품 재고 부족 시 자동 경고 시스템 미구현</li>
+                <li class="success">제어 이력: 모든 약품 투입 이력을 데이터베이스에 기록</li>
+                <li class="warning">경제성 분석 부족: 약품 사용량 최적화나 비용 분석 기능 미완성</li>
+            </ul>
+        </div>
+
+        <div class="image-container">
+            <div style="width: 100%; height: 420px; background: #2c3e50; border: 3px solid #34495e; border-radius: 8px; padding: 0; font-family: 'Consolas', 'Courier New', monospace;">
+                <!-- SCADA Title Bar -->
+                <div style="background: linear-gradient(to bottom, #e74c3c, #c0392b); padding: 8px; border-bottom: 2px solid #a93226; color: #fff; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="width: 12px; height: 12px; background: #e74c3c; border-radius: 50%; animation: pulse 2s infinite;"></div>
+                        <span style="font-size: 14px; font-weight: bold;">⚠ 고급 분석 시스템 - 오류 상태</span>
+                    </div>
+                    <div style="font-size: 11px; opacity: 0.9;">OFFLINE</div>
+                </div>
+                
+                <!-- Error Analysis Interface -->
+                <div style="padding: 12px; height: 360px; background: #34495e; color: #ecf0f1;">
+                    <!-- Error Status -->
+                    <div style="background: #e74c3c; border: 2px solid #c0392b; border-radius: 6px; padding: 10px; margin-bottom: 12px; text-align: center;">
+                        <div style="font-size: 14px; font-weight: bold; margin-bottom: 4px;">❌ 시스템 분석 모듈 오류</div>
+                        <div style="font-size: 10px; opacity: 0.9;">AI 예측 모델 로드 실패 - 대체 기능으로 전환</div>
+                    </div>
+                    
+                    <!-- Limited Analysis Available -->
+                    <div style="background: #2c3e50; border: 2px solid #f39c12; border-radius: 6px; padding: 10px; margin-bottom: 12px;">
+                        <div style="font-size: 11px; font-weight: bold; margin-bottom: 8px; color: #f39c12;">제한적 분석 기능 이용 가능</div>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
+                            <div style="background: #34495e; padding: 8px; border-radius: 4px; border: 1px solid #5d6d7e;">
+                                <div style="font-size: 9px; margin-bottom: 4px; color: #bdc3c7;">기본 통계 분석</div>
+                                <div style="font-size: 11px; color: #f39c12;">✓ 이용 가능</div>
+                            </div>
+                            <div style="background: #34495e; padding: 8px; border-radius: 4px; border: 1px solid #5d6d7e;">
+                                <div style="font-size: 9px; margin-bottom: 4px; color: #bdc3c7;">이력 데이터 조회</div>
+                                <div style="font-size: 11px; color: #f39c12;">✓ 이용 가능</div>
+                            </div>
+                            <div style="background: #34495e; padding: 8px; border-radius: 4px; border: 1px solid #e74c3c;">
+                                <div style="font-size: 9px; margin-bottom: 4px; color: #bdc3c7;">AI 예측 모델</div>
+                                <div style="font-size: 11px; color: #e74c3c;">❌ 오프라인</div>
+                            </div>
+                            <div style="background: #34495e; padding: 8px; border-radius: 4px; border: 1px solid #e74c3c;">
+                                <div style="font-size: 9px; margin-bottom: 4px; color: #bdc3c7;">최적화 엔진</div>
+                                <div style="font-size: 11px; color: #e74c3c;">❌ 비활성</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Basic Statistics Display -->
+                    <div style="background: #2c3e50; border: 2px solid #3498db; border-radius: 6px; padding: 10px; margin-bottom: 12px;">
+                        <div style="font-size: 11px; font-weight: bold; margin-bottom: 8px; color: #3498db;">기본 통계 데이터 (24시간)</div>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; font-size: 8px;">
+                            <div style="text-align: center; background: #34495e; padding: 6px; border-radius: 3px;">
+                                <div style="color: #bdc3c7;">평균 pH</div>
+                                <div style="font-size: 10px; font-weight: bold; color: #3498db;">7.12</div>
+                            </div>
+                            <div style="text-align: center; background: #34495e; padding: 6px; border-radius: 3px;">
+                                <div style="color: #bdc3c7;">최대 탁도</div>
+                                <div style="font-size: 10px; font-weight: bold; color: #f39c12;">1.8 NTU</div>
+                            </div>
+                            <div style="text-align: center; background: #34495e; padding: 6px; border-radius: 3px;">
+                                <div style="color: #bdc3c7;">최소 유량</div>
+                                <div style="font-size: 10px; font-weight: bold; color: #27ae60;">18.5 ㎥/h</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Error Log -->
+                    <div style="background: #2c3e50; border: 2px solid #e74c3c; border-radius: 6px; padding: 8px;">
+                        <div style="font-size: 10px; font-weight: bold; margin-bottom: 6px; color: #e74c3c;">오류 로그</div>
+                        <div style="font-size: 8px; line-height: 1.3; font-family: monospace;">
+                            <div style="color: #e74c3c;">[ERROR] 14:20 - ML 모델 로드 실패: tensorflow 라이브러리 오류</div>
+                            <div style="color: #e74c3c;">[ERROR] 14:19 - 데이터 전처리 모듈 연결 실패</div>
+                            <div style="color: #f39c12;">[WARN]  14:15 - AI 예측 기능 비활성화 됨</div>
+                            <div style="color: #3498db;">[INFO]  14:10 - 기본 통계 모드로 전환 완료</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="image-caption">
+                <strong>그림 3. 고급 분석 시스템 - 구현 실패</strong><br>
+                당초 계획했던 머신러닝 기반 수질 예측 분석과 처리 효율 최적화 기능은 구현에 실패했습니다. 수처리 화학 공정의 복잡성과 실시간 분석을 위한 모델 최적화의 어려움으로 기본적인 통계 분석(평균, 최대/최소값)만 제공합니다. 데이터 사이언스와 도메인 지식의 부족이 가장 큰 실패 원인으로 분석됩니다.
+            </div>
+        </div>
+        
+        <div class="feature-description">
+            <h4>📊 고급 분석 기능 - 실패 사례</h4>
+            <ul class="feature-list">
+                <li class="failed">머신러닝 모델 실패: scikit-learn과 Qt 연동 과정에서 성능 및 안정성 문제</li>
+                <li class="failed">수질 예측 분석 미구현: 시간대별 수질 변화 예측 모델 개발 실패</li>
+                <li class="warning">기본 통계만 제공: 평균, 최댓값, 최솟값 등 단순 집계 분석만 가능</li>
+                <li class="failed">처리 효율 최적화 불가: 화학 약품 투입량과 처리 효율 간 최적점 찾기 실패</li>
+                <li class="warning">단순 리포트: 미리 정의된 템플릿 기반 보고서만 생성 가능</li>
+                <li class="failed">이상 패턴 자동 감지 실패: 수질 데이터의 이상 패턴 자동 식별 기능 미구현</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <div class="section-title">💻 사용자 인터페이스 현실적 평가</div>
+            <div class="two-column">
+                <div class="info-box">
+                    <h4>✅ 성공한 UI 요소</h4>
+                    <p><strong>직관적 모니터링:</strong> 수질 상태를 색상으로 구분하여 표시하는 대시보드는 현실적이고 사용하기 쉽게 구현되었습니다.</p>
+                    <p><strong>안정적 업데이트:</strong> 느리지만 지속적으로 데이터가 업데이트되며 시스템이 중단되지 않고 작동합니다.</p>
+                    <p><strong>기본 제어 인터페이스:</strong> 장비의 수동 ON/OFF 제어는 직관적이고 안정적으로 작동합니다.</p>
+                </div>
+                <div class="warning-box">
+                    <h4>⚠️ UI/UX 한계점</h4>
+                    <p><strong>응답성 문제:</strong> 버튼 클릭 후 1-2초 지연, 사용자 경험에 아쉬움</p>
+                    <p><strong>복잡한 설정 화면:</strong> 화학 약품 설정이 복잡하고 초보자에게 어려움</p>
+                    <p><strong>제한된 커스터마이징:</strong> 사용자별 대시보드 구성 변경 기능 부족</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">4.4.3 🔧 핵심 기술 구현 및 한계 분석</div>
+        
+        <div class="tech-stack">
+            <div class="tech-item">
+                <h4>🖥️ 프론트엔드</h4>
+                <p>Qt6 Widgets ✅<br>QML 부분적 △</p>
+            </div>
+            <div class="tech-item">
+                <h4>⚙️ 백엔드</h4>
+                <p>Qt6 Network ✅<br>멀티스레드 △</p>
+            </div>
+            <div class="tech-item">
+                <h4>🗄️ 데이터베이스</h4>
+                <p>MySQL 8.0 ✅<br>성능 튜닝 △</p>
+            </div>
+            <div class="tech-item">
+                <h4>🌐 통신</h4>
+                <p>TCP/IP Socket ✅<br>JSON 처리 ✅</p>
+            </div>
+            <div class="tech-item">
+                <h4>📊 시각화</h4>
+                <p>기본 차트 ✅<br>고급 분석 ✗</p>
+            </div>
+            <div class="tech-item">
+                <h4>🤖 AI/분석</h4>
+                <p>머신러닝 ✗<br>기본 통계 △</p>
+            </div>
+        </div>
+
+        <h3>주요 실패 원인 및 기술적 한계</h3>
+        
+        <div class="lessons-learned">
+            <h4>💥 주요 실패 요인들</h4>
+            <div class="code-block">
+// 실패한 ML 통합 시도 예시 (의사코드)
+void WaterQualityAnalyzer::initializePredictionModel() {
+    try {
+        // Python scikit-learn 모델 로딩 시도
+        python_model = loadPickleModel("water_quality_predictor.pkl");
+        
+        if (!python_model.isValid()) {
+            // 실패 원인 1: Python-Qt 메모리 공유 문제
+            qDebug() << "ML 모델 로딩 실패";
+            return;
+        }
+        
+        // 실시간 예측을 위한 데이터 전처리 시도
+        preprocessRealTimeData();  // 성능 병목 발생
+        
+    } catch (std::exception& e) {
+        // 실패 원인 2: 실시간 처리 성능 부족
+        qDebug() << "ML 초기화 실패: " << e.what();
+        fallbackToBasicStatistics();  // 기본 통계로 대체
+    }
+}
+
+// 성능 문제가 있는 수질 데이터 처리 코드
+void WaterQualityMonitor::updateWaterData() {
+    // 실패 원인 3: 비효율적인 데이터 처리
+    for (int i = 0; i < 8; ++i) {
+        // 각 센서마다 개별 DB 쿼리 실행 (비효율적)
+        WaterQualityData data = database.getWaterData(i);
+        
+        // UI 업데이트를 메인 스레드에서 직접 실행 (성능 저하)
+        updateChartWidget(data);
+        QThread::sleep(1);  // 불필요한 지연
+    }
+}
+            </div>
+        </div>
+
+        <div class="feature-description">
+            <h4>📋 실패 분석 상세</h4>
+            <ul class="feature-list">
+                <li class="failed"><strong>ML 모델 통합 실패:</strong> Python 라이브러리와 Qt 간 메모리 관리 충돌로 안정성 확보 실패</li>
+                <li class="warning"><strong>실시간 성능 부족:</strong> 8개 센서 데이터 처리 시 목표 성능(0.5초) 달성 실패</li>
+                <li class="warning"><strong>데이터베이스 최적화 부족:</strong> 인덱싱 부족으로 대용량 데이터 조회 시 성능 저하</li>
+                <li class="failed"><strong>도메인 지식 부족:</strong> 수처리 화학 공정에 대한 이해 부족으로 실질적 최적화 실패</li>
+                <li class="warning"><strong>메모리 관리 문제:</strong> 장시간 운영 시 메모리 사용량 지속 증가</li>
+                <li class="partial"><strong>테스트 커버리지 부족:</strong> 주요 기능에 대한 단위 테스트 약 60% 수준</li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <strong>📈 성과 대비 투입 시간 분석</strong><br>
+            <ul style="margin: 5px 0 0 0; padding-left: 20px; font-size: 10px;">
+                <li><strong>기본 SCADA 기능:</strong> 32시간 투입 → 90% 성공</li>
+                <li><strong>UI/UX 개발:</strong> 28시간 투입 → 85% 성공</li>
+                <li><strong>데이터베이스 설계:</strong> 18시간 투입 → 80% 성공</li>
+                <li><strong>화학 제어 시스템:</strong> 25시간 투입 → 70% 성공</li>
+                <li><strong>고급 분석 기능:</strong> 30시간 투입 → 20% 성공 (투입 대비 효율 최악)</li>
+                <li><strong>성능 최적화:</strong> 12시간 투입 → 40% 성공 (시간 부족)</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">4.4.4 📦 완성된 소스코드 현실적 평가</div>
+        <p>프로젝트의 소스코드는 기본 기능은 안정적이지만 고급 기능과 최적화 부분에서 미완성 상태입니다.</p>
+        
+        <div class="warning-box">
+            <h4>⚠️ 소스코드 상태 평가</h4>
+            <div class="code-block">
+WaterTreatmentSCADA/
+├── Client/                 # GUI 클라이언트 (85% 완성)
+│   ├── src/
+│   │   ├── MainWindow.cpp              ✅ 완성
+│   │   ├── WaterQualityWidget.cpp      ✅ 완성
+│   │   ├── TreatmentControlPanel.cpp   △ 기본 기능만
+│   │   ├── ProcessFlowChart.cpp        ✅ 완성
+│   │   ├── AnalysisWidget.cpp          ✗ 기본 통계만
+│   │   └── ProcessSettingsDialog.cpp   △ 부분 완성
+│   └── resources/         # 리소스 (완성)
+├── Server/                # SCADA 서버 (80% 완성)
+│   ├── src/
+│   │   ├── WaterTreatmentServer.cpp    ✅ 완성
+│   │   ├── DatabaseManager.cpp        △ 성능 이슈 있음
+│   │   ├── WaterQualitySensorManager.cpp ✅ 완성
+│   │   ├── TreatmentControlLogic.cpp   △ 기본 로직만
+│   │   ├── ChemicalDosingController.cpp △ 부분 완성
+│   │   └── AlertSystem.cpp             ✅ 완성
+├── Database/             # DB 스키마 (95% 완성)
+│   ├── water_treatment_schema.sql      ✅ 완성
+│   ├── sample_data.sql                ✅ 완성
+│   └── optimization_queries.sql       ✗ 미구현
+├── ML_Analysis/          # 분석 모듈 (15% 완성)
+│   ├── prediction_models.py           ✗ 실패
+│   └── statistical_analysis.cpp      △ 기본만
+└── Tests/               # 테스트 (60% 완성)
+    ├── unit_tests/                   △ 주요 기능만
+    └── integration_tests/            △ 부분적
+            </div>
+        </div>
+
+        <div class="two-column">
+            <div class="info-box">
+                <h4>✅ 완성도 높은 모듈</h4>
+                <ul class="feature-list">
+                    <li class="success">8개 센서 데이터 수집 및 저장</li>
+                    <li class="success">실시간 대시보드 시각화</li>
+                    <li class="success">기본적인 장비 제어 시스템</li>
+                    <li class="success">4단계 알림 시스템</li>
+                    <li class="success">MySQL 데이터베이스 연동</li>
+                    <li class="success">TCP/IP 서버-클라이언트 통신</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h4>❌ 미완성/문제 모듈</h4>
+                <ul class="feature-list">
+                    <li class="failed">머신러닝 예측 분석 모듈</li>
+                    <li class="warning">화학 약품 최적화 알고리즘</li>
+                    <li class="warning">성능 최적화 및 메모리 관리</li>
+                    <li class="failed">고급 통계 분석 기능</li>
+                    <li class="warning">포괄적인 단위 테스트</li>
+                    <li class="failed">실시간 처리 성능 개선</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="feature-description">
+            <h4>📋 코드 품질 현실적 평가</h4>
+            <ul class="feature-list">
+                <li class="warning"><strong>총 라인 수:</strong> 약 7,400줄 (계획 대비 80% 수준)</li>
+                <li class="warning"><strong>함수 커버리지:</strong> 78% (목표 95% 미달)</li>
+                <li class="warning"><strong>메모리 관리:</strong> 기본적인 관리만 적용, 최적화 부족</li>
+                <li class="partial"><strong>예외 처리:</strong> 주요 네트워크/DB 작업에만 적용</li>
+                <li class="success"><strong>로깅 시스템:</strong> 4단계 로그 레벨 구현</li>
+                <li class="warning"><strong>설정 관리:</strong> 기본 JSON 설정, 고급 기능 부족</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">4.4.5 ✏️ 솔직한 개발 후기 및 현실적 성찰</div>
+        
+        <div class="lessons-learned">
+            <h4>💡 주요 배움과 한계 인식</h4>
+            <p>이번 수처리 SCADA 시스템 프로젝트는 기본적인 산업용 제어 시스템은 구현했지만, 고도화된 분석 기능에서는 명확한 한계를 드러낸 혼재된 경험이었습니다. 특히 도메인 지식의 중요성과 실시간 시스템 개발의 복잡성을 체감했습니다.</p>
+        </div>
+
+        <div class="two-column">
+            <div>
+                <h3>🔬 기술적 도전과 한계</h3>
+                <div class="feature-description">
+                    <h4>복합 수질 파라미터 처리의 어려움</h4>
+                    <p><strong>한계:</strong> 8개 센서의 상호작용과 화학적 관계를 제대로 이해하지 못해 단순한 개별 센서 모니터링에 그쳤습니다. pH와 탁도, 용존산소 간의 복잡한 상관관계를 실시간으로 분석하는 것은 예상보다 훨씬 어려웠습니다.</p>
+                    <p><strong>학습:</strong> 기술적 구현 이전에 해당 도메인에 대한 깊은 이해가 선행되어야 함을 깨달았습니다. 수처리 공학 서적을 더 공부했어야 했습니다.</p>
+                </div>
+
+                <div class="feature-description">
+                    <h4>실시간 성능 최적화의 벽</h4>
+                    <p><strong>한계:</strong> Qt 애플리케이션에서 8개 센서의 데이터를 실시간으로 처리하면서 UI 반응성을 유지하는 것이 생각보다 복잡했습니다. 멀티스레딩과 메모리 관리에서 여러 문제가 발생했습니다.</p>
+                    <p><strong>학습:</strong> 실시간 시스템 개발에는 초기 설계부터 성능을 고려한 아키텍처가 필수적임을 배웠습니다.</p>
+                </div>
+            </div>
+
+            <div>
+                <h3>📈 의외의 성공과 성취</h3>
+                <div class="feature-description">
+                    <h4>안정적인 기본 시스템 구축</h4>
+                    <p><strong>성공:</strong> 비록 고급 기능은 부족하지만, 8개 센서의 데이터 수집과 기본적인 제어 기능은 매우 안정적으로 작동합니다. 실제 데모 시연에서 한 번도 크래시가 발생하지 않았습니다.</p>
+                    <p><strong>발견:</strong> 완벽한 고급 기능보다 안정적인 기본 기능이 실무에서는 더 중요할 수 있다는 것을 알게 되었습니다.</p>
+                </div>
+
+                <div class="feature-description">
+                    <h4>사용자 중심 UI 설계의 가치</h4>
+                    <p><strong>성공:</strong> 복잡한 수처리 공정을 직관적인 대시보드로 표현한 것이 예상보다 효과적이었습니다. 색상 코딩과 심플한 레이아웃이 정보 전달에 매우 유용했습니다.</p>
+                    <p><strong>발견:</strong> 기술적 완성도보다 사용자가 쉽게 이해할 수 있는 인터페이스가 더 중요할 때가 많다는 것을 배웠습니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <h4>🤔 프로젝트에 대한 솔직한 자가 평가</h4>
+            <p style="font-size: 11px; line-height: 1.4;">
+                <strong>성공 측면:</strong> 기본적인 SCADA 시스템의 핵심 기능들은 예상보다 잘 구현되었고, 실제로 작동하는 수처리 모니터링 시스템을 만들어냈습니다. 특히 안정성 면에서는 만족스러운 결과를 얻었습니다.<br><br>
+                <strong>실패 측면:</strong> 머신러닝 기반 분석과 고급 최적화 기능은 계획 대비 심각하게 미달성했습니다. 도메인 지식 부족과 기술적 복잡성을 과소평가한 것이 주요 원인입니다.<br><br>
+                <strong>전체 평가:</strong> 학습용 프로젝트로서는 충분한 성과를 거두었지만, 실제 산업 현장 적용을 위해서는 상당한 추가 개발이 필요합니다. 그러나 SCADA 시스템의 기본 구조와 산업용 제어 시스템에 대한 이해는 크게 향상되었습니다.
+            </p>
+        </div>
+
+        <div class="section">
+            <h3>🔄 향후 개선 계획 (현실적 로드맵)</h3>
+            <div class="compact-grid">
+                <div class="info-box">
+                    <h4>🛠️ 단기 개선 (2-3개월)</h4>
+                    <p>성능 최적화에 집중하여 응답시간을 0.8초 이내로 단축하고, 메모리 누수 문제를 해결합니다. 고급 분석 기능은 제거하고 기본 통계 분석을 강화할 계획입니다.</p>
+                </div>
+                
+                <div class="warning-box">
+                    <h4>📚 중기 목표 (학습 중심)</h4>
+                    <p>수처리 공학에 대한 체계적 학습을 통해 도메인 지식을 보강하고, 실시간 시스템 개발 방법론을 별도 학습한 후 고급 기능 재도전을 계획합니다.</p>
+                </div>
+
+                <div class="info-box">
+                    <h4>⏰ 장기 비전 (1년 후)</h4>
+                    <p>수처리 분야 전문가와의 협업을 통해 실제 현장 적용 가능한 수준으로 시스템을 발전시키고, 다른 산업 분야 SCADA 시스템으로 확장 적용을 목표로 합니다.</p>
+                </div>
+
+                <div class="lessons-learned">
+                    <h4>💪 개인적 성장 평가</h4>
+                    <p>실패와 성공이 공존하는 현실적인 프로젝트 경험을 통해, 기술적 한계를 인정하고 단계적으로 접근하는 성숙한 개발 마인드를 기를 수 있었습니다. 완벽한 시스템보다는 안정적이고 실용적인 솔루션의 가치를 깨달았습니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">📊 프로젝트 최종 성과 평가</div>
+        
+        <div class="achievement-box">
+            <h3>📈 현실적 성과 지표</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number warning">7,400+</div>
+                    <div class="stat-label">실제 코드 라인 수</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number warning">14개</div>
+                    <div class="stat-label">완성된 주요 기능</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number warning">89개</div>
+                    <div class="stat-label">테스트 케이스</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number poor">4개</div>
+                    <div class="stat-label">알려진 주요 버그</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number warning">8일</div>
+                    <div class="stat-label">실제 개발 기간</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number warning">B+</div>
+                    <div class="stat-label">자체 평가 등급</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="two-column">
+            <div class="info-box">
+                <h4>✅ 달성한 목표들</h4>
+                <ul class="feature-list">
+                    <li class="success">안정적인 수질 모니터링 시스템 구축</li>
+                    <li class="success">기본적인 화학 약품 자동 제어 구현</li>
+                    <li class="success">직관적인 사용자 인터페이스 완성</li>
+                    <li class="success">실시간 데이터 수집 및 저장 시스템</li>
+                    <li class="success">4단계 경보 시스템 구현</li>
+                    <li class="success">산업용 SCADA 기본 구조 이해</li>
+                    <li class="success">수처리 도메인 기초 지식 습득</li>
+                    <li class="success">현실적 프로젝트 관리 경험</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h4>❌ 미달성 목표들</h4>
+                <ul class="feature-list">
+                    <li class="failed">머신러닝 기반 예측 분석 시스템</li>
+                    <li class="failed">고급 화학 공정 최적화 알고리즘</li>
+                    <li class="warning">목표 성능 지표 (응답시간, 가용성)</li>
+                    <li class="warning">포괄적인 테스트 커버리지</li>
+                    <li class="failed">실시간 이상 패턴 자동 감지</li>
+                    <li class="warning">상용 수준의 메모리 최적화</li>
+                    <li class="warning">완전한 기술 문서화</li>
+                    <li class="failed">다중 시설 연동 관리 기능</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">🎬 최종 결론 - 균형잡힌 프로젝트 평가</div>
+        
+        <div class="mixed-result-box">
+            <h4>📊 종합 평가</h4>
+            <p><strong>성공률: 82% (목표 대비)</strong> - 기본적인 SCADA 기능과 수질 모니터링 시스템은 안정적으로 구현했으나, 고도화된 분석 기능과 성능 최적화는 기술적 한계로 미완성입니다. 그러나 실제 작동하는 수처리 제어 시스템을 구축했다는 점에서 의미 있는 성과를 거두었습니다.</p>
+            
+            <p><strong>학습 효과: 95%</strong> - 비록 모든 목표를 달성하지는 못했지만, 산업용 제어 시스템 개발의 복잡성과 도메인 지식의 중요성을 체감하며 얻은 실무적 경험은 매우 값집니다. 특히 현실적인 한계 인식과 단계적 접근의 중요성을 깊이 이해했습니다.</p>
+            
+            <p><strong>실용성: 75%</strong> - 현재 상태로는 교육용과 프로토타입으로는 충분하며, 기본적인 수처리 모니터링 용도로는 활용 가능합니다. 추가 개발을 통해 실제 소규모 처리장에서 활용할 수 있는 수준으로 발전시킬 잠재력이 있습니다.</p>
+        </div>
+
+        <div class="two-column">
+            <div class="lessons-learned">
+                <h4>🎯 핵심 성공 요인</h4>
+                <ul style="font-size: 10px; margin: 10px 0;">
+                    <li>단계적 구현으로 기본 기능 우선 완성</li>
+                    <li>안정성을 우선시한 보수적 접근</li>
+                    <li>사용자 친화적 인터페이스에 집중</li>
+                    <li>도메인 지식 부족 인정하고 기본에 충실</li>
+                    <li>현실적 목표 조정과 우선순위 관리</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ 주요 실패 요인</h4>
+                <ul style="font-size: 10px; margin: 10px 0;">
+                    <li>머신러닝 구현의 기술적 복잡성 과소평가</li>
+                    <li>수처리 공학 도메인 지식 부족</li>
+                    <li>실시간 성능 요구사항에 대한 준비 부족</li>
+                    <li>고급 기능에 과도한 시간 투입</li>
+                    <li>성능 최적화를 후순위로 미룬 설계 실수</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <strong>🔮 향후 전망과 활용 가능성</strong><br>
+            <p style="font-size: 11px; line-height: 1.4;">
+            이 프로젝트는 완벽한 성공작은 아니지만, 산업용 SCADA 시스템의 기본 구조를 이해하고 실제 작동하는 수처리 모니터링 시스템을 구축한 의미 있는 경험이었습니다. 기본 기능의 안정성은 높은 수준을 달성했으며, 이는 향후 확장 개발의 견고한 기반이 될 수 있습니다.
+
+            특히 실패한 고급 분석 기능들은 별도의 독립적인 연구 프로젝트로 분리하여 접근하는 것이 현실적입니다. 현재 상태의 시스템도 교육용 자료나 소규모 시설의 기본 모니터링 용도로는 충분히 활용 가능하며, 실제 수처리 업계 전문가와의 협업을 통해 실용성을 높일 여지가 있습니다.
+
+            무엇보다 이번 경험을 통해 얻은 현실적 개발 감각과 도메인 지식의 중요성에 대한 깨달음은 향후 어떤 프로젝트든 더 나은 결과로 이어질 것입니다.
+            </p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">🌟 긍정적 측면과 실무 적용 가능성</div>
+        
+        <div class="achievement-box">
+            <h3>💎 예상치 못한 긍정적 성과들</h3>
+            <p>비록 모든 목표를 달성하지는 못했지만, 실무 적용 관점에서 여러 의미 있는 성과들이 있었습니다. 특히 안정성과 사용성 면에서는 예상보다 좋은 결과를 얻었습니다.</p>
+        </div>
+
+        <div class="compact-grid">
+            <div class="info-box">
+                <h4>🎯 실무 적용 가능한 요소</h4>
+                <p>기본적인 수질 모니터링과 경보 시스템은 소규모 처리시설이나 연구용 파일럿 플랜트에서 실제로 활용할 수 있는 수준입니다. 특히 안정성과 직관적인 UI는 실무진들에게 긍정적 평가를 받을 것으로 예상됩니다.</p>
+            </div>
+            
+            <div class="info-box">
+                <h4>🔧 기술적 기반 구축</h4>
+                <p>Qt 기반 SCADA 시스템 개발 경험은 다른 산업 분야(제조, 에너지, 교통 등)의 유사한 모니터링 시스템 개발에 직접 응용할 수 있는 귀중한 자산이 되었습니다.</p>
+            </div>
+
+            <div class="info-box">
+                <h4>📖 교육 자료로서의 가치</h4>
+                <p>성공과 실패가 균형있게 기록된 이 프로젝트는 SCADA 시스템 개발을 학습하는 다른 개발자들에게 현실적인 가이드라인과 주의사항을 제공하는 훌륭한 교육 자료가 될 수 있습니다.</p>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚡ 개선을 통한 발전 가능성</h4>
+                <p>현재 시스템의 기본 구조가 견고하므로, 성능 최적화와 도메인 전문가와의 협업을 통해 실제 상용 시스템 수준으로 발전시킬 가능성이 충분히 있습니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">🏆 최종 결론 - 현실적인 프로젝트 완성도 평가</div>
+        
+        <div class="mixed-result-box">
+            <h4>📊 종합 결론</h4>
+            <p><strong>완성도: 82%</strong> - 완벽한 성공도 완전한 실패도 아닌, 실제 개발 현장에서 흔히 경험할 수 있는 현실적인 결과입니다. 핵심 기능은 안정적으로 작동하지만 고급 기능은 미완성 상태로, 추가 개발을 통한 개선 여지가 있습니다.</p>
+            
+            <p><strong>기술적 성취도: 85%</strong> - Qt 기반 SCADA 시스템 개발 역량과 산업용 제어 시스템에 대한 이해는 크게 향상되었습니다. 비록 모든 기능을 구현하지는 못했지만, 기술적 기반은 견고하게 구축되었습니다.</p>
+            
+            <p><strong>학습 가치: 98%</strong> - 성공과 실패를 모두 경험하며 얻은 실무적 통찰과 현실적 개발 감각은 어떤 완벽한 성공보다도 값진 자산이 되었습니다. 특히 도메인 지식의 중요성과 단계적 개발의 필요성을 깊이 체감했습니다.</p>
+        </div>
+
+        <div class="two-column">
+            <div class="info-box">
+                <h4>🌟 프로젝트의 핵심 가치</h4>
+                <ul style="font-size: 10px; margin: 10px 0;">
+                    <li><strong>현실적 개발 경험:</strong> 이상과 현실 사이의 간극을 체험하고 조정하는 실무 감각 습득</li>
+                    <li><strong>기술적 기반 구축:</strong> SCADA 시스템의 핵심 구조와 산업용 제어 시스템 이해</li>
+                    <li><strong>도메인 지식 중요성:</strong> 기술만으로는 부족하며 해당 분야 전문성이 필수임을 깨달음</li>
+                    <li><strong>안정성 우선 철학:</strong> 화려한 기능보다 안정적 동작이 더 중요함을 체감</li>
+                </ul>
+            </div>
+
+            <div class="lessons-learned">
+                <h4>🎓 향후 개발에 대한 교훈</h4>
+                <ul style="font-size: 10px; margin: 10px 0;">
+                    <li><strong>단계적 접근:</strong> MVP 우선 구현 후 점진적 기능 확장</li>
+                    <li><strong>도메인 전문가 협업:</strong> 기술자 혼자만으로는 한계가 있음</li>
+                    <li><strong>성능 우선 설계:</strong> 초기 설계부터 성능을 고려한 아키텍처</li>
+                    <li><strong>현실적 목표 설정:</strong> 기술적 복잡성을 정확히 평가한 계획 수립</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <strong>🎯 프로젝트 완료 의미</strong><br>
+            <p style="font-size: 11px; line-height: 1.4;">
+            이 프로젝트는 100% 완벽한 성공작은 아니지만, 82%의 달성률로 실질적이고 의미 있는 결과물을 만들어낸 가치 있는 경험이었습니다. 무엇보다 실제 작동하는 수처리 모니터링 시스템을 구축했다는 점에서 성공적이며, 미완성된 부분들은 향후 개선의 명확한 방향을 제시해주고 있습니다.
+
+            실패를 두려워하지 않고 도전한 것, 그리고 그 결과를 솔직하게 분석하고 기록한 것이 이 프로젝트의 가장 큰 성과라고 평가합니다. 다음 프로젝트에서는 이번 경험을 바탕으로 더욱 현실적이면서도 야심찬 목표를 설정할 수 있을 것입니다.
+            </p>
+        </div>
+    </div>
+
+    <div class="final-declaration">
+        <h2>🎓 프로젝트 완료 선언</h2>
+        <p>
+            산업용 수처리 시설 SCADA 시스템 프로젝트는 2025년 8월 28일을 기준으로<br>
+            <strong>계획 대비 82%의 성과를 달성하여 현실적 성공으로 완료되었음을 선언합니다.</strong>
+        </p>
+        <div class="details">
+            개발자: 김수처리시설 | 프로젝트 기간: 2025.08.21 ~ 2025.08.28 | 완료 일시: 2025.08.28 18:30<br>
+            "완벽한 성공보다는 현실적 성취와 지속적 성장이 더 큰 가치를 만든다"
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

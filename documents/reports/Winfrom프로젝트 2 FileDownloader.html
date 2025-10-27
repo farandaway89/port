@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C# 스터디 실습 프로젝트 상세 계획서 - 실제 파일 다운로더</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A3;
+            margin: 5mm;
+        }
+        
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+                font-size: 11px;
+            }
+            .container {
+                width: 100%;
+                max-width: none;
+                margin: 0;
+                padding: 10px;
+                box-shadow: none;
+            }
+            .section {
+                margin: 15px 0;
+                padding: 10px;
+                page-break-inside: avoid;
+            }
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f4f7f6;
+            font-size: 12px;
+        }
+        .container {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: none;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            /* PropertyGuard Style Color */
+            background: linear-gradient(135deg, #e74c3c, #f39c12); 
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header h1 {
+            font-size: 28px;
+            margin: 0 0 6px 0;
+            font-weight: 700;
+        }
+        .header p {
+            margin: 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .mixed-result-box {
+            /* PropertyGuard Style Color */
+            background: linear-gradient(135deg, #fff3cd, #f8d7da);
+            border-left: 5px solid #fd7e14;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .mixed-result-box h4 {
+            color: #721c24;
+            margin: 0 0 6px 0;
+            font-size: 14px;
+        }
+        .mixed-result-box p {
+            margin: 0;
+            color: #721c24;
+            font-size: 11px;
+        }
+        .project-period {
+            font-size: 11px;
+            color: #666;
+            text-align: right;
+            margin-bottom: 10px;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 12px;
+            border-radius: 10px;
+            background-color: #fcfcfc;
+            border: 1px solid #eee;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            /* PropertyGuard Style Color */
+            color: #37474f; 
+            border-bottom: 2px solid #ff6b6b;
+            padding-bottom: 3px;
+            margin-bottom: 10px;
+        }
+        .two-column {
+            display: flex;
+            gap: 12px;
+        }
+        .two-column > div {
+            flex: 1;
+        }
+        .usecase-item {
+            padding: 6px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            font-size: 10px;
+        }
+        .success-item {
+            background-color: #d4edda;
+            border-left: 3px solid #28a745;
+        }
+        .partial-item {
+            background-color: #fff3cd;
+            border-left: 3px solid #ffc107;
+        }
+        .achievement-stats {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin: 15px 0;
+        }
+        .stat {
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .stat-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .stat-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .stat-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .stat h3 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .stat p {
+            margin: 5px 0 0 0;
+            font-size: 10px;
+        }
+        .feature-list {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 8px 0;
+        }
+        .feature-list h5 {
+            margin: 0 0 8px 0;
+            color: #495057;
+        }
+        .feature-implemented {
+            color: #28a745;
+            margin-bottom: 4px;
+        }
+        .feature-list h4 {
+            color: #e74c3c;
+            margin: 0 0 8px 0;
+            font-size: 14px;
+        }
+        .feature-list ul {
+            padding-left: 15px;
+            margin: 0;
+        }
+        .feature-list li {
+            margin-bottom: 4px;
+            font-size: 10px;
+        }
+        .tech-tag {
+            background: #e74c3c;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+        }
+        .timeline {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .timeline-item {
+            display: flex;
+            margin-bottom: 8px;
+            align-items: flex-start;
+        }
+        .timeline-date {
+            background: #e74c3c;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 9px;
+            min-width: 50px;
+            text-align: center;
+            margin-right: 8px;
+        }
+        .timeline-content {
+            flex: 1;
+            font-size: 10px;
+        }
+        .toc {
+            margin: 15px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f5f5f5;
+        }
+        .toc h4 {
+            margin-top: 0;
+            color: #e74c3c;
+            font-size: 16px;
+        }
+        .toc ol {
+            padding-left: 20px;
+            margin: 8px 0 0 0;
+            font-size: 12px;
+        }
+        .toc li {
+            margin-bottom: 4px;
+        }
+        .toc a {
+            text-decoration: none;
+            color: #333;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1> C# 스터디 실습 프로젝트 상세 계획서 - 프로젝트 2</h1>
+            <p>프로젝트명: WinForm 기반 실제 파일 다운로더 개발</p>
+        </div>
+
+        <div class="project-period">
+            계획 기간: 10/6 ~ 10/17 | 총 계획 시간: 30시간
+        </div>
+
+        <div class="mixed-result-box">
+            <h4> 프로젝트 계획 요약</h4>
+            <p>
+                본 파일 다운로더 프로젝트는 C# 스터디의 핵심 학습 목표인 비동기 프로그래밍 (Chapter 19)과 네트워크 프로그래밍 (Chapter 21)을 WinForm GUI (Chapter 20) 환경에서 통합적으로 구현하는 것을 목표로 합니다. 특히, 대용량 파일 다운로드 시 UI 블로킹을 완벽하게 방지하는 Task 기반의 비동기 I/O 처리를 마스터하고, 진행 상황을 정확히 보고하는 델리게이트/이벤트 시스템의 실용적 활용에 중점을 둡니다.
+            </p>
+        </div>
+
+        <div class="toc">
+            <h4> 목차</h4>
+            <ol>
+                <li><a href="#section1">계획 목표 및 핵심 기술 적용 현황</a></li>
+                <li><a href="#section2">프로젝트 단계별 상세 구현 일정</a></li>
+                <li><a href="#section3">품질 보증 및 검증 전략 (V&V Plan)</a></li>
+                <li><a href="#section4">프로젝트 결과 및 학습 연계 방안</a></li>
+            </ol>
+        </div>
+
+        <div class="achievement-stats">
+            <div class="stat stat-success">
+                <h3>3/3</h3>
+                <p>핵심 챕터 적용</p>
+            </div>
+            <div class="stat stat-warning">
+                <h3>4단계</h3>
+                <p>주요 구현 단계</p>
+            </div>
+            <div class="stat stat-success">
+                <h3>100%</h3>
+                <p>비동기 I/O 구현</p>
+            </div>
+            <div class="stat stat-warning">
+                <h3>10시간</h3>
+                <p>집중 구현 시간</p>
+            </div>
+        </div>
+
+        <div class="section" id="section1">
+            <div class="section-title">1.  계획 목표 및 핵심 기술 적용 현황</div>
+            
+            <div class="two-column">
+                <div class="feature-list">
+                    <h5> 최종 구현 목표 및 기대 효과</h5>
+                    <div class="feature-implemented">비동기 다운로드 구현: HttpWebRequest, WebClient, 또는 최신 HttpClient를 사용하여 파일을 다운로드하는 전체 프로세스를 async/await 키워드를 기반으로 구축합니다. 대용량 파일을 다운로드하는 동안 UI 스레드가 완벽하게 반응성을 유지하도록 보장하는 것이 핵심 목표입니다.</div>
+                    <div class="feature-implemented">실시간 진행률 보고: 다운로드되는 바이트 스트림의 크기를 주기적으로 측정하고, IProgress 인터페이스 또는 사용자 정의 Delegate를 활용하여 UI의 ProgressBar와 Status Label에 실시간으로 다운로드 진행률을 업데이트합니다. 이를 통해 C#의 비동기 작업 결과 보고 메커니즘을 완전히 숙달합니다.</div>
+                    <div class="feature-implemented">다운로드 취소 기능 구현: CancellationTokenSource 객체를 사용하여 진행 중인 Task를 안전하고 즉각적으로 취소하는 기능을 구현합니다. 이는 장시간 실행되는 비동기 작업에 필수적인 오류 처리 기술을 익히는 중요한 실습입니다.</div>
+                </div>
+                
+                <div class="feature-list">
+                    <h5> C# 핵심 적용 기술 상세</h5>
+                    <div class="usecase-item success-item">
+                        <strong>async/await 패턴 및 Task 기반 병렬 처리:</strong>
+                        <small>다운로드 로직은 전적으로 Task 객체 내부에서 실행되며, await 키워드를 사용하여 비동기 I/O 대기를 효율적으로 처리합니다. UI 스레드와의 통신은 SynchronizationContext를 통해 자동으로 처리되며, 비동기 메서드 작성 및 호출 원리를 깊이 이해합니다.</small>
+                    </div>
+                    <div class="usecase-item success-item">
+                        <strong>IProgress<T> 인터페이스 활용:</strong>
+                        <small>다운로드 로직 내부에서 다운로드된 바이트 수를 계산하고, IProgress<T> 인터페이스를 구현하는 Progress<T> 클래스를 통해 UI 스레드에 진행 상태를 안전하게 보고하는 패턴을 적용합니다. 이는 C#에서 권장되는 비동기 진행률 보고 표준을 따르는 것입니다.</small>
+                    </div>
+                    <div class="usecase-item partial-item">
+                        <strong>네트워크 스트림 I/O 처리:</strong>
+                        <small>HttpClient.GetStreamAsync()을 사용하여 파일의 원시 스트림을 얻은 후, 이를 로컬 FileStream으로 비동기적으로 복사(CopyToAsync)하거나, 버퍼를 활용하여 직접 읽고 쓰는(ReadAsync) 로직을 구현하여 파일 시스템 및 네트워크 스트림 처리를 마스터합니다.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="section2">
+            <div class="section-title">2.  프로젝트 단계별 상세 구현 일정</div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Day 12</div>
+                    <div class="timeline-content">
+                        <strong>1단계: WinForm UI 설계 및 HTTP 기본 연결 로직 구현 (3시간)</strong>
+                        <ul>
+                            <li>UI 설계: URL 입력 TextBox, 다운로드 시작 Button, 다운로드 취소 Button, ProgressBar (진행률), Status Label (상태 메시지) 등 다운로더의 기본 구성 요소를 WinForm에 배치합니다.</li>
+                            <li>HttpClient 초기화: 전역 또는 싱글톤 HttpClient 인스턴스를 생성하고, 다운로드 버튼 클릭 시 유효한 URL인지 확인하는 기본 전처리 로직을 작성합니다.</li>
+                            <li>기본 연결 테스트: GetAsync(url) 호출을 통해 서버 응답 헤더(ContentType, ContentLength)를 받아와 파일 크기를 확인하는 동기 방식의 간단한 테스트를 수행합니다.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Day 13</div>
+                    <div class="timeline-content">
+                        <strong>2단계: Task 기반 비동기 다운로드 코어 로직 구축 (3시간)</strong>
+                        <ul>
+                            <li>비동기 메서드 구현: 핵심 다운로드 로직을 포함하는 DownloadFileAsync 메서드를 async Task 형태로 작성합니다. 이 메서드는 URL, 로컬 저장 경로, CancellationTokenSource, IProgress 객체를 인수로 받도록 설계합니다.</li>
+                            <li>스트림 처리: HttpClient.GetStreamAsync를 사용하여 네트워크 스트림을 얻고, FileStream을 생성하여 네트워크 스트림의 데이터를 비동기적으로 읽어 로컬 파일에 쓰는 핵심 I/O 로직을 구현합니다.</li>
+                            <li>취소 토큰 통합: GetStreamAsync 호출 및 스트림 ReadAsync 루프 내부에 CancellationToken을 통합하여 외부 요청 시 즉시 다운로드를 중단할 수 있는 로직을 삽입합니다.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Day 14</div>
+                    <div class="timeline-content">
+                        <strong>3단계: 진행률 보고 및 취소 기능 연동 (2시간)</strong>
+                        <ul>
+                            <li>Progress 객체 사용: IProgress<long> 또는 IProgress<int> 인터페이스를 구현한 Progress<T> 객체를 생성하고, 다운로드 루프 내에서 일정 주기로 현재 다운로드된 바이트 수를 Progress.Report() 메서드를 통해 보고하도록 로직을 설계합니다.</li>
+                            <li>UI 연동: Progress 객체의 이벤트 핸들러를 WinForm의 ProgressBar 및 Status Label 업데이트 메서드에 연결하여 실시간으로 진행률(%)과 상태 텍스트를 업데이트합니다. 이 과정에서 UI 스레드 안전성이 보장됩니다.</li>
+                            <li>취소 버튼 핸들러: 취소 버튼 클릭 시 CancellationTokenSource의 Cancel() 메서드를 호출하는 이벤트 핸들러를 구현하여 다운로드 Task가 적절히 종료되도록 연동합니다.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Day 15</div>
+                    <div class="timeline-content">
+                        <strong>4단계: 오류 처리 및 최종 테스트 (2시간)</strong>
+                        <ul>
+                            <li>예외 처리: DownloadFileAsync 메서드 호출 부분을 try-catch 구문으로 감싸서 네트워크 오류 (HttpRequestException), 파일 I/O 오류 (IOException) 등 발생 가능한 모든 예외를 안전하게 처리하고, 사용자에게 오류 메시지를 Dialog 형태로 표시합니다.</li>
+                            <li>완료 상태 처리: Task가 성공적으로 완료(Status: RanToCompletion)되거나 취소(Status: Canceled)된 후, UI를 초기 상태로 리셋하고 최종 성공/실패 메시지를 사용자에게 명확히 전달합니다.</li>
+                            <li>종합 검증: 대용량 파일 (100MB 이상) 다운로드를 시도하여 비동기 처리의 효율성을 최종적으로 확인하고, UI가 멈추지 않는지 (Non-Blocking) 확인합니다.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="section3">
+            <div class="section-title">3.  품질 보증 및 검증 전략 (V&V Plan)</div>
+            
+            <div class="two-column">
+                <div>
+                    <h4>단계별 기능 테스트 방법론</h4>
+                    <div class="usecase-item success-item">
+                        <strong>T1: 기본 다운로드 및 진행률 정확성 테스트:</strong>
+                        <small>크기가 알려진 작은 파일(예: 1MB 이미지 파일)을 대상으로 다운로드를 실행합니다. Progress Bar가 0%에서 100%까지 지연 없이 부드럽게 증가하는지 확인하고, 다운로드 완료 후 파일의 크기가 서버의 Content-Length와 일치하는지 검증합니다.</small>
+                    </div>
+                    <div class="usecase-item partial-item">
+                        <strong>T2: UI 비블로킹 및 반응성 테스트 (스트레스):</strong>
+                        <small>1GB 이상의 대용량 파일을 다운로드하는 중에 WinForm 창을 이동시키거나, 다른 UI 요소를 클릭/조작하여 메인 스레드가 블로킹되지 않고 완벽하게 반응하는지 확인합니다. 이는 async/await 기반 비동기 I/O의 성공적인 구현을 확인하는 핵심 테스트입니다.</small>
+                    </div>
+                    <div class="usecase-item success-item">
+                        <strong>T3: 취소 및 예외 처리 테스트:</strong>
+                        <small>다운로드가 20%, 50%, 80% 진행되었을 때 각각 취소 버튼을 눌러 Task가 즉시 중단되는지 확인합니다. 또한, 잘못된 URL (404 Not Found), 네트워크 연결 끊김 상황을 시뮬레이션하여 적절한 예외 메시지가 사용자에게 표시되는지 검증합니다.</small>
+                    </div>
+                </div>
+                <div>
+                    <h4>핵심 검증 기능 (Key Verification Features)</h4>
+                    <div class="feature-list">
+                        <h5> 기능적 요구사항 달성 여부</h5>
+                        <div class="feature-implemented">다운로드 성공률: 유효한 URL을 통해 파일을 100% 오류 없이 다운로드하고, 파일이 로컬 시스템에 올바르게 저장되는지.</div>
+                        <div class="feature-implemented">실시간 진행률: 다운로드 속도와 관계없이 진행률 (바이트/전체 바이트)이 Progress Bar와 Status Label에 정확히 표시되는지.</div>
+                    </div>
+                    <div class="feature-list">
+                        <h5> 비기능적 요구사항 (C# 특화) 검증</h5>
+                        <div class="feature-implemented">Task Status 관리: 다운로드 Task가 완료(RanToCompletion), 오류(Faulted), 취소(Canceled) 상태로 진입했을 때, 각 상태에 맞는 후속 UI 처리 (버튼 비활성화, 메시지 출력)가 정확히 이루어지는지 확인합니다.</div>
+                        <div class="feature-implemented">CancellationToken 유효성: CancellationTokenSource.Cancel() 호출이 ReadAsync/GetStreamAsync 같은 비동기 I/O 메서드를 통해 정상적으로 전파되어 Task를 종료시키는지를 디버깅 단계에서 확인합니다.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section" id="section4">
+            <div class="section-title">4.  프로젝트 결과 및 학습 연계 방안</div>
+            
+            <div style="margin-bottom: 10px;">
+                <h4>프로젝트에 활용되는 주요 기술 스택 및 학습 연계</h4>
+                <div class="two-column">
+                    <div>
+                        <span class="tech-tag">C# (.NET)</span>
+                        <span class="tech-tag">WinForm (System.Windows.Forms)</span>
+                        <span class="tech-tag">HttpClient (System.Net.Http)</span>
+                        <span class="tech-tag">IProgress<T></span>
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="tech-tag">Chapter 19 (Task/Async)</span>
+                        <span class="tech-tag">Chapter 21 (네트워크 프로그래밍)</span>
+                        <span class="tech-tag">Chapter 20 (WinForm)</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-list">
+                <h4>향후 확장 및 학습 방향 제언</h4>
+                <ul>
+                    <li>다운로드 재개 기능 (Resume): HTTP Range 헤더를 사용하여 이전에 다운로드된 파일의 크기 이후부터 다운로드를 재개하는 기능을 구현하여, 네트워크 통신 규격에 대한 이해를 심화시킵니다.</li>
+                    <li>다중 다운로드 큐 관리: Task.WhenAll을 사용하여 동시에 여러 파일을 다운로드하고, UI에 각각의 ProgressBar를 표시하는 다중 다운로드 관리자 기능을 구현하여 Task 병렬 처리 능력을 강화합니다.</li>
+                    <li>다운로드 속도 계산: 바이트 스트림을 읽는 시간을 측정하여 초당 다운로드 속도 (B/s)를 계산하고 Status Label에 실시간으로 표시하는 기능을 추가하여 실시간 데이터 처리 기술을 연마합니다.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>산업용 수처리 시설 SCADA 시스템 - 최종 프로젝트 명세서</title>
+    <style>
+        @page {
+            size: A3;
+            margin: 15mm;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.3;
+            margin: 0;
+            padding: 0;
+            font-size: 11px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(45deg, #2196F3, #607d8b);
+            color: white;
+            border-radius: 8px;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin: 0 0 8px 0;
+        }
+        
+        .header p {
+            margin: 3px 0;
+            font-size: 14px;
+        }
+        
+        .section {
+            margin: 15px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fafafa;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            background: #2196F3;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin: -15px -15px 15px -15px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .four-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 8px;
+        }
+        
+        .usecase-actor {
+            background: #e3f2fd;
+            border: 1px solid #2196F3;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            font-size: 10px;
+        }
+        
+        .usecase-actor h4 {
+            color: #1565c0;
+            margin: 0 0 5px 0;
+            font-size: 12px;
+        }
+        
+        .usecase-item {
+            background: #f0f8ff;
+            margin: 5px 0;
+            padding: 8px;
+            border-radius: 3px;
+            border-left: 3px solid #2196F3;
+            font-size: 10px;
+        }
+        
+        .req-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 9px;
+        }
+        
+        .req-table th {
+            background: #2196F3;
+            color: white;
+            padding: 6px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        .req-table td {
+            padding: 5px 6px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+        
+        .req-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .priority-high { border-left: 3px solid #f44336; }
+        .priority-medium { border-left: 3px solid #ff9800; }
+        .priority-low { border-left: 3px solid #4caf50; }
+        
+        .flowchart {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 10px 0;
+            text-align: center;
+            min-height: 400px;
+        }
+        
+        .flow-step {
+            display: inline-block;
+            background: #2196F3;
+            color: white;
+            padding: 10px 20px;
+            margin: 8px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: bold;
+            min-width: 140px;
+            text-align: center;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+        }
+        
+        .flow-decision {
+            background: #ff9800;
+            color: white;
+            padding: 10px;
+            margin: 8px;
+            border-radius: 50%;
+            display: inline-flex;
+            width: 80px;
+            height: 80px;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            line-height: 1.2;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+        }
+        
+        .flow-arrow {
+            font-size: 20px;
+            color: #2196F3;
+            margin: 10px 5px;
+            font-weight: bold;
+        }
+        
+        .sitemap {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .sitemap-level1 {
+            background: #2196F3;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            margin: 5px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 11px;
+        }
+        
+        .sitemap-level2 {
+            background: #ff9800;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            margin: 2px 5px;
+            display: inline-block;
+            font-size: 9px;
+        }
+        
+        .mockup-screen {
+            border: 2px solid #333;
+            border-radius: 5px;
+            padding: 10px;
+            background: #f8f9fa;
+            margin: 10px 0;
+            min-height: 200px;
+        }
+        
+        .mockup-header {
+            background: #2196F3;
+            color: white;
+            padding: 6px;
+            border-radius: 3px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 10px;
+        }
+        
+        .mockup-widget {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            padding: 8px;
+            text-align: center;
+            font-size: 9px;
+        }
+        
+        .widget-title {
+            background: #ff9800;
+            color: white;
+            padding: 3px;
+            border-radius: 2px;
+            font-size: 8px;
+            margin-bottom: 5px;
+        }
+        
+        .widget-value {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2196F3;
+        }
+        
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 9px;
+        }
+        
+        .schedule-table th {
+            background: #2196F3;
+            color: white;
+            padding: 6px;
+            text-align: center;
+        }
+        
+        .schedule-table td {
+            padding: 5px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+        
+        .day-1 { background: #e3f2fd; }
+        .day-2 { background: #f3e5f5; }
+        .day-3 { background: #e8f5e8; }
+        .day-4 { background: #fff3e0; }
+        .day-5 { background: #fce4ec; }
+        .day-6 { background: #e1f5fe; }
+        .day-7 { background: #e8f5e8; }
+        
+        .table-spec {
+            background: white;
+            border: 1px solid #2196F3;
+            border-radius: 5px;
+            margin: 8px 0;
+            overflow: hidden;
+        }
+        
+        .table-header {
+            background: #2196F3;
+            color: white;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .table-content {
+            padding: 10px;
+        }
+        
+        .field-row {
+            display: grid;
+            grid-template-columns: 2fr 1.5fr 0.5fr 2.5fr;
+            gap: 8px;
+            padding: 3px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 9px;
+        }
+        
+        .field-name {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .field-type {
+            color: #e74c3c;
+            font-family: monospace;
+        }
+        
+        .field-null {
+            color: #95a5a6;
+            font-size: 8px;
+        }
+        
+        .field-desc {
+            color: #7f8c8d;
+        }
+        
+        .erd-container {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .erd-entity {
+            display: inline-block;
+            background: #f8f9fa;
+            border: 1px solid #2196F3;
+            border-radius: 5px;
+            margin: 8px;
+            min-width: 140px;
+            vertical-align: top;
+        }
+        
+        .erd-entity-name {
+            background: #2196F3;
+            color: white;
+            padding: 6px;
+            font-weight: bold;
+            text-align: center;
+            font-size: 10px;
+        }
+        
+        .erd-attributes {
+            padding: 8px;
+            text-align: left;
+            font-size: 8px;
+            line-height: 1.2;
+        }
+        
+        .erd-pk {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .erd-fk {
+            color: #2196F3;
+            font-style: italic;
+        }
+        
+        .erd-relation {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 12px;
+            color: #ff9800;
+            vertical-align: middle;
+        }
+        
+        .project-period {
+            background: linear-gradient(45deg, #2196F3, #1976d2);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 15px 0;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .milestone {
+            background: #2196F3;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 8px;
+            font-weight: bold;
+        }
+        
+        .compact-list {
+            margin: 8px 0;
+            padding-left: 15px;
+        }
+        
+        .compact-list li {
+            margin: 3px 0;
+            font-size: 10px;
+        }
+        
+        .info-box {
+            background: #f0f8ff;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 3px solid #2196F3;
+            margin: 8px 0;
+            font-size: 10px;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 3px solid #ffc107;
+            margin: 8px 0;
+            font-size: 10px;
+        }
+        
+        .success-box {
+            background: #e8f5e8;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 3px solid #4CAF50;
+            margin: 8px 0;
+            font-size: 10px;
+        }
+        
+        h3 {
+            font-size: 14px;
+            margin: 12px 0 8px 0;
+            color: #2c3e50;
+        }
+        
+        h4 {
+            font-size: 12px;
+            margin: 10px 0 6px 0;
+            color: #34495e;
+        }
+        
+        h5 {
+            font-size: 11px;
+            margin: 8px 0 4px 0;
+            color: #34495e;
+        }
+        
+        p {
+            margin: 5px 0;
+            font-size: 10px;
+        }
+        
+        ul, ol {
+            margin: 5px 0;
+            padding-left: 15px;
+        }
+        
+        li {
+            margin: 2px 0;
+            font-size: 10px;
+        }
+        
+        .compact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        @media print {
+            body { 
+                background: white !important;
+                font-size: 10px;
+            }
+            .section {
+                page-break-inside: avoid;
+                margin: 10px 0;
+                padding: 10px;
+            }
+            .container {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>산업용 수처리 시설 SCADA 시스템</h1>
+            <p>최종 프로젝트 명세서 (3.3.1 ~ 3.3.8) | Qt/C++ 기반 실시간 수질 모니터링 및 화학약품 제어 시스템</p>
+        </div>
+
+        <div class="project-period">
+            프로젝트 기간: 2025/08/21(목) ~ 2025/08/28(월) 18:30 (8일간)
+        </div>
+
+        <!-- 3.3.1 유스케이스 -->
+        <div class="section">
+            <div class="section-title">3.3.1 유스케이스 (Use Case)</div>
+            
+            <h3>시스템 액터</h3>
+            <div class="four-column">
+                <div class="usecase-actor">
+                    <h4>수질관리사</h4>
+                    <p>수질 상태 모니터링 및 의사결정</p>
+                </div>
+                <div class="usecase-actor">
+                    <h4>운영자</h4>
+                    <p>일상 운영 및 시설 관리</p>
+                </div>
+                <div class="usecase-actor">
+                    <h4>기술자</h4>
+                    <p>설치, 유지보수, 센서 교정</p>
+                </div>
+                <div class="usecase-actor">
+                    <h4>IoT시스템</h4>
+                    <p>센서, 펌프, 밸브 자동화</p>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>주요 유스케이스</h4>
+                    <div class="usecase-item">
+                        <strong>UC01: 실시간 수질 모니터링</strong><br>
+                        <small>8개 센서 수질 파라미터 실시간 확인</small>
+                    </div>
+                    <div class="usecase-item">
+                        <strong>UC02: 자동 수처리 제어</strong><br>
+                        <small>수질 기준값 기반 장비 자동 제어</small>
+                    </div>
+                    <div class="usecase-item">
+                        <strong>UC03: 화학약품 주입 관리</strong><br>
+                        <small>pH 조절제, 응집제, 소독제 자동 투입</small>
+                    </div>
+                    <div class="usecase-item">
+                        <strong>UC04: 처리공정별 설정 관리</strong><br>
+                        <small>공정별 최적 운영조건 설정</small>
+                    </div>
+                </div>
+                <div>
+                    <h4>시나리오 예시 - UC02</h4>
+                    <div class="info-box">
+                        <strong>자동 수처리 제어</strong><br>
+                        1. 서버는 MySQL DB에서 처리 기준값을 로드합니다<br>
+                        2. 3초마다 8개 센서 데이터 수집<br>
+                        3. pH 데이터가 기준값(7.0±0.5) 범위 벗어남<br>
+                        4. 해당 조절제 펌프 자동 가동<br>
+                        5. pH 정상 범위 회복 후 자동 정지<br>
+                        6. "수질 정상화 완료" 알림 전송<br>
+                        7. 제어이력 로그 기록 저장
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.3.2 요구사항 명세서 -->
+        <div class="section">
+            <div class="section-title">3.3.2 요구사항 명세서</div>
+            
+            <div class="two-column">
+                <div>
+                    <h3>기능적 요구사항</h3>
+                    <table class="req-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>요구사항</th>
+                                <th>우선순위</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="priority-high">
+                                <td>FR01</td>
+                                <td>실시간 수질 센서 데이터 수집 (3초 간격)</td>
+                                <td>높음</td>
+                            </tr>
+                            <tr class="priority-high">
+                                <td>FR02</td>
+                                <td>자동 펌프 및 밸브 제어</td>
+                                <td>높음</td>
+                            </tr>
+                            <tr class="priority-high">
+                                <td>FR03</td>
+                                <td>실시간 수질 데이터 시각화</td>
+                                <td>높음</td>
+                            </tr>
+                            <tr class="priority-medium">
+                                <td>FR04</td>
+                                <td>화학약품 주입 제어</td>
+                                <td>중간</td>
+                            </tr>
+                            <tr class="priority-medium">
+                                <td>FR05</td>
+                                <td>수질 이상 알림 시스템</td>
+                                <td>중간</td>
+                            </tr>
+                            <tr class="priority-low">
+                                <td>FR06</td>
+                                <td>고급 분석 및 예측</td>
+                                <td>낮음</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <h3>비기능적 요구사항</h3>
+                    <table class="req-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>요구사항</th>
+                                <th>목표값</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>NFR01</td>
+                                <td>시스템 가용성</td>
+                                <td>99.8% 이상</td>
+                            </tr>
+                            <tr>
+                                <td>NFR02</td>
+                                <td>응답 시간</td>
+                                <td>0.5초 이내</td>
+                            </tr>
+                            <tr>
+                                <td>NFR03</td>
+                                <td>동시 사용자</td>
+                                <td>최대 20명</td>
+                            </tr>
+                            <tr>
+                                <td>NFR04</td>
+                                <td>데이터 저장</td>
+                                <td>최소 5년간</td>
+                            </tr>
+                            <tr>
+                                <td>NFR05</td>
+                                <td>보안</td>
+                                <td>AES-256</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h4>제약사항</h4>
+                    <div class="warning-box">
+                        • Qt 6.0+, C++17 표준<br>
+                        • 최소 RAM 8GB, 저장공간 500GB<br>
+                        • TCP/IP 통신, 최소 10Mbps<br>
+                        • 산업환경 -10~50℃ 대응
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.3.3 순서도 -->
+        <div class="section">
+            <div class="section-title">3.3.3 순서도</div>
+            
+            <div class="two-column">
+                <div>
+                    <h3>시스템 전체 동작 흐름</h3>
+                    <div class="flowchart">
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+                            <div class="flow-step">시스템 시작</div>
+                            <div class="flow-arrow">↓</div>
+                            <div class="flow-step">센서 초기화</div>
+                            <div class="flow-arrow">↓</div>
+                            <div class="flow-step">DB 연결</div>
+                            <div class="flow-arrow">↓</div>
+                            <div class="flow-step" style="background: #ff9800;">수질 데이터 수집</div>
+                            <div class="flow-arrow">↓</div>
+                            <div class="flow-decision">수질기준<br>초과?</div>
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 15px 0;">
+                                <span style="color: #f44336; font-weight: bold; font-size: 11px;">YES</span>
+                                <div class="flow-step" style="background: #f44336;">장비 제어</div>
+                                <div class="flow-step" style="background: #ff9800;">알림 전송</div>
+                            </div>
+                            <div class="flow-arrow">↓</div>
+                            <div class="flow-step">데이터 저장</div>
+                            <div class="flow-arrow">↓</div>
+                            <div class="flow-step">UI 업데이트</div>
+                            <div class="flow-arrow">→ (3초 후 반복)</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3>화학약품 자동 주입 상세 흐름</h3>
+                    <div class="flowchart">
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+                            <div class="flow-step">pH 센서값 읽기</div>
+                            <div class="flow-arrow">↓</div>
+                            <div class="flow-decision">pH<br>범위밖?</div>
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 15px 0;">
+                                <span style="color: #f44336; font-size: 11px;">YES</span>
+                                <div class="flow-step" style="background: #2196F3;">조절제 펌프 ON</div>
+                            </div>
+                            <div class="flow-arrow">↓</div>
+                            <div class="flow-decision">탁도<br>증가?</div>
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 15px 0;">
+                                <span style="color: #f44336; font-size: 11px;">YES</span>
+                                <div class="flow-step" style="background: #00bcd4;">응집제 주입</div>
+                            </div>
+                            <div class="flow-arrow">↓</div>
+                            <div class="flow-decision">처리량<br>충분?</div>
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 15px 0;">
+                                <span style="color: #f44336; font-size: 11px;">NO</span>
+                                <div class="flow-step" style="background: #ff5722;">펌프 속도 증가</div>
+                            </div>
+                            <div class="flow-arrow">↓</div>
+                            <div class="flow-step">제어 로그 기록</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.3.4 화면 구성도 -->
+        <div class="section">
+            <div class="section-title">3.3.4 화면 구성도</div>
+            
+            <div class="two-column">
+                <div>
+                    <h3>메뉴 구조</h3>
+                    <div class="sitemap">
+                        <div class="sitemap-level1">메인 대시보드</div>
+                        <div style="margin-left: 10px;">
+                            <div class="sitemap-level2">실시간 모니터링</div>
+                            <div class="sitemap-level2">장비제어</div>
+                            <div class="sitemap-level2">수질분석</div>
+                        </div>
+                        
+                        <div class="sitemap-level1">센서 관리</div>
+                        <div style="margin-left: 10px;">
+                            <div class="sitemap-level2">pH</div>
+                            <div class="sitemap-level2">DO (용존산소)</div>
+                            <div class="sitemap-level2">탁도</div>
+                            <div class="sitemap-level2">TDS</div>
+                        </div>
+                        
+                        <div class="sitemap-level1">장비 제어</div>
+                        <div style="margin-left: 10px;">
+                            <div class="sitemap-level2">펌프시스템</div>
+                            <div class="sitemap-level2">약품주입</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3>화면별 구성 요소</h3>
+                    <div class="info-box">
+                        <strong>1. 메인 대시보드</strong><br>
+                        • 상단: 로고, 시간, 사용자 정보<br>
+                        • 좌측: 네비게이션 메뉴<br>
+                        • 중앙: 실시간 수질 위젯 (4x2)<br>
+                        • 우측: 장비상태, 알림, 처리량<br>
+                        • 하단: 실시간 트렌드 차트
+                    </div>
+                    <div class="info-box">
+                        <strong>2. 실시간 모니터링</strong><br>
+                        • 수질 상태 패널<br>
+                        • 실시간 차트<br>
+                        • 처리공정 도식화<br>
+                        • 알람 리스트
+                    </div>
+                    <div class="info-box">
+                        <strong>3. 장비 제어</strong><br>
+                        • 장비 상태 보드<br>
+                        • 수동 제어 버튼<br>
+                        • 자동 모드 설정<br>
+                        • 제어 이력
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.3.5 목업 -->
+        <div class="section">
+            <div class="section-title">3.3.5 목업</div>
+            
+            <div class="two-column">
+                <div>
+                    <h3>메인 대시보드</h3>
+                    <div class="mockup-screen">
+                        <div class="mockup-header">스마트워터 처리시설 SCADA v1.0 | 김수질관리사 | 2025-08-21 14:30</div>
+                        
+                        <div style="display: grid; grid-template-columns: 120px 1fr 150px; gap: 8px; height: 100%;">
+                            <div style="background: #f8f9fa; padding: 5px; border-radius: 3px;">
+                                <div style="background: #2196F3; color: white; padding: 4px; margin-bottom: 4px; text-align: center; font-size: 8px;">대시보드</div>
+                                <div style="background: #e9ecef; padding: 3px; margin-bottom: 2px; font-size: 8px;">수질분석</div>
+                                <div style="background: #e9ecef; padding: 3px; font-size: 8px;">설정</div>
+                            </div>
+                            
+                            <div>
+                                <h5 style="margin: 0 0 8px 0;">실시간 수질 데이터</h5>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px;">
+                                    <div class="mockup-widget">
+                                        <div class="widget-title">pH</div>
+                                        <div class="widget-value">7.1</div>
+                                        <div style="font-size: 7px; color: #666;">목표: 6.5-7.5</div>
+                                    </div>
+                                    <div class="mockup-widget">
+                                        <div class="widget-title">DO</div>
+                                        <div class="widget-value">6.2mg/L</div>
+                                        <div style="font-size: 7px; color: #666;">목표: 5-8mg/L</div>
+                                    </div>
+                                    <div class="mockup-widget">
+                                        <div class="widget-title">탁도</div>
+                                        <div class="widget-value">1.1NTU</div>
+                                        <div style="font-size: 7px; color: #666;">목표: <2NTU</div>
+                                    </div>
+                                    <div class="mockup-widget">
+                                        <div class="widget-title">TDS</div>
+                                        <div class="widget-value">285ppm</div>
+                                        <div style="font-size: 7px; color: #666;">목표: 200-400ppm</div>
+                                    </div>
+                                    <div class="mockup-widget">
+                                        <div class="widget-title">온도</div>
+                                        <div class="widget-value">19.2°C</div>
+                                        <div style="font-size: 7px; color: #666;">목표: 15-25°C</div>
+                                    </div>
+                                    <div class="mockup-widget">
+                                        <div class="widget-title">염소</div>
+                                        <div class="widget-value">0.4ppm</div>
+                                        <div style="font-size: 7px; color: #666;">목표: 0.2-0.5ppm</div>
+                                    </div>
+                                </div>
+                                
+                                <div style="background: white; border: 1px dashed #ccc; padding: 8px; margin-top: 8px; text-align: center; font-size: 8px; color: #666;">
+                                    실시간 수질 트렌드 차트 (최근 24시간)
+                                </div>
+                            </div>
+                            
+                            <div style="background: #f8f9fa; padding: 5px; border-radius: 3px;">
+                                <h5 style="margin: 0 0 5px 0; color: #2196F3; font-size: 9px;">장비 상태</h5>
+                                <div style="font-size: 8px; margin-bottom: 8px;">
+                                    원수펌프: <span style="color: #4CAF50;">●</span> ON<br>
+                                    pH조절제: <span style="color: #666;">●</span> OFF<br>
+                                    응집제: <span style="color: #4CAF50;">●</span> ON<br>
+                                    교반기: <span style="color: #4CAF50;">●</span> ON
+                                </div>
+                                
+                                <h5 style="margin: 8px 0 3px 0; color: #ff9800; font-size: 9px;">최근 알림</h5>
+                                <div style="font-size: 7px; background: white; padding: 5px; border-radius: 2px;">
+                                    14:25 탁도 증가 감지<br>
+                                    14:20 응집제 자동 투입<br>
+                                    13:45 수질 정상 범위 회복
+                                </div>
+                                
+                                <h5 style="margin: 8px 0 3px 0; color: #2196F3; font-size: 9px;">처리량</h5>
+                                <div style="font-size: 8px; background: white; padding: 5px; border-radius: 2px;">
+                                    유량: 22㎥/h<br>압력: 2.1bar
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3>장비 제어 화면</h3>
+                    <div class="mockup-screen">
+                        <div class="mockup-header">수처리 장비 제어 시스템</div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <div>
+                                <h5 style="margin: 0 0 5px 0;">수동 제어</h5>
+                                <div style="background: white; padding: 8px; border-radius: 3px;">
+                                    <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 5px; align-items: center; margin-bottom: 4px; font-size: 8px;">
+                                        <span>원수펌프</span>
+                                        <button style="background: #4CAF50; color: white; border: none; padding: 2px 8px; border-radius: 2px; font-size: 7px;">ON</button>
+                                        <button style="background: #f44336; color: white; border: none; padding: 2px 8px; border-radius: 2px; font-size: 7px;">OFF</button>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 5px; align-items: center; margin-bottom: 4px; font-size: 8px;">
+                                        <span>응집제펌프</span>
+                                        <button style="background: #4CAF50; color: white; border: none; padding: 2px 8px; border-radius: 2px; font-size: 7px;">ON</button>
+                                        <button style="background: #f44336; color: white; border: none; padding: 2px 8px; border-radius: 2px; font-size: 7px;">OFF</button>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 5px; align-items: center; font-size: 8px;">
+                                        <span>소독제펌프</span>
+                                        <button style="background: #4CAF50; color: white; border: none; padding: 2px 8px; border-radius: 2px; font-size: 7px;">ON</button>
+                                        <button style="background: #f44336; color: white; border: none; padding: 2px 8px; border-radius: 2px; font-size: 7px;">OFF</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h5 style="margin: 0 0 5px 0;">자동 제어 설정</h5>
+                                <div style="background: white; padding: 8px; border-radius: 3px; font-size: 8px;">
+                                    <div style="margin-bottom: 5px;">
+                                        <label style="font-weight: bold;">처리공정:</label>
+                                        <select style="width: 100%; padding: 2px; font-size: 8px;">
+                                            <option>표준 처리공정</option>
+                                        </select>
+                                    </div>
+                                    <div style="margin-bottom: 3px;">
+                                        <label>pH 범위: </label>
+                                        <input type="number" value="6.5" style="width: 30px; font-size: 8px;"> ~ 
+                                        <input type="number" value="7.5" style="width: 30px; font-size: 8px;">
+                                    </div>
+                                    <div style="margin-bottom: 3px;">
+                                        <label>탁도 한계: </label>
+                                        <input type="number" value="2" style="width: 30px; font-size: 8px;"> NTU
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <label>처리유량: </label>
+                                        <input type="number" value="20" style="width: 30px; font-size: 8px;"> ㎥/h
+                                    </div>
+                                    <button style="background: #2196F3; color: white; border: none; padding: 4px 8px; border-radius: 3px; width: 100%; font-size: 8px;">설정 저장</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 10px;">
+                            <h5 style="margin: 0 0 5px 0;">제어 이력</h5>
+                            <div style="background: white; border: 1px dashed #ccc; padding: 8px; font-size: 8px; color: #666;">
+                                14:25 응집제 자동 투입 (탁도 1.8 NTU → 임계값 초과)<br>
+                                14:30 pH조절제 자동 가동 (pH 6.2 → 범위 이탈)<br>
+                                13:45 자동모드 정상 운영 (모든 파라미터 정상 범위)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.3.6 일정표 -->
+        <div class="section">
+            <div class="section-title">3.3.6 일정표</div>
+            
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th style="width: 8%;">일차</th>
+                        <th style="width: 12%;">날짜</th>
+                        <th style="width: 25%;">주요 작업</th>
+                        <th style="width: 35%;">상세 내용</th>
+                        <th style="width: 20%;">산출물</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="day-1">
+                        <td><strong>1일차</strong></td>
+                        <td>08/21 (목)</td>
+                        <td>프로젝트 계획 및 설계</td>
+                        <td>요구사항 분석, 시스템 아키텍처 설계, DB 설계, UI 목업</td>
+                        <td>명세서, ERD, 목업, 테이블 명세서</td>
+                    </tr>
+                    <tr class="day-2">
+                        <td><strong>2일차</strong></td>
+                        <td>08/22 (금)</td>
+                        <td>개발 환경 구축</td>
+                        <td>Qt 프로젝트 생성, DB 구축, 기본 UI, 센서 시뮬레이터</td>
+                        <td>Qt 베이스, DB 스키마, 메인 윈도우, 더미 데이터</td>
+                    </tr>
+                    <tr class="day-3">
+                        <td><strong>3일차</strong></td>
+                        <td>08/23 (토)</td>
+                        <td>수질 센서 데이터 처리</td>
+                        <td>데이터 수집 모듈, 실시간 처리, DB 연동, 모니터링 UI</td>
+                        <td>센서 클래스, DB 모듈, 차트 위젯, 대시보드</td>
+                    </tr>
+                    <tr class="day-4">
+                        <td><strong>4일차</strong></td>
+                        <td>08/24 (일)</td>
+                        <td>장비 제어 시스템</td>
+                        <td>자동 제어 로직, 펌프/밸브 제어, 수동 제어, 로깅</td>
+                        <td>제어 엔진, 장비 인터페이스, 제어 UI, 로그 시스템</td>
+                    </tr>
+                    <tr class="day-5">
+                        <td><strong>5일차</strong></td>
+                        <td>08/25 (월)</td>
+                        <td>화학약품 주입 시스템</td>
+                        <td>약품 투입 로직, pH 제어, 알림 시스템, 사용자 설정</td>
+                        <td>약품제어 모듈, 알림 서비스, 설정 UI, 안전장치</td>
+                    </tr>
+                    <tr class="day-6">
+                        <td><strong>6일차</strong></td>
+                        <td>08/26 (화)</td>
+                        <td>고급 분석 및 통합 테스트</td>
+                        <td>분석 기능, 시스템 통합, 성능 최적화, UI 개선</td>
+                        <td>분석 모듈, 테스트 보고서, 최적화 완료, 최종 UI</td>
+                    </tr>
+                    <tr class="day-7">
+                        <td><strong>7일차</strong></td>
+                        <td>08/27 (수)</td>
+                        <td>최종 검수 및 문서화</td>
+                        <td>최종 검수, 사용자 매뉴얼, 문서 정리, 발표 준비</td>
+                        <td>사용자 매뉴얼, 기술문서, 발표자료, 설치가이드</td>
+                    </tr>
+                    <tr class="day-1" style="background: #ffecb3;">
+                        <td><strong>8일차</strong></td>
+                        <td>08/28 (월)</td>
+                        <td>배포 및 완료</td>
+                        <td>실행파일 생성, 배포 패키지, 최종 점검, 프로젝트 완료</td>
+                        <td>실행파일, 설치패키지, 최종문서 <span class="milestone">18:30 마감</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="four-column">
+                <div class="info-box">
+                    <strong>1단계 (1-2일차)</strong><br>
+                    설계 및 기반 구조<br>
+                    <span class="milestone">08/22 18:00</span>
+                </div>
+                <div class="info-box">
+                    <strong>2단계 (3-5일차)</strong><br>
+                    핵심 기능 구현<br>
+                    <span class="milestone">08/25 18:00</span>
+                </div>
+                <div class="success-box">
+                    <strong>3단계 (6-7일차)</strong><br>
+                    고급 기능 및 테스트<br>
+                    <span class="milestone">08/27 18:00</span>
+                </div>
+                <div class="warning-box">
+                    <strong>최종 (8일차)</strong><br>
+                    완료 및 제출<br>
+                    <span class="milestone">08/28 18:30</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.3.7 테이블 명세서 -->
+        <div class="section">
+            <div class="section-title">3.3.7 테이블 명세서</div>
+            
+            <div class="compact-grid">
+                <div class="table-spec">
+                    <div class="table-header">users - 사용자</div>
+                    <div class="table-content">
+                        <div class="field-row" style="font-weight: bold; background: #f8f9fa;">
+                            <div>필드명</div><div>타입</div><div>NULL</div><div>설명</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">user_id</div>
+                            <div class="field-type">INT PK</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">사용자 ID</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">username</div>
+                            <div class="field-type">VARCHAR(50)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">로그인 아이디</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">password</div>
+                            <div class="field-type">VARCHAR(255)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">암호화 비밀번호</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">role</div>
+                            <div class="field-type">ENUM</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">권한 (admin/operator/viewer)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-spec">
+                    <div class="table-header">water_quality_data - 수질데이터</div>
+                    <div class="table-content">
+                        <div class="field-row" style="font-weight: bold; background: #f8f9fa;">
+                            <div>필드명</div><div>타입</div><div>NULL</div><div>설명</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">data_id</div>
+                            <div class="field-type">BIGINT PK</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">데이터 ID</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">sensor_id</div>
+                            <div class="field-type">INT FK</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">센서 ID</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">timestamp</div>
+                            <div class="field-type">TIMESTAMP</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">측정 시간</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">value</div>
+                            <div class="field-type">DECIMAL(10,3)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">측정값</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-spec">
+                    <div class="table-header">sensors - 센서정보</div>
+                    <div class="table-content">
+                        <div class="field-row" style="font-weight: bold; background: #f8f9fa;">
+                            <div>필드명</div><div>타입</div><div>NULL</div><div>설명</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">sensor_id</div>
+                            <div class="field-type">INT PK</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">센서 ID</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">sensor_type</div>
+                            <div class="field-type">ENUM</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">센서 타입</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">location</div>
+                            <div class="field-type">VARCHAR(100)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">설치 위치</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">min_value</div>
+                            <div class="field-type">DECIMAL(10,3)</div>
+                            <div class="field-null">NULL</div>
+                            <div class="field-desc">최소값</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-spec">
+                    <div class="table-header">equipment - 장비정보</div>
+                    <div class="table-content">
+                        <div class="field-row" style="font-weight: bold; background: #f8f9fa;">
+                            <div>필드명</div><div>타입</div><div>NULL</div><div>설명</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">equipment_id</div>
+                            <div class="field-type">INT PK</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">장비 ID</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">equipment_type</div>
+                            <div class="field-type">ENUM</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">장비 타입</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">current_status</div>
+                            <div class="field-type">ENUM</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">현재 상태</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">auto_mode</div>
+                            <div class="field-type">BOOLEAN</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">자동모드</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-spec">
+                    <div class="table-header">treatment_logs - 처리이력</div>
+                    <div class="table-content">
+                        <div class="field-row" style="font-weight: bold; background: #f8f9fa;">
+                            <div>필드명</div><div>타입</div><div>NULL</div><div>설명</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">log_id</div>
+                            <div class="field-type">BIGINT PK</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">로그 ID</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">equipment_id</div>
+                            <div class="field-type">INT FK</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">장비 ID</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">timestamp</div>
+                            <div class="field-type">TIMESTAMP</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">제어 시간</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">action</div>
+                            <div class="field-type">ENUM</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">제어 동작</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-spec">
+                    <div class="table-header">chemical_dosing - 약품투입</div>
+                    <div class="table-content">
+                        <div class="field-row" style="font-weight: bold; background: #f8f9fa;">
+                            <div>필드명</div><div>타입</div><div>NULL</div><div>설명</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">dosing_id</div>
+                            <div class="field-type">INT PK</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">투입 ID</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">chemical_type</div>
+                            <div class="field-type">ENUM</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">약품 종류</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">dosage_rate</div>
+                            <div class="field-type">DECIMAL(8,3)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">투입량 (ml/h)</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">target_parameter</div>
+                            <div class="field-type">VARCHAR(50)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">목표 파라미터</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.3.8 ERD -->
+        <div class="section">
+            <div class="section-title">3.3.8 ERD</div>
+            
+            <div class="erd-container">
+                <div class="erd-entity">
+                    <div class="erd-entity-name">USERS</div>
+                    <div class="erd-attributes">
+                        <div class="erd-pk">user_id (PK)</div>
+                        <div>username</div>
+                        <div>password</div>
+                        <div>role</div>
+                        <div>email</div>
+                    </div>
+                </div>
+
+                <div class="erd-relation">1:N</div>
+
+                <div class="erd-entity">
+                    <div class="erd-entity-name">NOTIFICATIONS</div>
+                    <div class="erd-attributes">
+                        <div class="erd-pk">notification_id (PK)</div>
+                        <div class="erd-fk">user_id (FK)</div>
+                        <div>timestamp</div>
+                        <div>message</div>
+                        <div>alert_level</div>
+                    </div>
+                </div>
+
+                <div class="erd-entity">
+                    <div class="erd-entity-name">SENSORS</div>
+                    <div class="erd-attributes">
+                        <div class="erd-pk">sensor_id (PK)</div>
+                        <div>sensor_type</div>
+                        <div>location</div>
+                        <div>min_value</div>
+                        <div>max_value</div>
+                    </div>
+                </div>
+
+                <div class="erd-relation">1:N</div>
+
+                <div class="erd-entity">
+                    <div class="erd-entity-name">WATER_QUALITY_DATA</div>
+                    <div class="erd-attributes">
+                        <div class="erd-fk">sensor_id (FK)</div>
+                        <div>timestamp</div>
+                        <div>value</div>
+                        <div>status</div>
+                    </div>
+                </div>
+
+                <div class="erd-entity">
+                    <div class="erd-entity-name">EQUIPMENT</div>
+                    <div class="erd-attributes">
+                        <div class="erd-pk">equipment_id (PK)</div>
+                        <div>equipment_type</div>
+                        <div>current_status</div>
+                        <div>auto_mode</div>
+                        <div>location</div>
+                    </div>
+                </div>
+
+                <div class="erd-relation">1:N</div>
+
+                <div class="erd-entity">
+                    <div class="erd-entity-name">TREATMENT_LOGS</div>
+                    <div class="erd-attributes">
+                        <div class="erd-pk">log_id (PK)</div>
+                        <div class="erd-fk">equipment_id (FK)</div>
+                        <div class="erd-fk">user_id (FK)</div>
+                        <div>timestamp</div>
+                        <div>action</div>
+                    </div>
+                </div>
+
+                <div class="erd-entity">
+                    <div class="erd-entity-name">CHEMICAL_DOSING</div>
+                    <div class="erd-attributes">
+                        <div class="erd-pk">dosing_id (PK)</div>
+                        <div>chemical_type</div>
+                        <div>dosage_rate</div>
+                        <div>target_parameter</div>
+                        <div>timestamp</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3>주요 관계 설명</h3>
+                    <div class="info-box">
+                        <strong>관계 정의:</strong><br>
+                        • USERS ↔ NOTIFICATIONS (1:N)<br>
+                        • USERS ↔ TREATMENT_LOGS (1:N)<br>
+                        • SENSORS ↔ WATER_QUALITY_DATA (1:N)<br>
+                        • EQUIPMENT ↔ TREATMENT_LOGS (1:N)<br>
+                        • CHEMICAL_DOSING (독립 테이블)
+                    </div>
+                    
+                    <h4>인덱스 설계</h4>
+                    <div class="success-box">
+                        • water_quality_data: (timestamp, sensor_id)<br>
+                        • treatment_logs: (timestamp, equipment_id)<br>
+                        • notifications: (user_id, timestamp)<br>
+                        • chemical_dosing: (timestamp, chemical_type)<br>
+                        • users: username (unique)
+                    </div>
+                </div>
+                <div>
+                    <h3>데이터 보존 정책</h3>
+                    <div class="warning-box">
+                        <strong>보존 기간:</strong><br>
+                        • water_quality_data: 5년 → 월단위 집계<br>
+                        • treatment_logs: 2년 → 중요 이벤트만<br>
+                        • chemical_dosing: 3년 → 법적 요구사항<br>
+                        • notifications: 1년 → 삭제<br>
+                        • 기타 마스터: 영구 보존
+                    </div>
+                    
+                    <h4>성능 최적화</h4>
+                    <div class="info-box">
+                        • 파티셔닝: 월별 테이블 분할<br>
+                        • 압축: 과거 데이터 압축 저장<br>
+                        • 캐싱: 실시간 데이터 메모리 캐시<br>
+                        • 배치: 대용량 데이터 일괄 처리<br>
+                        • 복제: 읽기 전용 복제본 운영
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 프로젝트 마무리 -->
+        <div style="background: linear-gradient(45deg, #2196F3, #1976d2); color: white; padding: 20px; border-radius: 10px; text-align: center; margin-top: 20px;">
+            <h2 style="margin: 0 0 10px 0; font-size: 20px;">프로젝트 완료 목표</h2>
+            <p style="font-size: 16px; margin: 0 0 15px 0;">
+                <strong>2025년 8월 28일 18:30까지</strong><br>
+                완전히 동작하는 산업용 수처리 시설 SCADA 시스템 개발 완료
+            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 15px; margin-top: 15px;">
+                <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 5px;">
+                    <div style="font-size: 14px; font-weight: bold;">명세서</div>
+                    <div style="font-size: 12px;">완료</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 5px;">
+                    <div style="font-size: 14px; font-weight: bold;">개발</div>
+                    <div style="font-size: 12px;">진행중</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 5px;">
+                    <div style="font-size: 14px; font-weight: bold;">테스트</div>
+                    <div style="font-size: 12px;">예정</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 5px;">
+                    <div style="font-size: 14px; font-weight: bold;">완성</div>
+                    <div style="font-size: 12px;">목표</div>
+                </div>
+            </div>
+            <div style="margin-top: 15px; font-size: 12px; opacity: 0.9;">
+                Qt/C++ 기반 스마트 수처리 시설 관리 시스템 | 실시간 수질 데이터 수집 및 자동 화학약품 제어 | 성공적인 프로젝트 완성을 위해!
+            </div>
+        </div>
+
+        <!-- 추가 기술 정보 -->
+        <div style="margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+            <h3 style="margin: 0 0 10px 0; color: #2c3e50;">기술 스택 및 개발 환경</h3>
+            <div class="four-column">
+                <div style="background: white; padding: 10px; border-radius: 5px; border-left: 3px solid #2196F3;">
+                    <h5 style="margin: 0 0 5px 0; color: #2196F3;">Frontend</h5>
+                    <div style="font-size: 10px;">
+                        • Qt 6.0+ (GUI Framework)<br>
+                        • Qt Charts (데이터 시각화)<br>
+                        • Qt Widgets (UI 컴포넌트)<br>
+                        • QML (선택적 UI)
+                    </div>
+                </div>
+                <div style="background: white; padding: 10px; border-radius: 5px; border-left: 3px solid #607d8b;">
+                    <h5 style="margin: 0 0 5px 0; color: #607d8b;">Backend</h5>
+                    <div style="font-size: 10px;">
+                        • C++17 Standard<br>
+                        • Qt SQL (데이터베이스)<br>
+                        • Qt Network (통신)<br>
+                        • Qt Timer (스케줄링)
+                    </div>
+                </div>
+                <div style="background: white; padding: 10px; border-radius: 5px; border-left: 3px solid #4caf50;">
+                    <h5 style="margin: 0 0 5px 0; color: #4caf50;">Database</h5>
+                    <div style="font-size: 10px;">
+                        • MySQL 8.0 (메인 DB)<br>
+                        • SQLite (로컬 백업)<br>
+                        • SQL 인덱스 최적화<br>
+                        • 데이터 아카이빙
+                    </div>
+                </div>
+                <div style="background: white; padding: 10px; border-radius: 5px; border-left: 3px solid #ff9800;">
+                    <h5 style="margin: 0 0 5px 0; color: #ff9800;">Communication</h5>
+                    <div style="font-size: 10px;">
+                        • TCP/IP Socket<br>
+                        • Serial Communication<br>
+                        • HTTP/REST API<br>
+                        • Email SMTP
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 성능 목표 -->
+        <div style="margin-top: 10px; padding: 12px; background: #e3f2fd; border-radius: 8px; border-left: 4px solid #2196F3;">
+            <h4 style="margin: 0 0 8px 0; color: #1565c0;">시스템 성능 목표</h4>
+            <div class="four-column">
+                <div style="text-align: center;">
+                    <div style="font-size: 18px; font-weight: bold; color: #2196F3;">3초</div>
+                    <div style="font-size: 10px;">수질 데이터 수집 주기</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 18px; font-weight: bold; color: #ff9800;">0.5초</div>
+                    <div style="font-size: 10px;">UI 응답 시간</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 18px; font-weight: bold; color: #4caf50;">20명</div>
+                    <div style="font-size: 10px;">동시 접속 사용자</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 18px; font-weight: bold; color: #607d8b;">99.8%</div>
+                    <div style="font-size: 10px;">시스템 가용성</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 품질 보증 -->
+        <div style="margin-top: 10px; padding: 12px; background: #fff3e0; border-radius: 8px; border-left: 4px solid #ff9800;">
+            <h4 style="margin: 0 0 8px 0; color: #f57c00;">품질 보증 계획</h4>
+            <div class="three-column">
+                <div>
+                    <h5 style="margin: 0 0 5px 0; font-size: 11px;">단위 테스트</h5>
+                    <ul style="margin: 0; padding-left: 12px;">
+                        <li>수질 데이터 처리</li>
+                        <li>제어 로직 검증</li>
+                        <li>DB 연동 테스트</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 style="margin: 0 0 5px 0; font-size: 11px;">통합 테스트</h5>
+                    <ul style="margin: 0; padding-left: 12px;">
+                        <li>전체 시스템 플로우</li>
+                        <li>실시간 데이터 처리</li>
+                        <li>장비 제어 연동</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 style="margin: 0 0 5px 0; font-size: 11px;">사용성 테스트</h5>
+                    <ul style="margin: 0; padding-left: 12px;">
+                        <li>UI/UX 검증</li>
+                        <li>사용자 시나리오</li>
+                        <li>성능 벤치마크</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 화학공정 및 안전 -->
+        <div style="margin-top: 10px; padding: 12px; background: #f3e5f5; border-radius: 8px; border-left: 4px solid #9c27b0;">
+            <h4 style="margin: 0 0 8px 0; color: #7b1fa2;">화학공정 및 안전관리</h4>
+            <div class="two-column">
+                <div>
+                    <h5 style="margin: 0 0 5px 0; font-size: 11px;">화학약품 관리</h5>
+                    <ul style="margin: 0; padding-left: 12px;">
+                        <li>pH 조절제 (산/알칼리) 자동 투입</li>
+                        <li>응집제 (PAC/황산알루미늄) 제어</li>
+                        <li>소독제 (염소/오존) 투입량 관리</li>
+                        <li>약품 재고 및 안전 농도 모니터링</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 style="margin: 0 0 5px 0; font-size: 11px;">안전 시스템</h5>
+                    <ul style="margin: 0; padding-left: 12px;">
+                        <li>과투입 방지 안전장치</li>
+                        <li>비상정지 시스템</li>
+                        <li>누출 감지 및 알림</li>
+                        <li>작업자 안전 프로토콜</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

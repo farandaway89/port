@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProjectSettings Input System 설정 변경</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            overflow: hidden;
+        }
+        
+        .unity-interface {
+            width: 100vw;
+            height: 100vh;
+            background: #393939;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .unity-header {
+            background: #2c2c2c;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            border-bottom: 1px solid #555;
+        }
+        
+        .unity-logo {
+            color: #fff;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .unity-content {
+            display: flex;
+            flex: 1;
+        }
+        
+        .file-editor {
+            flex: 1.5;
+            background: #1e1e1e;
+            padding: 20px;
+            font-family: 'Consolas', monospace;
+            font-size: 11px;
+            color: #d4d4d4;
+            overflow-y: auto;
+        }
+        
+        .project-settings {
+            flex: 1;
+            background: #2c2c2c;
+            padding: 20px;
+            overflow-y: auto;
+            border-left: 1px solid #555;
+        }
+        
+        .code-line {
+            margin: 1px 0;
+            padding: 1px 0;
+        }
+        
+        .line-number {
+            color: #858585;
+            margin-right: 12px;
+            user-select: none;
+            width: 35px;
+            display: inline-block;
+            text-align: right;
+        }
+        
+        .keyword {
+            color: #569cd6;
+        }
+        
+        .string {
+            color: #ce9178;
+        }
+        
+        .comment {
+            color: #6a9955;
+        }
+        
+        .property {
+            color: #92c5f5;
+        }
+        
+        .value {
+            color: #ce9178;
+        }
+        
+        .highlight-line {
+            background: rgba(107, 207, 127, 0.1);
+            border-left: 3px solid #6bcf7f;
+        }
+        
+        .error-highlight {
+            background: rgba(255, 107, 107, 0.1);
+            border-left: 3px solid #ff6b6b;
+        }
+        
+        .setting-group {
+            background: #3a3a3a;
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 3px solid #4a9eff;
+        }
+        
+        .setting-header {
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .setting-item {
+            margin: 8px 0;
+            color: #ccc;
+            font-size: 12px;
+        }
+        
+        .setting-value {
+            color: #a8eaea;
+            font-weight: bold;
+        }
+        
+        .dropdown {
+            background: #555;
+            border: 1px solid #777;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            margin-left: 10px;
+        }
+        
+        .dropdown.changed {
+            background: #4a9eff;
+        }
+        
+        .console-output {
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(255, 217, 61, 0.1);
+            border-left: 3px solid #ffd93d;
+            border-radius: 3px;
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <div class="unity-interface">
+        <div class="unity-header">
+            <div class="unity-logo">⚙️ Unity Project Settings - Input System 설정 변경</div>
+        </div>
+        
+        <div class="unity-content">
+            <div class="file-editor">
+                <h4 style="color: #fff; margin: 0 0 15px 0;">📝 ProjectSettings.asset - 직접 수정</h4>
+                
+                <div class="code-line">
+                    <span class="line-number">712</span>
+                    androidVulkanAllowFilterList: []
+                </div>
+                <div class="code-line">
+                    <span class="line-number">713</span>
+                    androidVulkanDeviceFilterListAsset: {fileID: 0}
+                </div>
+                <div class="code-line">
+                    <span class="line-number">714</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">715</span>
+                    <span class="property">enableNativePlatformBackendsForNewInputSystem</span>: <span class="value">0</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">716</span>
+                    <span class="property">disableOldInputManagerSupport</span>: <span class="value">0</span>
+                </div>
+                <div class="code-line error-highlight">
+                    <span class="line-number">717</span>
+                    <span class="property">m_ActiveInputHandling</span>: <span class="value">2</span> <span class="comment"># Input System Only (실패)</span>
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">717</span>
+                    <span class="property">m_ActiveInputHandling</span>: <span class="value">1</span> <span class="comment"># Both (시도 중)</span>
+                </div>
+                <div class="code-line error-highlight">
+                    <span class="line-number">717</span>
+                    <span class="property">m_ActiveInputHandling</span>: <span class="value">0</span> <span class="comment"># Legacy Only (실패)</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">718</span>
+                </div>
+                
+                <div style="margin-top: 20px; padding: 10px; background: rgba(255, 217, 61, 0.1); border-left: 3px solid #ffd93d; border-radius: 3px;">
+                    <strong style="color: #ffd93d;">⚠️ m_ActiveInputHandling 설정값</strong><br>
+                    <span style="color: #ccc; font-size: 10px;">
+                    • 0: Legacy Input Manager Only<br>
+                    • 1: Both (Legacy + Input System)<br>
+                    • 2: Input System Package Only<br>
+                    <br>
+                    🔄 모든 설정 시도했으나 근본 해결 안됨
+                    </span>
+                </div>
+                
+                <div style="margin-top: 15px; padding: 10px; background: rgba(255, 107, 107, 0.1); border-left: 3px solid #ff6b6b; border-radius: 3px;">
+                    <strong style="color: #ff6b6b;">❌ 추가 발생 문제</strong><br>
+                    <span style="color: #ccc; font-size: 10px;">
+                    CS0117: 'Debug' does not contain a definition for 'DrawWireSphere'<br>
+                    CS0246: The type or namespace name 'Enemy' could not be found<br>
+                    UnityException: Tag: Enemy is not defined<br>
+                    MissingComponentException: There is no 'Renderer' attached
+                    </span>
+                </div>
+                
+                <h4 style="color: #fff; margin: 20px 0 10px 0;">📄 Packages/manifest.json</h4>
+                
+                <div class="code-line">
+                    <span class="line-number">1</span>
+                    {
+                </div>
+                <div class="code-line">
+                    <span class="line-number">2</span>
+                    　"dependencies": {
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">3</span>
+                    　　<span class="comment">// Input System 패키지 없음 확인</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">4</span>
+                    　　<span class="string">"com.unity.multiplayer.center"</span>: <span class="string">"1.0.0"</span>,
+                </div>
+                <div class="code-line">
+                    <span class="line-number">5</span>
+                    　　<span class="string">"com.unity.modules.accessibility"</span>: <span class="string">"1.0.0"</span>,
+                </div>
+                <div class="code-line">
+                    <span class="line-number">6</span>
+                    　　<span class="comment">// ... 기본 모듈들만 존재</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">36</span>
+                    　}
+                </div>
+                <div class="code-line">
+                    <span class="line-number">37</span>
+                    }
+                </div>
+            </div>
+            
+            <div class="project-settings">
+                <h3 style="color: #fff; margin: 0 0 20px 0;">⚙️ Player Settings - Input System</h3>
+                
+                <div class="setting-group">
+                    <div class="setting-header">🎮 Active Input Handling</div>
+                    <div class="setting-item">
+                        Configuration:
+                        <select class="dropdown changed">
+                            <option>Input Manager (Old)</option>
+                            <option selected>Both</option>
+                            <option>Input System Package (New)</option>
+                        </select>
+                    </div>
+                    <div class="setting-item" style="color: #888; font-size: 11px;">
+                        ⚠️ 설정 변경됨: Input System Package → Both
+                    </div>
+                </div>
+                
+                <div class="setting-group">
+                    <div class="setting-header">🔧 Input System Settings</div>
+                    <div class="setting-item">
+                        Enable Native Platform Backends: <span class="setting-value">Disabled</span>
+                    </div>
+                    <div class="setting-item">
+                        Disable Old Input Manager Support: <span class="setting-value">Disabled</span>
+                    </div>
+                </div>
+                
+                <div class="setting-group">
+                    <div class="setting-header">📊 시도한 설정값들</div>
+                    <div class="setting-item">
+                        ❌ Legacy Only (0): InvalidOperationException 지속
+                    </div>
+                    <div class="setting-item">
+                        ⚠️ Both (1): 현재 설정, 여전히 작동 안함
+                    </div>
+                    <div class="setting-item">
+                        ❌ Input System Only (2): 더 많은 오류 발생
+                    </div>
+                </div>
+                
+                <div class="console-output">
+                    <strong style="color: #ffd93d;">⚠️ 결과 분석</strong><br>
+                    <span style="color: #ccc;">
+                    • ProjectSettings 직접 수정으로도 해결 안됨<br>
+                    • 모든 m_ActiveInputHandling 값 테스트 완료<br>
+                    • Input System 근본적 충돌 지속<br>
+                    • 추가로 Tag, Component 오류까지 발생<br>
+                    • 설정 레벨에서는 해결 불가능 판단
+                    </span>
+                </div>
+                
+                <div style="margin-top: 15px; padding: 10px; background: rgba(107, 207, 127, 0.1); border-left: 3px solid #6bcf7f; border-radius: 3px;">
+                    <strong style="color: #6bcf7f;">✅ 학습된 내용</strong><br>
+                    <span style="color: #ccc; font-size: 11px;">
+                    • Unity Input System 복잡성 이해<br>
+                    • ProjectSettings.asset 구조 파악<br>
+                    • manifest.json 패키지 관리 이해<br>
+                    • 설정만으로는 근본 해결 불가능 인식
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

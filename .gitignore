@@ -1,0 +1,39 @@
+.vercel
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+*.egg-info/
+
+# Node  
+node_modules/
+package-lock.json
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Backup files
+*backup*
+*복사본*
+백업_*/
+
+# Temporary files
+*.pdf
+*.docx
+
+# Scripts
+*.py
+*.sh
+*.c
+
+# Only track essential files:
+# - 이승필_포트폴리오_완전본.html
+# - documents/
+# - README.md  
+# - vercel.json
