@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "이승필_포트폴리오_완전본.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/이승필_포트폴리오_완전본.html"
+    },
+    {
+      "src": "/documents/(.*)",
+      "dest": "/documents/$1"
+    }
+  ]
+}
