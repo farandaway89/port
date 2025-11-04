@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/",
-      "destination": "/이승필_포트폴리오_완전본.html"
-    }
-  ]
-}
