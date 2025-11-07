@@ -52,6 +52,11 @@ export function Projects() {
                       완료보고서
                     </a>
                   )}
+                  {project.links.additional && project.links.additional.map((link, idx) => (
+                    <a key={idx} href={link.url} className="project-link" target="_blank" rel="noopener noreferrer">
+                      {link.label}
+                    </a>
+                  ))}
                 </div>
               </div>
             </div>

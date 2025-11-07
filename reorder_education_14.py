@@ -1,4 +1,9 @@
-export interface EducationItem {
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Move 농·축산 데이터 분석 to position 14
+
+education_data = """export interface EducationItem {
   id: number;
   title: string;
   school: string;
@@ -177,3 +182,9 @@ export const educationData: EducationItem[] = [
     showOnlineTag: false
   }
 ];
+"""
+
+with open('C:/developer/port-website/portfolio-react/src/data/educationData.ts', 'w', encoding='utf-8') as f:
+    f.write(education_data)
+
+print("MOVED to position 14!")

@@ -1,4 +1,9 @@
-export interface EducationItem {
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Reorder education data - move 농·축산 데이터 분석 to position 8 (middle)
+
+education_data = """export interface EducationItem {
   id: number;
   title: string;
   school: string;
@@ -90,6 +95,17 @@ export const educationData: EducationItem[] = [
   },
   {
     id: 8,
+    title: "[데이터 분석] 농·축산 데이터 셋을 활용한 데이터 분석",
+    school: "전남ICT이노베이션스퀘어",
+    period: "2025.10.27-11.27 (20일, 80시간)",
+    description: "농·축산 데이터를 활용한 실무 데이터 분석 과정으로, Python 프로그래밍 기초부터 NumPy, Pandas를 활용한 데이터 처리 및 분석 기술을 학습합니다.",
+    mainTopics: ["Python Programming", "NumPy", "Pandas", "Data Analysis", "Matplotlib", "Seaborn", "Data Visualization"],
+    link: "",
+    status: "진행중",
+    showOnlineTag: true
+  },
+  {
+    id: 9,
     title: "NVIDIA X AICA Cluster GPU 활용 캠프 온라인 교육",
     school: "인공지능산업융합사업단 (AICA)",
     period: "2025.01.31-12.20 (40시간)",
@@ -100,7 +116,7 @@ export const educationData: EducationItem[] = [
     showOnlineTag: true
   },
   {
-    id: 9,
+    id: 10,
     title: "Microsoft Power BI 활용 기본 과정",
     school: "ICT이노베이션스퀘어",
     period: "2025.09.15-09.19 (40시간)",
@@ -111,7 +127,7 @@ export const educationData: EducationItem[] = [
     showOnlineTag: true
   },
   {
-    id: 10,
+    id: 11,
     title: "AI 기반 클라우드 컴퓨팅 기초",
     school: "대한상공회의소 광주인력개발원",
     period: "2025.03.15-04.15 (40시간)",
@@ -122,7 +138,7 @@ export const educationData: EducationItem[] = [
     showOnlineTag: true
   },
   {
-    id: 11,
+    id: 12,
     title: "(심화) AI 응용 SW 직무역량 강화를 위한 풀스택 시스템 디자인",
     school: "인공지능산업융합사업단 (AICA)",
     period: "2025.05.13-11.20 (6개월, 40시간)",
@@ -133,7 +149,7 @@ export const educationData: EducationItem[] = [
     showOnlineTag: true
   },
   {
-    id: 12,
+    id: 13,
     title: "(심화) 심층 AI 프로그래밍을 위한 파이썬 라이브러리",
     school: "인공지능산업융합사업단 (AICA)",
     period: "2025.05.13-11.20 (6개월, 40시간)",
@@ -144,7 +160,7 @@ export const educationData: EducationItem[] = [
     showOnlineTag: true
   },
   {
-    id: 13,
+    id: 14,
     title: "(심화) 생성형 AI의 협력적 활용 비즈니스 개발 방법론",
     school: "인공지능산업융합사업단 (AICA)",
     period: "2025.03.17-12.20 (6주 과정, 40시간)",
@@ -152,17 +168,6 @@ export const educationData: EducationItem[] = [
     mainTopics: ["Generative AI", "Business Development", "Prompt Design", "AI Strategy", "Process Optimization", "Service Development"],
     link: "https://port-ashy-iota.vercel.app/documents/certificates/[수료증](심화) 생성형 AI의 협력적 활용 비즈니스 개발 방법론.pdf",
     status: "수료 완료",
-    showOnlineTag: true
-  },
-  {
-    id: 14,
-    title: "[데이터 분석] 농·축산 데이터 셋을 활용한 데이터 분석",
-    school: "전남ICT이노베이션스퀘어",
-    period: "2025.10.27-11.27 (20일, 80시간)",
-    description: "농·축산 데이터를 활용한 실무 데이터 분석 과정으로, Python 프로그래밍 기초부터 NumPy, Pandas를 활용한 데이터 처리 및 분석 기술을 학습합니다.",
-    mainTopics: ["Python Programming", "NumPy", "Pandas", "Data Analysis", "Matplotlib", "Seaborn", "Data Visualization"],
-    link: "",
-    status: "진행중",
     showOnlineTag: true
   },
   {
@@ -177,3 +182,26 @@ export const educationData: EducationItem[] = [
     showOnlineTag: false
   }
 ];
+"""
+
+with open('C:/developer/port-website/portfolio-react/src/data/educationData.ts', 'w', encoding='utf-8') as f:
+    f.write(education_data)
+
+print("Education data reordered successfully!")
+print("Moved '[데이터 분석] 농·축산 데이터 셋을 활용한 데이터 분석' to position 8 (middle)")
+print("\nNew order:")
+print("1. AWS 아키텍트 성장 트랙")
+print("2. (심화) 성능 향상, 최적화를 위한 AI 시스템 구현 방법론")
+print("3. (응용) 서비스 PM이 되기 위한 인공지능 기업경영 실무")
+print("4. (입문) 기초 통계 개념 학습을 위한 AI 통계")
+print("5. (응용) AI 개발 프레임워크 실무 프로젝트 실습")
+print("6. (기초) 풀스택(프론트엔드&백엔드)")
+print("7. 생성형 AI 기반 실전 서비스 구현")
+print("8. [데이터 분석] 농·축산 데이터 셋을 활용한 데이터 분석  <- MOVED HERE")
+print("9. NVIDIA X AICA Cluster GPU 활용 캠프 온라인 교육")
+print("10. Microsoft Power BI 활용 기본 과정")
+print("11. AI 기반 클라우드 컴퓨팅 기초")
+print("12. (심화) AI 응용 SW 직무역량 강화를 위한 풀스택 시스템 디자인")
+print("13. (심화) 심층 AI 프로그래밍을 위한 파이썬 라이브러리")
+print("14. (심화) 생성형 AI의 협력적 활용 비즈니스 개발 방법론")
+print("15. [AI응용 SW개발] 인공지능 기반 서비스 플랫폼 개발자과정")

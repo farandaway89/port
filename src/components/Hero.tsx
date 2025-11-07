@@ -51,6 +51,13 @@ export function Hero() {
               </a>
             </div>
           </div>
+
+          <div className="hero-visual">
+            <div className="profile-container">
+              <img src="/documents/images/profile.jpg" alt="이승필 프로필 사진" className="profile-image" />
+              <div className="profile-glow"></div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

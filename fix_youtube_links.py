@@ -1,4 +1,9 @@
-export interface ProjectItem {
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Fix all YouTube links and update project titles
+
+projects_data = """export interface ProjectItem {
   id: number;
   title: string;
   period: string;
@@ -295,3 +300,40 @@ export const projectsData: ProjectItem[] = [
     achievement: "멀티 언어 통합 TCP/IP 통신 기반 실시간 3D 재구성 시스템 완성"
   },
 ];
+"""
+
+with open('C:/developer/port-website/portfolio-react/src/data/projectsData.ts', 'w', encoding='utf-8') as f:
+    f.write(projects_data)
+
+print("✅ projectsData.ts 업데이트 완료!")
+print("\n📋 변경 사항:")
+print("\n🎬 YouTube 링크 수정 (15개):")
+print("  1. Project 1: https://youtu.be/DPqXODA4eCw ✓")
+print("  2. Project 2: https://youtu.be/tR3m8eoZdU4 ✓")
+print("  3. Project 4: https://youtu.be/7NaLZSIAMAQ ✓")
+print("  4. Project 5: https://youtube.com/shorts/oa_bDUQyGWc ✓")
+print("  5. Project 6: https://youtu.be/DPqXODA4eCw ✓")
+print("  6. Project 8: https://youtu.be/Ajx2IRKebbM ✓")
+print("  7. Project 9: https://youtu.be/XLKzxxAbVeU ✓")
+print("  8. Project 10: https://youtu.be/oR_Utgg1bro ✓")
+print("  9. Project 11: https://youtu.be/rN32KwaTzN8 ✓")
+print("  10. Project 13: https://youtu.be/WmiZW__tQ8s ✓")
+print("  11. Project 15: https://youtu.be/5N5YyOQQT9A ✓")
+print("  12. Project 19: https://youtube.com/shorts/AYywI_RyKtc ✓")
+print("  13. Project 20: https://youtube.com/shorts/xyKe7bmOYKY ✓")
+print("  14. Project 21: https://youtu.be/gpe-BARmPFU ✓")
+print("  15. Project 22: https://youtu.be/7h0U3iGvWDU ✓")
+
+print("\n📝 제목 변경:")
+print("  - Project 2: C언어기반 콘솔 게임 오징어게임(비석치기)")
+print("  - Project 5: C언어 & MySQL 기반 실시간 채팅 시스템")
+print("  - Project 22: MFC실시간 3D 객체 재구성 시스템 (MFC 추가)")
+
+print("\n🔗 추가 링크:")
+print("  - Project 4: '학습센터 포함' 링크 추가")
+print("  - Project 14: '사진보기 1, 2' 링크 추가")
+
+print("\n❌ 삭제된 가짜 YouTube URL:")
+print("  - bAtG4vSj7F0, m6WIbJ5Wpfw, KfnJl1vINLY, bsPcY_G4o2E,")
+print("  - YnE8A8qNFTY, QdIu0rfZZjQ, mWOkLfxrwoc, 8sHH1PoKRmE,")
+print("  - OgI3hWlnrjw, T7nj0d6pqmQ, BNhZX8rKfwQ, ZN8hH1rKfwQ")

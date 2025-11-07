@@ -1,4 +1,8 @@
-export function Contact() {
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Update Contact.tsx with 4 social links only
+contact_component = """export function Contact() {
   return (
     <section id="contact" className="contact-section section">
       <div className="container">
@@ -15,6 +19,7 @@ export function Contact() {
               </div>
               <div className="contact-details">
                 <h3>Email</h3>
+                <p>업무 문의 및 협업 제안</p>
                 <a href="mailto:farandaway89@gmail.com">farandaway89@gmail.com</a>
               </div>
             </div>
@@ -25,7 +30,19 @@ export function Contact() {
               </div>
               <div className="contact-details">
                 <h3>Phone</h3>
-                <a href="tel:010-4861-8910">010-4861-8910</a>
+                <p>빠른 상담이 필요하신 경우</p>
+                <a href="tel:010-9673-8910">010-9673-8910</a>
+              </div>
+            </div>
+
+            <div className="contact-card">
+              <div className="contact-icon">
+                <span>📍</span>
+              </div>
+              <div className="contact-details">
+                <h3>Location</h3>
+                <p>대한민국 광주광역시</p>
+                <span style={{ color: '#667eea' }}>원격 근무 가능</span>
               </div>
             </div>
           </div>
@@ -83,3 +100,11 @@ export function Contact() {
     </section>
   )
 }
+"""
+
+with open('C:/developer/port-website/portfolio-react/src/components/Contact.tsx', 'w', encoding='utf-8') as f:
+    f.write(contact_component)
+
+print("Updated Contact.tsx with 4 social links")
+print("Removed: Portfolio, Netlify, Vercel")
+print("Kept: Blog, GitHub, Hugging Face, YouTube")

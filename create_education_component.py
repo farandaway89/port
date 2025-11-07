@@ -1,4 +1,8 @@
-import { educationData } from '../data/educationData'
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Create Education.tsx component
+education_component = """import { educationData } from '../data/educationData'
 
 export function Education() {
   return (
@@ -49,3 +53,9 @@ export function Education() {
     </section>
   )
 }
+"""
+
+with open('C:/developer/port-website/portfolio-react/src/components/Education.tsx', 'w', encoding='utf-8') as f:
+    f.write(education_component)
+
+print("Created Education.tsx component")

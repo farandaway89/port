@@ -1,4 +1,9 @@
-export function Contact() {
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Update Contact.tsx - Remove location, update phone number, remove descriptions
+
+contact_content = """export function Contact() {
   return (
     <section id="contact" className="contact-section section">
       <div className="container">
@@ -83,3 +88,13 @@ export function Contact() {
     </section>
   )
 }
+"""
+
+with open('C:/developer/port-website/portfolio-react/src/components/Contact.tsx', 'w', encoding='utf-8') as f:
+    f.write(contact_content)
+
+print("Contact.tsx updated:")
+print("- Removed Location card")
+print("- Removed Email description: '업무 문의 및 협업 제안'")
+print("- Removed Phone description: '빠른 상담이 필요하신 경우'")
+print("- Updated phone number: 010-4861-8910")
