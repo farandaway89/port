@@ -15,7 +15,7 @@ export function Hero() {
 
             <p className="hero-description">
               AI & Full-Stack Development Specialist<br />
-              15년 ERP/MES 시스템 운영 경험 + 최신 AI 기술 융합
+              혁신적인 시스템 플랫폼을 설계하고 구현하는 전문가
             </p>
 
             <div className="hero-stats">

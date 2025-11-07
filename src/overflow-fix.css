@@ -48,9 +48,25 @@ section,
 /* 이미지와 비주얼 요소 제한 */
 img,
 .profile-image,
-.profile-container,
+.profile-container {
+    max-width: 90vw !important;
+}
+
 .hero-visual {
     max-width: 90vw !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* 프로필 컨테이너를 hero 섹션 내에만 표시 */
+.hero .profile-container {
+    position: relative !important;
+}
+
+/* hero 섹션 외부에서는 숨김 */
+body:not(.hero) .profile-container,
+body:not(.hero) .hero-visual {
+    display: none !important;
 }
 
 /* 그리드 수정 */
