@@ -1,0 +1,69 @@
+/* 강제 오버플로우 수정 */
+* {
+    max-width: 100vw !important;
+}
+
+html {
+    overflow-x: hidden !important;
+    scroll-behavior: smooth;
+    width: 100vw !important;
+    max-width: 100vw !important;
+}
+
+body {
+    overflow-x: hidden !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative !important;
+}
+
+#root {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+}
+
+/* 모든 섹션 제한 */
+section,
+.section,
+.hero,
+.container,
+.hero-container,
+[class*="-container"],
+[class*="-grid"] {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+}
+
+/* absolute 요소들 제한 */
+[style*="position: absolute"],
+.nav,
+*::before,
+*::after {
+    max-width: 100vw !important;
+}
+
+/* 이미지와 비주얼 요소 제한 */
+img,
+.profile-image,
+.profile-container,
+.hero-visual {
+    max-width: 90vw !important;
+}
+
+/* 그리드 수정 */
+[class*="-grid"] {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(min(260px, 90vw), 1fr)) !important;
+    gap: 20px !important;
+    padding: 0 10px !important;
+}
+
+/* 컨테이너 수정 */
+.container {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    max-width: min(1200px, calc(100vw - 40px)) !important;
+}
