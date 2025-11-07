@@ -63,10 +63,10 @@ img,
     position: relative !important;
 }
 
-/* hero 섹션 외부에서는 숨김 */
-body:not(.hero) .profile-container,
-body:not(.hero) .hero-visual {
-    display: none !important;
+/* 프로필 이미지 표시 */
+.profile-image {
+    display: block !important;
+    visibility: visible !important;
 }
 
 /* 그리드 수정 */

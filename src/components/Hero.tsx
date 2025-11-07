@@ -5,7 +5,7 @@ export function Hero() {
         <div className="hero-content">
           <div className="hero-text">
             <div className="hero-badge">
-              <span>AI Expert</span>
+              <span>C | C++ | C# | Python</span>
             </div>
 
             <h1 className="hero-title">
@@ -15,7 +15,7 @@ export function Hero() {
 
             <p className="hero-description">
               AI & Full-Stack Development Specialist<br />
-              혁신적인 시스템 플랫폼을 설계하고 구현하는 전문가
+              15년 ERP/MES 시스템 운영 경험 + 최신 AI 기술 융합
             </p>
 
             <div className="hero-stats">
