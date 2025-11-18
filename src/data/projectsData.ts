@@ -61,12 +61,8 @@ export const projectsData: ProjectItem[] = [
       video: "https://youtu.be/7NaLZSIAMAQ",
       demo: "https://carbon-exchange-tau.vercel.app/",
       plan: "https://port-c2m28r0vq-8910s-projects.vercel.app/documents/reports/탄소투자_개발계획서.html",
-      report: "https://port-c2m28r0vq-8910s-projects.vercel.app/documents/reports/탄소투자_플랫폼_완료보고서.html",
-      additional: [
-        { label: "학습센터 포함", url: "https://carbon-exchange-gei5pd2r7-8910s-projects.vercel.app/" }
-      ]
-    },
-    achievement: "대화형 학습 센터 및 전문 동영상 강의 시스템 추가! AI 아바타 강사와 함께하는 탄소 거래 실습 시뮬레이터가 완전히 구현되었습니다."
+      report: "https://port-c2m28r0vq-8910s-projects.vercel.app/documents/reports/탄소투자_플랫폼_완료보고서.html"
+    }
   },
   {
     id: 5,
@@ -293,5 +289,18 @@ export const projectsData: ProjectItem[] = [
       ]
     },
     achievement: "멀티 언어 통합 TCP/IP 통신 기반 실시간 3D 재구성 시스템 완성"
+  },
+  {
+    id: 23,
+    title: "프로젝트 23: C#, WPF, MongoDB 기반 스마트 빌딩 에너지 모니터링 솔루션",
+    period: "2025.11.10 - 2025.11.17 (8일 완성)",
+    description: "실시간 센서 데이터 수집 및 시각화를 통한 스마트 빌딩 에너지 관리 시스템입니다. 30개 센서의 데이터를 MongoDB에 저장하고, 2D 차트(OxyPlot)와 3D 시각화(HelixToolkit)를 통해 직관적인 모니터링 환경을 제공합니다.",
+    tech: ["C# 9.0", "WPF", ".NET 9.0", "MongoDB", "OxyPlot", "HelixToolkit.Wpf", "MVVM Pattern", "Real-time Visualization"],
+    links: {
+      video: "https://youtu.be/CYMzWPJ222g",
+      plan: "https://port-ashy-iota.vercel.app/documents/reports/SmartBuildingMonitor_개발계획서.html",
+      report: "https://port-ashy-iota.vercel.app/documents/reports/SmartBuildingMonitor_완료보고서.html"
+    },
+    achievement: "MeshBuilder 최적화로 Draw Call 90% 감소, 240 FPS 실시간 렌더링 달성"
   },
 ];

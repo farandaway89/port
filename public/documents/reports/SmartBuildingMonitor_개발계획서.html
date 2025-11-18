@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Building Monitor - 스마트 빌딩 에너지 모니터링 솔루션 개발계획서</title>
+    <style>
+        @page {
+            size: A3;
+            margin: 15mm;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.3;
+            margin: 0;
+            padding: 0;
+            font-size: 11px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 8px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin: 0 0 8px 0;
+        }
+
+        .header p {
+            margin: 3px 0;
+            font-size: 14px;
+        }
+
+        .section {
+            margin: 15px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fafafa;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin: -15px -15px 15px -15px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        .four-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 8px;
+        }
+
+        .usecase-actor {
+            background: #e3f2fd;
+            border: 1px solid #667eea;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            font-size: 10px;
+        }
+
+        .usecase-actor h4 {
+            color: #764ba2;
+            margin: 0 0 5px 0;
+            font-size: 12px;
+        }
+
+        .usecase-item {
+            background: #f0f8ff;
+            margin: 5px 0;
+            padding: 8px;
+            border-radius: 3px;
+            border-left: 3px solid #667eea;
+            font-size: 10px;
+        }
+
+        .req-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 9px;
+        }
+
+        .req-table th {
+            background: #667eea;
+            color: white;
+            padding: 6px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .req-table td {
+            padding: 5px 6px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+
+        .req-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .priority-high { border-left: 3px solid #f44336; }
+        .priority-medium { border-left: 3px solid #ff9800; }
+        .priority-low { border-left: 3px solid #4caf50; }
+
+        .flowchart {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .flow-step {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            margin: 3px;
+            font-size: 9px;
+        }
+
+        .flow-arrow {
+            display: inline-block;
+            margin: 0 5px;
+            font-size: 14px;
+            color: #667eea;
+        }
+
+        .tech-tag {
+            background: #764ba2;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            margin: 2px 5px;
+            display: inline-block;
+            font-size: 9px;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 9px;
+        }
+
+        .schedule-table th {
+            background: #667eea;
+            color: white;
+            padding: 6px;
+            text-align: center;
+        }
+
+        .schedule-table td {
+            padding: 5px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+
+        .day-1 { background: #e3f2fd; }
+        .day-2 { background: #f3e5f5; }
+        .day-3 { background: #e8f5e8; }
+        .day-4 { background: #fff3e0; }
+        .day-5 { background: #fce4ec; }
+        .day-6 { background: #e1f5fe; }
+        .day-7 { background: #e8f5e8; }
+        .day-8 { background: #fff3e0; }
+
+        .table-spec {
+            background: white;
+            border: 1px solid #667eea;
+            border-radius: 5px;
+            margin: 8px 0;
+            overflow: hidden;
+        }
+
+        .table-header {
+            background: #667eea;
+            color: white;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .table-content {
+            padding: 10px;
+        }
+
+        .field-row {
+            display: grid;
+            grid-template-columns: 150px 100px 1fr;
+            gap: 10px;
+            padding: 5px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 9px;
+        }
+
+        .field-name {
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .field-type {
+            background: #e3f2fd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            text-align: center;
+        }
+
+        .mockup-screen {
+            border: 2px solid #333;
+            border-radius: 5px;
+            padding: 10px;
+            background: #f8f9fa;
+            margin: 10px 0;
+            min-height: 150px;
+        }
+
+        .mockup-header {
+            background: #667eea;
+            color: white;
+            padding: 6px;
+            border-radius: 3px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Smart Building Monitor</h1>
+            <p>C#, WPF, MongoDB 기반 스마트 빌딩 에너지 모니터링 솔루션</p>
+            <p>프로젝트 개발계획서</p>
+            <p>개발 기간: 2025.11.10 - 2025.11.17 (8일)</p>
+            <p>개발자: 이승필</p>
+        </div>
+
+        <!-- 프로젝트 개요 -->
+        <div class="section">
+            <div class="section-title">1. 프로젝트 개요</div>
+            <h2 style="margin: 0 0 10px 0; font-size: 18px;">프로젝트 목표</h2>
+            <p style="margin-bottom: 15px;">
+                실시간 센서 데이터 수집 및 시각화를 통한 스마트 빌딩 에너지 관리 시스템 개발.
+                30개 센서(온도, 습도, 전력, 태양광)의 데이터를 MongoDB에 저장하고,
+                2D 차트(OxyPlot)와 3D 시각화(HelixToolkit)를 통해 직관적인 모니터링 환경을 제공합니다.
+            </p>
+
+            <h3 style="margin: 15px 0 10px 0; font-size: 14px;">주요 기능</h3>
+            <div class="three-column">
+                <div class="usecase-item">
+                    <strong>실시간 데이터 모니터링</strong><br>
+                    30개 센서의 실시간 데이터 수집 및 표시
+                </div>
+                <div class="usecase-item">
+                    <strong>2D 차트 시각화</strong><br>
+                    OxyPlot을 활용한 시계열 데이터 그래프
+                </div>
+                <div class="usecase-item">
+                    <strong>3D 빌딩 뷰</strong><br>
+                    HelixToolkit 기반 3층 건물 3D 시각화
+                </div>
+            </div>
+
+            <h3 style="margin: 15px 0 10px 0; font-size: 14px;">기술 스택</h3>
+            <div style="text-align: center; margin: 10px 0;">
+                <span class="tech-tag">C# 9.0</span>
+                <span class="tech-tag">WPF</span>
+                <span class="tech-tag">.NET 9.0</span>
+                <span class="tech-tag">MongoDB 7.0</span>
+                <span class="tech-tag">OxyPlot 2.2</span>
+                <span class="tech-tag">HelixToolkit.Wpf 2.24</span>
+                <span class="tech-tag">CommunityToolkit.Mvvm</span>
+            </div>
+        </div>
+
+        <!-- 유스케이스 -->
+        <div class="section">
+            <div class="section-title">2. 유스케이스 (Use Case)</div>
+            <h3>시스템 액터</h3>
+            <div class="two-column">
+                <div class="usecase-actor">
+                    <h4>빌딩 관리자</h4>
+                    <div class="usecase-item">실시간 센서 데이터 확인</div>
+                    <div class="usecase-item">에너지 사용량 모니터링</div>
+                    <div class="usecase-item">이상 상태 감지 및 알림</div>
+                    <div class="usecase-item">3D 빌딩 뷰로 층별 상태 확인</div>
+                </div>
+                <div class="usecase-actor">
+                    <h4>유지보수 담당자</h4>
+                    <div class="usecase-item">센서 이력 데이터 조회</div>
+                    <div class="usecase-item">고장 센서 식별</div>
+                    <div class="usecase-item">유지보수 일정 관리</div>
+                    <div class="usecase-item">데이터 내보내기 (CSV/Excel)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 요구사항 명세서 -->
+        <div class="section">
+            <div class="section-title">3. 요구사항 명세서</div>
+            <h3>기능적 요구사항</h3>
+            <table class="req-table">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">ID</th>
+                        <th style="width: 20%;">기능</th>
+                        <th style="width: 50%;">설명</th>
+                        <th style="width: 10%;">우선순위</th>
+                        <th style="width: 10%;">난이도</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="priority-high">
+                        <td>FR-001</td>
+                        <td>센서 데이터 수집</td>
+                        <td>30개 센서로부터 1초 간격으로 데이터를 수집하여 MongoDB에 저장</td>
+                        <td>High</td>
+                        <td>Medium</td>
+                    </tr>
+                    <tr class="priority-high">
+                        <td>FR-002</td>
+                        <td>실시간 2D 차트</td>
+                        <td>OxyPlot을 사용하여 최근 60초 데이터를 실시간 그래프로 표시</td>
+                        <td>High</td>
+                        <td>Medium</td>
+                    </tr>
+                    <tr class="priority-high">
+                        <td>FR-003</td>
+                        <td>3D 빌딩 시각화</td>
+                        <td>HelixToolkit으로 3층 건물을 3D로 표현, 센서 상태를 색상으로 표시</td>
+                        <td>High</td>
+                        <td>High</td>
+                    </tr>
+                    <tr class="priority-medium">
+                        <td>FR-004</td>
+                        <td>MongoDB 연동</td>
+                        <td>비동기 데이터 저장 및 조회, BSON 직렬화 처리</td>
+                        <td>High</td>
+                        <td>Medium</td>
+                    </tr>
+                    <tr class="priority-medium">
+                        <td>FR-005</td>
+                        <td>센서 시뮬레이터</td>
+                        <td>실제 센서 없이 테스트 가능하도록 데이터 시뮬레이터 구현</td>
+                        <td>Medium</td>
+                        <td>Low</td>
+                    </tr>
+                    <tr class="priority-low">
+                        <td>FR-006</td>
+                        <td>데이터 내보내기</td>
+                        <td>선택한 기간의 데이터를 CSV/Excel 형식으로 내보내기</td>
+                        <td>Low</td>
+                        <td>Low</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>비기능적 요구사항</h3>
+            <table class="req-table">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">ID</th>
+                        <th style="width: 20%;">항목</th>
+                        <th style="width: 60%;">요구사항</th>
+                        <th style="width: 10%;">목표치</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>NFR-001</td>
+                        <td>성능</td>
+                        <td>30개 센서 데이터 실시간 처리 시 UI 프레임률 유지</td>
+                        <td>60 FPS</td>
+                    </tr>
+                    <tr>
+                        <td>NFR-002</td>
+                        <td>응답성</td>
+                        <td>사용자 입력(버튼 클릭, 카메라 조작)에 대한 즉각 반응</td>
+                        <td>&lt; 100ms</td>
+                    </tr>
+                    <tr>
+                        <td>NFR-003</td>
+                        <td>데이터 저장</td>
+                        <td>MongoDB에 1초당 30개 데이터 안정적 저장</td>
+                        <td>100% 성공률</td>
+                    </tr>
+                    <tr>
+                        <td>NFR-004</td>
+                        <td>확장성</td>
+                        <td>센서 개수 증가 시(30→100개) 시스템 확장 가능</td>
+                        <td>모듈화 구조</td>
+                    </tr>
+                    <tr>
+                        <td>NFR-005</td>
+                        <td>유지보수성</td>
+                        <td>MVVM 패턴, DI 컨테이너 적용으로 코드 유지보수 용이</td>
+                        <td>Clean Code</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 시스템 아키텍처 -->
+        <div class="section">
+            <div class="section-title">4. 시스템 아키텍처</div>
+            <h3>전체 시스템 구조</h3>
+            <div class="flowchart">
+                <div class="flow-step">센서 시뮬레이터</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">MongoDBService</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">MongoDB 7.0</div>
+                <br><br>
+                <span class="flow-arrow">↓</span>
+                <br><br>
+                <div class="flow-step">MainViewModel</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">2D Chart (OxyPlot)</div>
+                <br><br>
+                <span class="flow-arrow">↓</span>
+                <br><br>
+                <div class="flow-step">BuildingView3D</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">3D Scene (HelixToolkit)</div>
+            </div>
+
+            <h3>MVVM 패턴 구조</h3>
+            <div class="three-column">
+                <div class="usecase-item">
+                    <strong>Model</strong><br>
+                    SensorData.cs<br>
+                    MongoDBService.cs<br>
+                    SensorSimulator.cs
+                </div>
+                <div class="usecase-item">
+                    <strong>ViewModel</strong><br>
+                    MainViewModel.cs<br>
+                    [ObservableProperty]<br>
+                    Source Generator
+                </div>
+                <div class="usecase-item">
+                    <strong>View</strong><br>
+                    MainWindow.xaml<br>
+                    ChartView.xaml<br>
+                    BuildingView3D.xaml
+                </div>
+            </div>
+        </div>
+
+        <!-- 화면 구성 -->
+        <div class="section">
+            <div class="section-title">5. 화면 구성도</div>
+            <h3>메인 화면 레이아웃</h3>
+            <div class="mockup-screen">
+                <div class="mockup-header">Smart Building Monitor - Main Window</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div style="background: white; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <div style="background: #667eea; color: white; padding: 5px; border-radius: 3px; margin-bottom: 5px; font-size: 10px; font-weight: bold;">
+                            실시간 차트 뷰 (OxyPlot)
+                        </div>
+                        <div style="font-size: 9px; color: #666;">
+                            • 4개 차트 (온도, 습도, 전력, 태양광)<br>
+                            • 최근 60초 데이터 실시간 표시<br>
+                            • DateTimeAxis + LineSeries<br>
+                            • 1초 간격 자동 업데이트
+                        </div>
+                    </div>
+                    <div style="background: white; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <div style="background: #764ba2; color: white; padding: 5px; border-radius: 3px; margin-bottom: 5px; font-size: 10px; font-weight: bold;">
+                            3D 빌딩 뷰 (HelixToolkit)
+                        </div>
+                        <div style="font-size: 9px; color: #666;">
+                            • 3층 건물 구조 (층당 10개 센서)<br>
+                            • 센서 상태 색상: 정상(녹색), 경고(주황), 위험(빨강)<br>
+                            • 마우스 회전, 줌, 이동 지원<br>
+                            • MeshBuilder 최적화 (3개 메시)
+                        </div>
+                    </div>
+                </div>
+                <div style="background: white; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-top: 10px;">
+                    <div style="background: #4caf50; color: white; padding: 5px; border-radius: 3px; margin-bottom: 5px; font-size: 10px; font-weight: bold;">
+                        제어 패널
+                    </div>
+                    <div style="font-size: 9px; color: #666;">
+                        시작/중지 버튼 • 데이터 내보내기 • 설정 • 센서 상태 요약
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 개발 일정 -->
+        <div class="section">
+            <div class="section-title">6. 개발 일정 (8일)</div>
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>날짜</th>
+                        <th>주요 작업</th>
+                        <th>세부 내용</th>
+                        <th>결과물</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="day-1">
+                        <td>Day 1</td>
+                        <td>11.10</td>
+                        <td>프로젝트 설정 및<br>MongoDB 연동</td>
+                        <td>
+                            • .NET 9.0 WPF 프로젝트 생성<br>
+                            • MongoDB.Driver 설치<br>
+                            • MongoDBService 구현<br>
+                            • BSON 직렬화 설정<br>
+                            • DI 컨테이너 구성
+                        </td>
+                        <td>
+                            MongoDBService.cs<br>
+                            SensorData.cs<br>
+                            App.xaml.cs
+                        </td>
+                    </tr>
+                    <tr class="day-2">
+                        <td>Day 2</td>
+                        <td>11.11</td>
+                        <td>센서 시뮬레이터 구현</td>
+                        <td>
+                            • 4종 센서 시뮬레이터 개발<br>
+                            • 온도: 정규분포 랜덤<br>
+                            • 습도: Random Walk<br>
+                            • 전력: EMA 스무딩<br>
+                            • 태양광: Sine 곡선
+                        </td>
+                        <td>
+                            SensorSimulator.cs<br>
+                            테스트 데이터 생성
+                        </td>
+                    </tr>
+                    <tr class="day-3">
+                        <td>Day 3</td>
+                        <td>11.12</td>
+                        <td>2D 차트 구현<br>(OxyPlot)</td>
+                        <td>
+                            • OxyPlot.Wpf 설치<br>
+                            • ChartViewModel 구현<br>
+                            • 4개 PlotModel 생성<br>
+                            • DateTimeAxis + LineSeries<br>
+                            • 1초 간격 업데이트
+                        </td>
+                        <td>
+                            ChartViewModel.cs<br>
+                            ChartView.xaml<br>
+                            실시간 그래프
+                        </td>
+                    </tr>
+                    <tr class="day-4">
+                        <td>Day 4</td>
+                        <td>11.13</td>
+                        <td>3D 빌딩 시각화<br>(HelixToolkit)</td>
+                        <td>
+                            • HelixToolkit.Wpf 설치<br>
+                            • BuildingView3D 구현<br>
+                            • 3층 건물 모델링<br>
+                            • MeshBuilder 최적화<br>
+                            • 센서 상태 색상 매핑
+                        </td>
+                        <td>
+                            BuildingView3D.xaml.cs<br>
+                            3D 씬 렌더링
+                        </td>
+                    </tr>
+                    <tr class="day-5">
+                        <td>Day 5</td>
+                        <td>11.14</td>
+                        <td>MainWindow 통합</td>
+                        <td>
+                            • MainWindow UI 설계<br>
+                            • Chart + 3D View 통합<br>
+                            • 제어 패널 구현<br>
+                            • 상태 표시 바 추가
+                        </td>
+                        <td>
+                            MainWindow.xaml<br>
+                            MainViewModel.cs
+                        </td>
+                    </tr>
+                    <tr class="day-6">
+                        <td>Day 6</td>
+                        <td>11.15</td>
+                        <td>성능 최적화</td>
+                        <td>
+                            • 3D 렌더링 최적화<br>
+                            • Dispatcher 우선순위 조정<br>
+                            • Freezable Brush 활용<br>
+                            • 더티 플래그 구현
+                        </td>
+                        <td>
+                            성능 개선<br>
+                            60 FPS 달성
+                        </td>
+                    </tr>
+                    <tr class="day-7">
+                        <td>Day 7</td>
+                        <td>11.16</td>
+                        <td>테스트 및 버그 수정</td>
+                        <td>
+                            • 기능 테스트<br>
+                            • 메모리 누수 체크<br>
+                            • UI/UX 개선<br>
+                            • 예외 처리 강화
+                        </td>
+                        <td>
+                            테스트 리포트<br>
+                            버그 수정 완료
+                        </td>
+                    </tr>
+                    <tr class="day-8">
+                        <td>Day 8</td>
+                        <td>11.17</td>
+                        <td>문서화 및 배포</td>
+                        <td>
+                            • 사용자 매뉴얼 작성<br>
+                            • 코드 주석 정리<br>
+                            • README.md 작성<br>
+                            • 실행 파일 패키징
+                        </td>
+                        <td>
+                            완료 보고서<br>
+                            배포 패키지
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- MongoDB 컬렉션 명세 -->
+        <div class="section">
+            <div class="section-title">7. MongoDB 컬렉션 명세</div>
+            <div class="table-spec">
+                <div class="table-header">SensorData Collection</div>
+                <div class="table-content">
+                    <div class="field-row">
+                        <div class="field-name">_id</div>
+                        <div class="field-type">ObjectId</div>
+                        <div>MongoDB 자동 생성 고유 ID (Primary Key)</div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-name">SensorId</div>
+                        <div class="field-type">String</div>
+                        <div>센서 식별자 (예: "TEMP_001", "HUMID_002")</div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-name">SensorType</div>
+                        <div class="field-type">String</div>
+                        <div>센서 종류 (Temperature, Humidity, Power, Solar)</div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-name">Value</div>
+                        <div class="field-type">Double</div>
+                        <div>센서 측정값 (온도: ℃, 습도: %, 전력: kW, 태양광: kW)</div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-name">Timestamp</div>
+                        <div class="field-type">DateTime</div>
+                        <div>데이터 수집 시각 (UTC 기준, Index 적용)</div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-name">FloorNumber</div>
+                        <div class="field-type">Int32</div>
+                        <div>센서가 위치한 층 번호 (1, 2, 3)</div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-name">Status</div>
+                        <div class="field-type">String</div>
+                        <div>센서 상태 (Normal, Warning, Critical)</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin: 15px 0 10px 0; font-size: 14px;">인덱스 설계</h3>
+            <table class="req-table">
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">필드</th>
+                        <th style="width: 15%;">타입</th>
+                        <th style="width: 55%;">목적</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Timestamp</td>
+                        <td>단일 인덱스</td>
+                        <td>시계열 데이터 조회 성능 향상 (최근 데이터 빠른 검색)</td>
+                    </tr>
+                    <tr>
+                        <td>SensorId + Timestamp</td>
+                        <td>복합 인덱스</td>
+                        <td>특정 센서의 시간별 데이터 조회 최적화</td>
+                    </tr>
+                    <tr>
+                        <td>FloorNumber</td>
+                        <td>단일 인덱스</td>
+                        <td>층별 센서 데이터 필터링 성능 향상</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 기술적 고려사항 -->
+        <div class="section">
+            <div class="section-title">8. 기술적 고려사항</div>
+            <h3>비동기 프로그래밍</h3>
+            <div class="usecase-item">
+                <strong>async/await 패턴:</strong> MongoDB 데이터 저장/조회 시 UI 스레드 블로킹 방지
+            </div>
+            <div class="usecase-item">
+                <strong>DispatcherTimer vs Timer:</strong> UI 업데이트는 DispatcherTimer 사용 (UI 스레드에서 직접 실행)
+            </div>
+
+            <h3>성능 최적화 전략</h3>
+            <div class="usecase-item">
+                <strong>3D 렌더링:</strong> MeshBuilder로 30개 BoxVisual3D → 3개 통합 메시 (Draw Call 90% 감소)
+            </div>
+            <div class="usecase-item">
+                <strong>Freezable 패턴:</strong> Brush 객체 Freeze()로 크로스 스레드 사용 및 메모리 최적화
+            </div>
+            <div class="usecase-item">
+                <strong>더티 플래그:</strong> 색상 변경된 센서만 선택적 업데이트 (불필요한 렌더링 제거)
+            </div>
+
+            <h3>MVVM + DI 패턴</h3>
+            <div class="usecase-item">
+                <strong>CommunityToolkit.Mvvm:</strong> Source Generator로 [ObservableProperty] 자동 생성
+            </div>
+            <div class="usecase-item">
+                <strong>Microsoft.Extensions.DependencyInjection:</strong> MongoDBService 싱글톤 주입
+            </div>
+
+            <h3>예외 처리 및 안정성</h3>
+            <div class="usecase-item">
+                <strong>MongoDB 연결 실패:</strong> 재연결 로직, 사용자에게 알림
+            </div>
+            <div class="usecase-item">
+                <strong>센서 데이터 이상:</strong> 임계값 체크, Warning/Critical 상태 표시
+            </div>
+            <div class="usecase-item">
+                <strong>메모리 누수 방지:</strong> Timer 정리, WeakEventManager 사용
+            </div>
+        </div>
+
+        <!-- 기대 효과 -->
+        <div class="section">
+            <div class="section-title">9. 기대 효과 및 학습 목표</div>
+            <h3>프로젝트 기대 효과</h3>
+            <div class="two-column">
+                <div class="usecase-item">
+                    <strong>에너지 관리 효율화</strong><br>
+                    실시간 모니터링으로 에너지 낭비 즉시 감지
+                </div>
+                <div class="usecase-item">
+                    <strong>유지보수 비용 절감</strong><br>
+                    이상 징후 조기 발견으로 예방 정비 가능
+                </div>
+            </div>
+
+            <h3>기술 학습 목표</h3>
+            <div class="three-column">
+                <div class="usecase-item">
+                    <strong>WPF 3D 그래픽스</strong><br>
+                    HelixToolkit 심화<br>
+                    MeshBuilder 최적화
+                </div>
+                <div class="usecase-item">
+                    <strong>실시간 데이터 처리</strong><br>
+                    OxyPlot 차트<br>
+                    비동기 MongoDB 연동
+                </div>
+                <div class="usecase-item">
+                    <strong>클린 아키텍처</strong><br>
+                    MVVM 패턴<br>
+                    DI 컨테이너
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 8px; margin-top: 20px;">
+            <p style="margin: 0; color: #667eea; font-size: 14px; font-weight: bold;">
+                Smart Building Monitor Development Plan
+            </p>
+            <p style="margin: 5px 0 0 0; color: #666; font-size: 11px;">
+                2025 이승필 | C# • WPF • MongoDB • Real-time Visualization
+            </p>
+        </div>
+    </div>
+</body>
+</html>

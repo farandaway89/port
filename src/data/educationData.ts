@@ -13,6 +13,17 @@ export interface EducationItem {
 export const educationData: EducationItem[] = [
   {
     id: 1,
+    title: "네이버 클라우드 플랫폼 (Naver Cloud Platform)",
+    school: "ICT이노베이션스퀘어",
+    period: "2025.11.12 (1일, 8시간)",
+    description: "네이버 클라우드 플랫폼의 핵심 서비스 및 인프라 구축 역량을 습득하는 온라인 교육 과정. 클라우드 컴퓨팅 환경에서의 서버 구축, 네트워크 설정, 데이터베이스 운영 등 실무 중심의 클라우드 아키텍처 설계 능력을 학습합니다.",
+    mainTopics: ["Naver Cloud Platform", "Cloud Computing", "Server Management", "Network Configuration", "Database Operations", "Cloud Architecture", "Infrastructure Setup"],
+    link: "https://port-ashy-iota.vercel.app/documents/certificates/[수료증]네이버 클라우드.png",
+    status: "수료 완료",
+    showOnlineTag: true
+  },
+  {
+    id: 2,
     title: "AWS 아키텍트 성장 트랙",
     school: "전남ICT이노베이션스퀘어",
     period: "2025.10.27-10.31 (5일, 40시간)",
@@ -23,7 +34,7 @@ export const educationData: EducationItem[] = [
     showOnlineTag: true
   },
   {
-    id: 2,
+    id: 3,
     title: "(심화) 성능 향상, 최적화를 위한 AI 시스템 구현 방법론",
     school: "인공지능산업융합사업단 (AICA)",
     period: "2025.03.17-12.20 (40시간)",
@@ -34,7 +45,7 @@ export const educationData: EducationItem[] = [
     showOnlineTag: true
   },
   {
-    id: 3,
+    id: 4,
     title: "(응용) 서비스 PM이 되기 위한 인공지능 기업경영 실무",
     school: "인공지능산업융합사업단 (AICA)",
     period: "2025.03.17-12.20 (40시간)",
@@ -45,7 +56,7 @@ export const educationData: EducationItem[] = [
     showOnlineTag: true
   },
   {
-    id: 4,
+    id: 5,
     title: "(입문) 기초 통계 개념 학습을 위한 AI 통계",
     school: "인공지능산업융합사업단 (AICA)",
     period: "2025.03.17-12.20 (40시간)",
@@ -56,7 +67,7 @@ export const educationData: EducationItem[] = [
     showOnlineTag: true
   },
   {
-    id: 5,
+    id: 6,
     title: "(응용) AI 개발 프레임워크 실무 프로젝트 실습",
     school: "인공지능산업융합사업단 (AICA)",
     period: "2025.03.17-12.20 (40시간)",
@@ -67,7 +78,7 @@ export const educationData: EducationItem[] = [
     showOnlineTag: true
   },
   {
-    id: 6,
+    id: 7,
     title: "(기초) 풀스택(프론트엔드&백엔드)",
     school: "인공지능산업융합사업단 (AICA)",
     period: "2025.01.20-12.20 (1년, 40시간)",
@@ -78,7 +89,7 @@ export const educationData: EducationItem[] = [
     showOnlineTag: true
   },
   {
-    id: 7,
+    id: 8,
     title: "생성형 AI 기반 실전 서비스 구현",
     school: "ICT이노베이션스퀘어",
     period: "2025.08.07-09.04 (160시간)",
@@ -89,7 +100,7 @@ export const educationData: EducationItem[] = [
     showOnlineTag: true
   },
   {
-    id: 8,
+    id: 9,
     title: "NVIDIA X AICA Cluster GPU 활용 캠프 온라인 교육",
     school: "인공지능산업융합사업단 (AICA)",
     period: "2025.01.31-12.20 (40시간)",
@@ -100,7 +111,7 @@ export const educationData: EducationItem[] = [
     showOnlineTag: true
   },
   {
-    id: 9,
+    id: 10,
     title: "Microsoft Power BI 활용 기본 과정",
     school: "ICT이노베이션스퀘어",
     period: "2025.09.15-09.19 (40시간)",
@@ -111,7 +122,7 @@ export const educationData: EducationItem[] = [
     showOnlineTag: true
   },
   {
-    id: 10,
+    id: 11,
     title: "AI 기반 클라우드 컴퓨팅 기초",
     school: "대한상공회의소 광주인력개발원",
     period: "2025.03.15-04.15 (40시간)",
@@ -122,7 +133,7 @@ export const educationData: EducationItem[] = [
     showOnlineTag: true
   },
   {
-    id: 11,
+    id: 12,
     title: "(심화) AI 응용 SW 직무역량 강화를 위한 풀스택 시스템 디자인",
     school: "인공지능산업융합사업단 (AICA)",
     period: "2025.05.13-11.20 (6개월, 40시간)",
@@ -133,7 +144,7 @@ export const educationData: EducationItem[] = [
     showOnlineTag: true
   },
   {
-    id: 12,
+    id: 13,
     title: "(심화) 심층 AI 프로그래밍을 위한 파이썬 라이브러리",
     school: "인공지능산업융합사업단 (AICA)",
     period: "2025.05.13-11.20 (6개월, 40시간)",
@@ -144,7 +155,7 @@ export const educationData: EducationItem[] = [
     showOnlineTag: true
   },
   {
-    id: 13,
+    id: 14,
     title: "(심화) 생성형 AI의 협력적 활용 비즈니스 개발 방법론",
     school: "인공지능산업융합사업단 (AICA)",
     period: "2025.03.17-12.20 (6주 과정, 40시간)",
@@ -155,7 +166,7 @@ export const educationData: EducationItem[] = [
     showOnlineTag: true
   },
   {
-    id: 14,
+    id: 15,
     title: "[데이터 분석] 농·축산 데이터 셋을 활용한 데이터 분석",
     school: "전남ICT이노베이션스퀘어",
     period: "2025.10.27-11.27 (20일, 80시간)",
@@ -166,7 +177,7 @@ export const educationData: EducationItem[] = [
     showOnlineTag: true
   },
   {
-    id: 15,
+    id: 16,
     title: "[AI응용 SW개발] 인공지능 기반 서비스 플랫폼 개발자과정",
     school: "대한상공회의소 광주인력개발원",
     period: "2025.05.13-11.20 (6개월, 900시간)",

@@ -20,9 +20,9 @@ export function Hero() {
 
             <div className="hero-stats">
               <div className="stat-card">
-                <div className="stat-icon">22</div>
+                <div className="stat-icon">23</div>
                 <div className="stat-content">
-                  <span className="stat-number">22</span>
+                  <span className="stat-number">23</span>
                   <span className="stat-label">Projects</span>
                 </div>
               </div>
