@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C언어 콘솔 갑오징어게임 개발계획서</title>
+    <style>
+        @page {
+            size: A3;
+            margin: 15mm;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.3;
+            margin: 0;
+            padding: 0;
+            font-size: 11px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(45deg, #8B0000, #DC143C);
+            color: white;
+            border-radius: 8px;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin: 0 0 8px 0;
+        }
+        
+        .header p {
+            margin: 3px 0;
+            font-size: 14px;
+        }
+        
+        .section {
+            margin: 15px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fafafa;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            background: #8B0000;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin: -15px -15px 15px -15px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .four-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 8px;
+        }
+        
+        .game-round {
+            background: #ffe6e6;
+            border: 1px solid #DC143C;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 8px 0;
+            font-size: 10px;
+        }
+        
+        .game-round h4 {
+            color: #8B0000;
+            margin: 0 0 5px 0;
+            font-size: 12px;
+        }
+        
+        .character-card {
+            background: #f0f8ff;
+            border: 1px solid #4169E1;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            font-size: 10px;
+        }
+        
+        .character-card h4 {
+            color: #4169E1;
+            margin: 0 0 5px 0;
+            font-size: 11px;
+        }
+        
+        .requirement-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 10px;
+        }
+        
+        .requirement-table th, .requirement-table td {
+            border: 1px solid #ddd;
+            padding: 6px;
+            text-align: left;
+        }
+        
+        .requirement-table th {
+            background: #8B0000;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .priority-high { background: #ffebee; color: #c62828; }
+        .priority-medium { background: #fff3e0; color: #f57c00; }
+        .priority-low { background: #e8f5e8; color: #2e7d32; }
+        
+        .team-member {
+            background: #fff0f5;
+            border: 1px solid #ff1493;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 5px 0;
+            text-align: center;
+            font-size: 10px;
+        }
+        
+        .team-member h4 {
+            color: #8B0000;
+            margin: 0 0 5px 0;
+            font-size: 11px;
+        }
+        
+        .code-snippet {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 9px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        
+        .flow-chart {
+            background: #f0f8ff;
+            border: 2px solid #4169E1;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            font-size: 10px;
+            margin: 8px 0;
+        }
+        
+        .flow-chart h4 {
+            color: #4169E1;
+            margin: 0 0 8px 0;
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎮 C언어 콘솔 갑오징어게임</h1>
+            <h2>개발계획서</h2>
+            <p><strong>프로젝트 기간:</strong> 2025/6/23(월) ~ 2025/6/27(금) (5일간, 팀 프로젝트)</p>
+            <p><strong>작성일:</strong> 2025년 6월 23일</p>
+            <p><strong>팀장:</strong> 문태영 | <strong>팀원:</strong> 이승필, 이주희, 최연주</p>
+        </div>
+
+        <div class="section">
+            <div class="section-title">1. 프로젝트 개요</div>
+            
+            <div class="two-column">
+                <div>
+                    <h3>🎯 개발 목적</h3>
+                    <p>C언어의 기본 문법, 조건문, 반복문, 배열, 포인터, 함수, 구조체 등을 활용하여 실제 작동하는 게임을 구현함으로써, 이론 중심의 학습을 실무 중심으로 전환.</p>
+                    
+                    <h3>🏗️ 개발 환경</h3>
+                    <ul>
+                        <li><strong>OS:</strong> Linux (Ubuntu)</li>
+                        <li><strong>Language:</strong> C언어</li>
+                        <li><strong>IDE:</strong> VS CODE</li>
+                        <li><strong>Compiler:</strong> GCC</li>
+                        <li><strong>장소:</strong> 드론융합실</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>👥 팀 구성 (총 4명)</h3>
+                    <div class="team-member">
+                        <h4>문태영 (팀장)</h4>
+                        <p>화면구성도, 게임 코드구현</p>
+                    </div>
+                    <div class="team-member">
+                        <h4>이승필 (팀원)</h4>
+                        <p>개발계획서, 게임 코드구현</p>
+                    </div>
+                    <div class="team-member">
+                        <h4>이주희 (팀원)</h4>
+                        <p>게임 코드구현</p>
+                    </div>
+                    <div class="team-member">
+                        <h4>최연주 (팀원)</h4>
+                        <p>순서도, Use Case, 게임 코드구현</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">2. 게임 시스템 설계</div>
+            
+            <h3>🎮 메인 시스템</h3>
+            <div class="two-column">
+                <div>
+                    <h4>메인 메뉴</h4>
+                    <ul>
+                        <li>게임 시작</li>
+                        <li>캐릭터 선택</li>
+                        <li>설명 보기</li>
+                        <li>게임 종료</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>캐릭터 선택 시스템</h4>
+                    <p>총 4종 캐릭터 중 하나 선택</p>
+                    <ul>
+                        <li>할아버지</li>
+                        <li>젊은 남성</li>
+                        <li>여성</li>
+                        <li>어린이</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>🎲 캐릭터 능력치 시스템</h3>
+            <div class="four-column">
+                <div class="character-card">
+                    <h4>👴 할아버지</h4>
+                    <p>• 힘: 높음<br>
+                    • 정확도: 높음<br>
+                    • 속도: 낮음<br>
+                    • 운: 보통</p>
+                </div>
+                <div class="character-card">
+                    <h4>👨 젊은 남성</h4>
+                    <p>• 힘: 높음<br>
+                    • 정확도: 보통<br>
+                    • 속도: 높음<br>
+                    • 운: 보통</p>
+                </div>
+                <div class="character-card">
+                    <h4>👩 여성</h4>
+                    <p>• 힘: 보통<br>
+                    • 정확도: 높음<br>
+                    • 속도: 보통<br>
+                    • 운: 높음</p>
+                </div>
+                <div class="character-card">
+                    <h4>🧒 어린이</h4>
+                    <p>• 힘: 낮음<br>
+                    • 정확도: 보통<br>
+                    • 속도: 높음<br>
+                    • 운: 높음</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">3. 게임 라운드별 기능 설계</div>
+            
+            <div class="game-round">
+                <h4>🌸 Round 1: 무궁화 꽃이 피었습니다</h4>
+                <div class="two-column">
+                    <div>
+                        <h5>📋 게임 규칙</h5>
+                        <ul>
+                            <li>감시자가 "무궁화 꽃이 피었습니다"를 외치며 돌고 있음</li>
+                            <li>말하는 중에는 움직여야 하고, 멈추면 안 됨</li>
+                            <li>돌았을 때 움직이면 실격</li>
+                            <li>성공 조건: 일정 거리 도달</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>⚙️ 구현 기능</h5>
+                        <ul>
+                            <li>시간 단위 상태 변경 (움직임 허용/금지)</li>
+                            <li>키 입력 감지 (WASD)</li>
+                            <li>움직임 판단 (금지 시간 중 입력 시 탈락)</li>
+                            <li>성공 조건: 일정 거리 도달</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="game-round">
+                <h4>🍪 Round 2: 뽑기</h4>
+                <div class="two-column">
+                    <div>
+                        <h5>📋 게임 규칙</h5>
+                        <ul>
+                            <li>주어진 모양을 도구 없이 정해진 시간 안에 오차 없이 찍어야 함</li>
+                            <li>실수하거나 시간 초과하면 실패</li>
+                            <li>도형: 원/별/우산 등</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>⚙️ 구현 기능</h5>
+                        <ul>
+                            <li>도형 랜덤 선택 (원/별/우산 등)</li>
+                            <li>경로 추적 시스템 (좌표 기반 입력)</li>
+                            <li>방향키로 선을 따라가는 시스템</li>
+                            <li>오차 감지 및 실패 처리</li>
+                            <li>타이머 동작</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="game-round">
+                <h4>🪨 Round 3: 비석치기</h4>
+                <div class="two-column">
+                    <div>
+                        <h5>📋 게임 규칙</h5>
+                        <ul>
+                            <li>바닥에 세운 비석(돌)을 멀리서 던져 맞추면 성공</li>
+                            <li>힘 조절과 각도 조절이 필요</li>
+                            <li>날씨별 성공률 변화</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>⚙️ 구현 기능</h5>
+                        <ul>
+                            <li>게이지에 따라 "던지기 성공 확률" 조절</li>
+                            <li>게이지 중앙(7~8)에서만 명중률 높음</li>
+                            <li>날씨 시스템: 비 70%, 안개 50% 성공률</li>
+                            <li>캐릭터 능력치 반영</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="game-round">
+                <h4>🌉 Round 4: 징검다리</h4>
+                <div class="two-column">
+                    <div>
+                        <h5>📋 게임 규칙</h5>
+                        <ul>
+                            <li>징검다리를 건너야 함</li>
+                            <li>두 개 중 하나는 깨짐</li>
+                            <li>정답 유리는 무작위로 배치</li>
+                            <li>제한 시간 내 다 건너야 함</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>⚙️ 구현 기능</h5>
+                        <ul>
+                            <li>무작위 징검다리 배열 생성</li>
+                            <li>선택 입력 (왼쪽 or 오른쪽)</li>
+                            <li>정답/오답 판단 → 오답 시 낙하 탈락</li>
+                            <li>제한 시간 타이머</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">4. 보조 기능 시스템</div>
+            
+            <div class="three-column">
+                <div>
+                    <h4>🎮 게임 상태 관리</h4>
+                    <ul>
+                        <li>구조체 기반 캐릭터 상태 저장</li>
+                        <li>라운드 상태 관리</li>
+                        <li>남은 생존자 수 관리</li>
+                        <li>멀티 캐릭터 모드 지원</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>🖥️ UI / 콘솔 출력</h4>
+                    <ul>
+                        <li>ASCII 아트로 라운드별 게임 장면 구성</li>
+                        <li>키보드 조작 설명</li>
+                        <li>게임 진행 상황 표시</li>
+                        <li>실시간 상태 업데이트</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>🏆 점수 및 엔딩 처리</h4>
+                    <ul>
+                        <li>라운드 성공 시 점수 누적</li>
+                        <li>최종 생존 시 승리 메시지</li>
+                        <li>사망 시 사유 출력</li>
+                        <li>게임 종료 후 결과 화면</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">5. 기술적 요구사항</div>
+            
+            <table class="requirement-table">
+                <thead>
+                    <tr>
+                        <th>기능 분류</th>
+                        <th>세부 기능</th>
+                        <th>구현 방법</th>
+                        <th>우선순위</th>
+                        <th>담당자</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="4">입출력 시스템</td>
+                        <td>키보드 입력 처리</td>
+                        <td>scanf, getchar 활용</td>
+                        <td class="priority-high">높음</td>
+                        <td>문태영</td>
+                    </tr>
+                    <tr>
+                        <td>실시간 입력 감지</td>
+                        <td>non-blocking input</td>
+                        <td class="priority-high">높음</td>
+                        <td>이승필</td>
+                    </tr>
+                    <tr>
+                        <td>화면 클리어 및 갱신</td>
+                        <td>system("clear")</td>
+                        <td class="priority-medium">중간</td>
+                        <td>이주희</td>
+                    </tr>
+                    <tr>
+                        <td>ASCII 아트 출력</td>
+                        <td>printf 조합</td>
+                        <td class="priority-medium">중간</td>
+                        <td>최연주</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">데이터 구조</td>
+                        <td>캐릭터 정보 관리</td>
+                        <td>구조체 활용</td>
+                        <td class="priority-high">높음</td>
+                        <td>이승필</td>
+                    </tr>
+                    <tr>
+                        <td>게임 상태 저장</td>
+                        <td>전역 변수 및 구조체</td>
+                        <td class="priority-high">높음</td>
+                        <td>문태영</td>
+                    </tr>
+                    <tr>
+                        <td>점수 및 랭킹</td>
+                        <td>배열 및 정렬</td>
+                        <td class="priority-low">낮음</td>
+                        <td>최연주</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="4">게임 로직</td>
+                        <td>시간 제어</td>
+                        <td>time.h, sleep 함수</td>
+                        <td class="priority-high">높음</td>
+                        <td>이주희</td>
+                    </tr>
+                    <tr>
+                        <td>난수 생성</td>
+                        <td>rand(), srand()</td>
+                        <td class="priority-high">높음</td>
+                        <td>전체</td>
+                    </tr>
+                    <tr>
+                        <td>조건 판단 로직</td>
+                        <td>if-else, switch</td>
+                        <td class="priority-high">높음</td>
+                        <td>전체</td>
+                    </tr>
+                    <tr>
+                        <td>게임 루프</td>
+                        <td>while, for 반복문</td>
+                        <td class="priority-high">높음</td>
+                        <td>문태영</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <div class="section-title">6. 게임 플로우 차트</div>
+            
+            <div class="three-column">
+                <div class="flow-chart">
+                    <h4>📱 게임 시작</h4>
+                    <p>메인 메뉴<br>↓<br>캐릭터 선택<br>↓<br>게임 규칙 설명<br>↓<br>Round 1 시작</p>
+                </div>
+                <div class="flow-chart">
+                    <h4>🎮 라운드 진행</h4>
+                    <p>라운드 시작<br>↓<br>플레이어 입력<br>↓<br>결과 판정<br>↓<br>성공/실패 처리</p>
+                </div>
+                <div class="flow-chart">
+                    <h4>🏁 게임 종료</h4>
+                    <p>모든 라운드 완료<br>↓<br>최종 점수 계산<br>↓<br>결과 출력<br>↓<br>재시작/종료</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">7. 예상 문제점 및 대응 방안</div>
+            
+            <table class="requirement-table">
+                <thead>
+                    <tr>
+                        <th>문제점</th>
+                        <th>원인</th>
+                        <th>영향도</th>
+                        <th>대응 방안</th>
+                        <th>담당자</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>콘솔 입출력의 한계</td>
+                        <td>실시간 입력이나 화면 제어의 어려움</td>
+                        <td class="priority-high">높음</td>
+                        <td>ncurses 라이브러리 검토, 대안 방법 모색</td>
+                        <td>문태영</td>
+                    </tr>
+                    <tr>
+                        <td>게임 루프 설계 미숙</td>
+                        <td>메인 루프 구조 설계 경험 부족</td>
+                        <td class="priority-high">높음</td>
+                        <td>단계적 구현, 모듈화된 설계</td>
+                        <td>이승필</td>
+                    </tr>
+                    <tr>
+                        <td>상태 관리 어려움</td>
+                        <td>4개 라운드의 복잡한 상태 관리</td>
+                        <td class="priority-medium">중간</td>
+                        <td>구조체 활용, 전역 변수 최소화</td>
+                        <td>이주희</td>
+                    </tr>
+                    <tr>
+                        <td>시간/속도 제어 어려움</td>
+                        <td>일정 시간 간격 게임 진행 제어</td>
+                        <td class="priority-medium">중간</td>
+                        <td>sleep 함수 활용, 타이머 구현</td>
+                        <td>최연주</td>
+                    </tr>
+                    <tr>
+                        <td>게임 디버깅 능력 부족</td>
+                        <td>복잡한 게임 로직의 오류 추적</td>
+                        <td class="priority-medium">중간</td>
+                        <td>printf 디버깅, 단위별 테스트</td>
+                        <td>전체</td>
+                    </tr>
+                    <tr>
+                        <td>UI/게임 요소 구성 미숙</td>
+                        <td>ASCII 아트와 콘솔 UI 경험 부족</td>
+                        <td class="priority-low">낮음</td>
+                        <td>간단한 UI부터 점진적 개선</td>
+                        <td>전체</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <div class="section-title">8. 개발 일정</div>
+            
+            <table class="requirement-table">
+                <thead>
+                    <tr>
+                        <th>일차</th>
+                        <th>날짜</th>
+                        <th>주요 작업</th>
+                        <th>담당자</th>
+                        <th>산출물</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1일차</td>
+                        <td>6/23 (월)</td>
+                        <td>프로젝트 설계, 기본 구조 작성</td>
+                        <td>전체</td>
+                        <td>개발계획서, 기본 메뉴 구조</td>
+                    </tr>
+                    <tr>
+                        <td>2일차</td>
+                        <td>6/24 (화)</td>
+                        <td>캐릭터 시스템, Round 1 구현</td>
+                        <td>문태영, 이승필</td>
+                        <td>캐릭터 선택, 무궁화꽃 게임</td>
+                    </tr>
+                    <tr>
+                        <td>3일차</td>
+                        <td>6/25 (수)</td>
+                        <td>Round 2, 3 구현</td>
+                        <td>이주희, 최연주</td>
+                        <td>뽑기 게임, 비석치기 게임</td>
+                    </tr>
+                    <tr>
+                        <td>4일차</td>
+                        <td>6/26 (목)</td>
+                        <td>Round 4, 통합 테스트</td>
+                        <td>전체</td>
+                        <td>징검다리 게임, 전체 통합</td>
+                    </tr>
+                    <tr>
+                        <td>5일차</td>
+                        <td>6/27 (금)</td>
+                        <td>최종 테스트, 문서 정리</td>
+                        <td>전체</td>
+                        <td>완성된 게임, 완료보고서</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <div class="section-title">9. 기대 효과</div>
+            
+            <div class="two-column">
+                <div>
+                    <h3>🎓 학습 효과</h3>
+                    <ul>
+                        <li><strong>C언어 실무 활용:</strong> 이론을 실제 프로젝트에 적용</li>
+                        <li><strong>문제 해결 능력:</strong> 복잡한 로직 구현 경험</li>
+                        <li><strong>팀워크 향상:</strong> 역할 분담과 협업 경험</li>
+                        <li><strong>프로젝트 관리:</strong> 일정 관리와 품질 관리</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>🛠️ 기술적 성취</h3>
+                    <ul>
+                        <li><strong>구조체 활용:</strong> 복합 데이터 타입 설계</li>
+                        <li><strong>함수 모듈화:</strong> 재사용 가능한 코드 작성</li>
+                        <li><strong>메모리 관리:</strong> 효율적인 자원 활용</li>
+                        <li><strong>알고리즘 구현:</strong> 게임 로직 최적화</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

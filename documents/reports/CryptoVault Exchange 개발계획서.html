@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>블록체인 디지털 자산 거래 플랫폼 - 최종 프로젝트 명세서</title>
+    <style>
+        @page {
+            size: A3;
+            margin: 15mm;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.3;
+            margin: 0;
+            padding: 0;
+            font-size: 11px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 8px;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin: 0 0 8px 0;
+        }
+        
+        .header p {
+            margin: 3px 0;
+            font-size: 14px;
+        }
+        
+        .section {
+            margin: 15px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fafafa;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin: -15px -15px 15px -15px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .four-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 8px;
+        }
+        
+        .usecase-actor {
+            background: #e8f5e8;
+            border: 1px solid #667eea;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            font-size: 10px;
+        }
+        
+        .usecase-actor h4 {
+            color: #764ba2;
+            margin: 0 0 5px 0;
+            font-size: 12px;
+        }
+        
+        .usecase-item {
+            background: #f0f8ff;
+            margin: 5px 0;
+            padding: 8px;
+            border-radius: 3px;
+            border-left: 3px solid #667eea;
+            font-size: 10px;
+        }
+        
+        .req-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 9px;
+        }
+        
+        .req-table th {
+            background: #667eea;
+            color: white;
+            padding: 6px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        .req-table td {
+            padding: 5px 6px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+        
+        .req-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .priority-high { border-left: 3px solid #f44336; }
+        .priority-medium { border-left: 3px solid #ff9800; }
+        .priority-low { border-left: 3px solid #4caf50; }
+        
+        .flowchart {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .flow-step {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 6px 12px;
+            margin: 4px;
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: bold;
+        }
+        
+        .flow-decision {
+            background: #ff9800;
+            color: white;
+            padding: 8px;
+            margin: 4px;
+            border-radius: 50%;
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            line-height: 44px;
+            font-size: 8px;
+            font-weight: bold;
+        }
+        
+        .flow-arrow {
+            font-size: 16px;
+            color: #667eea;
+            margin: 0 5px;
+        }
+        
+        .sitemap {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .sitemap-level1 {
+            background: #667eea;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            margin: 5px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 11px;
+        }
+        
+        .sitemap-level2 {
+            background: #764ba2;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            margin: 2px 5px;
+            display: inline-block;
+            font-size: 9px;
+        }
+        
+        .mockup-screen {
+            border: 2px solid #333;
+            border-radius: 5px;
+            padding: 10px;
+            background: #f8f9fa;
+            margin: 10px 0;
+            min-height: 200px;
+        }
+        
+        .mockup-header {
+            background: #667eea;
+            color: white;
+            padding: 6px;
+            border-radius: 3px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 10px;
+        }
+        
+        .mockup-widget {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            padding: 8px;
+            text-align: center;
+            font-size: 9px;
+        }
+        
+        .widget-title {
+            background: #764ba2;
+            color: white;
+            padding: 3px;
+            border-radius: 2px;
+            font-size: 8px;
+            margin-bottom: 5px;
+        }
+        
+        .widget-value {
+            font-size: 16px;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 9px;
+        }
+        
+        .schedule-table th {
+            background: #ff6b6b;
+            color: white;
+            padding: 6px;
+            text-align: center;
+        }
+        
+        .schedule-table td {
+            padding: 5px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+        
+        .month-1 { background: #e3f2fd; }
+        .month-2 { background: #f3e5f5; }
+        .month-3 { background: #e8f5e8; }
+        .month-4 { background: #fff3e0; }
+        .month-5 { background: #fce4ec; }
+        .month-6 { background: #e1f5fe; }
+        .month-7 { background: #e8f5e8; }
+        .month-8 { background: #fff3e0; }
+        .month-9 { background: #fce4ec; }
+        .month-10 { background: #e1f5fe; }
+        .month-11 { background: #f3e5f5; }
+        .month-12 { background: #e3f2fd; }
+        
+        .table-spec {
+            background: white;
+            border: 1px solid #667eea;
+            border-radius: 5px;
+            margin: 8px 0;
+            overflow: hidden;
+        }
+        
+        .table-header {
+            background: #667eea;
+            color: white;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .table-content {
+            padding: 10px;
+        }
+        
+        .field-row {
+            display: grid;
+            grid-template-columns: 2fr 1.5fr 0.5fr 2.5fr;
+            gap: 8px;
+            padding: 3px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 9px;
+        }
+        
+        .field-name {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .field-type {
+            color: #e74c3c;
+            font-family: monospace;
+        }
+        
+        .field-null {
+            color: #95a5a6;
+            font-size: 8px;
+        }
+        
+        .field-desc {
+            color: #7f8c8d;
+        }
+        
+        .erd-container {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .erd-entity {
+            display: inline-block;
+            background: #f8f9fa;
+            border: 1px solid #667eea;
+            border-radius: 5px;
+            margin: 8px;
+            min-width: 140px;
+            vertical-align: top;
+        }
+        
+        .erd-entity-name {
+            background: #667eea;
+            color: white;
+            padding: 6px;
+            font-weight: bold;
+            text-align: center;
+            font-size: 10px;
+        }
+        
+        .erd-attributes {
+            padding: 8px;
+            text-align: left;
+            font-size: 8px;
+            line-height: 1.2;
+        }
+        
+        .erd-pk {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .erd-fk {
+            color: #764ba2;
+            font-style: italic;
+        }
+        
+        .erd-relation {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 12px;
+            color: #ff9800;
+            vertical-align: middle;
+        }
+        
+        .project-period {
+            background: linear-gradient(45deg, #ff6b6b, #ff4757);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 15px 0;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .milestone {
+            background: #667eea;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 8px;
+            font-weight: bold;
+        }
+        
+        .compact-list {
+            margin: 8px 0;
+            padding-left: 15px;
+        }
+        
+        .compact-list li {
+            margin: 3px 0;
+            font-size: 10px;
+        }
+        
+        .info-box {
+            background: #f0f8ff;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 3px solid #667eea;
+            margin: 8px 0;
+            font-size: 10px;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 3px solid #ffc107;
+            margin: 8px 0;
+            font-size: 10px;
+        }
+        
+        .success-box {
+            background: #e8f5e8;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 3px solid #28a745;
+            margin: 8px 0;
+            font-size: 10px;
+        }
+        
+        .danger-box {
+            background: #f8d7da;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 3px solid #dc3545;
+            margin: 8px 0;
+            font-size: 10px;
+        }
+        
+        h3 {
+            font-size: 14px;
+            margin: 12px 0 8px 0;
+            color: #2c3e50;
+        }
+        
+        h4 {
+            font-size: 12px;
+            margin: 10px 0 6px 0;
+            color: #34495e;
+        }
+        
+        h5 {
+            font-size: 11px;
+            margin: 8px 0 4px 0;
+            color: #34495e;
+        }
+        
+        p {
+            margin: 5px 0;
+            font-size: 10px;
+        }
+        
+        ul, ol {
+            margin: 5px 0;
+            padding-left: 15px;
+        }
+        
+        li {
+            margin: 2px 0;
+            font-size: 10px;
+        }
+        
+        .compact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        .tech-stack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin: 15px 0;
+        }
+        
+        .tech-card {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+        
+        .tech-card.blockchain {
+            border-left-color: #f39c12;
+        }
+        
+        .tech-card.frontend {
+            border-left-color: #e74c3c;
+        }
+        
+        .tech-card.backend {
+            border-left-color: #3498db;
+        }
+        
+        .tech-card.database {
+            border-left-color: #2ecc71;
+        }
+        
+        .tech-card.security {
+            border-left-color: #9b59b6;
+        }
+        
+        .tech-card.devops {
+            border-left-color: #34495e;
+        }
+        
+        @media print {
+            body { 
+                background: white !important;
+                font-size: 10px;
+            }
+            .section {
+                page-break-inside: avoid;
+                margin: 10px 0;
+                padding: 10px;
+            }
+            .container {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔥 블록체인 디지털 자산 거래 플랫폼</h1>
+            <p>최종 프로젝트 명세서 (CryptoVault Exchange) | Web3/DeFi/NFT 통합 생태계 구축</p>
+        </div>
+
+        <div class="project-period">
+            📅 프로젝트 기간: 2025/01/15(수) ~ 2025/12/31(화) (8-12개월)
+        </div>
+
+        <!-- 3.3.1 유스케이스 -->
+        <div class="section">
+            <div class="section-title">3.3.1 👥 유스케이스 (Use Case)</div>
+            
+            <h3>시스템 액터</h3>
+            <div class="four-column">
+                <div class="usecase-actor">
+                    <h4>👤 개인투자자</h4>
+                    <p>암호화폐 거래 및 NFT 수집</p>
+                </div>
+                <div class="usecase-actor">
+                    <h4>🎨 크리에이터</h4>
+                    <p>NFT 생성 및 판매</p>
+                </div>
+                <div class="usecase-actor">
+                    <h4>🏢 기관투자자</h4>
+                    <p>대량 거래 및 유동성 제공</p>
+                </div>
+                <div class="usecase-actor">
+                    <h4>🤖 DeFi봇</h4>
+                    <p>자동화된 거래 및 수익률 최적화</p>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>주요 유스케이스</h4>
+                    <div class="usecase-item">
+                        <strong>UC01: 암호화폐 거래</strong><br>
+                        <small>스팟/마진/선물 거래 실행</small>
+                    </div>
+                    <div class="usecase-item">
+                        <strong>UC02: NFT 마켓플레이스</strong><br>
+                        <small>NFT 민팅, 경매, 거래</small>
+                    </div>
+                    <div class="usecase-item">
+                        <strong>UC03: DeFi 프로토콜</strong><br>
+                        <small>유동성 제공 및 수익률 농사</small>
+                    </div>
+                    <div class="usecase-item">
+                        <strong>UC04: 스테이킹 서비스</strong><br>
+                        <small>토큰 스테이킹 및 보상 수령</small>
+                    </div>
+                </div>
+                <div>
+                    <h4>시나리오 예시 - UC02</h4>
+                    <div class="info-box">
+                        <strong>NFT 민팅 및 판매</strong><br>
+                        1. 크리에이터 지갑 연동<br>
+                        2. 아트워크 업로드 (IPFS)<br>
+                        3. 메타데이터 입력 및 로열티 설정<br>
+                        4. ERC-721 토큰 민팅 (가스비 결제)<br>
+                        5. 마켓플레이스 등록<br>
+                        6. 경매 시작 또는 고정가 판매<br>
+                        7. 판매 완료 시 로열티 자동 분배
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.3.2 요구사항 명세서 -->
+        <div class="section">
+            <div class="section-title">3.3.2 📋 요구사항 명세서</div>
+            
+            <div class="two-column">
+                <div>
+                    <h3>기능적 요구사항</h3>
+                    <table class="req-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>요구사항</th>
+                                <th>우선순위</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="priority-high">
+                                <td>FR01</td>
+                                <td>지갑 연동 및 인증 시스템</td>
+                                <td>높음</td>
+                            </tr>
+                            <tr class="priority-high">
+                                <td>FR02</td>
+                                <td>암호화폐 거래 엔진</td>
+                                <td>높음</td>
+                            </tr>
+                            <tr class="priority-high">
+                                <td>FR03</td>
+                                <td>NFT 민팅 및 거래</td>
+                                <td>높음</td>
+                            </tr>
+                            <tr class="priority-medium">
+                                <td>FR04</td>
+                                <td>DeFi 프로토콜 통합</td>
+                                <td>중간</td>
+                            </tr>
+                            <tr class="priority-medium">
+                                <td>FR05</td>
+                                <td>스테이킹 및 보상 시스템</td>
+                                <td>중간</td>
+                            </tr>
+                            <tr class="priority-low">
+                                <td>FR06</td>
+                                <td>소셜 트레이딩 기능</td>
+                                <td>낮음</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <h3>비기능적 요구사항</h3>
+                    <table class="req-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>요구사항</th>
+                                <th>목표값</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>NFR01</td>
+                                <td>시스템 가용성</td>
+                                <td>99.9% 이상</td>
+                            </tr>
+                            <tr>
+                                <td>NFR02</td>
+                                <td>거래 처리 속도</td>
+                                <td>100ms 이내</td>
+                            </tr>
+                            <tr>
+                                <td>NFR03</td>
+                                <td>동시 사용자</td>
+                                <td>최대 100,000명</td>
+                            </tr>
+                            <tr>
+                                <td>NFR04</td>
+                                <td>데이터 보안</td>
+                                <td>AES-256 + RSA</td>
+                            </tr>
+                            <tr>
+                                <td>NFR05</td>
+                                <td>확장성</td>
+                                <td>수평 확장 지원</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h4>제약사항</h4>
+                    <div class="warning-box">
+                        • 각국 규제 준수 (KYC/AML)<br>
+                        • 가스비 최적화 필수<br>
+                        • 멀티체인 지원 (Ethereum, Polygon, BSC)<br>
+                        • 실시간 시장 데이터 동기화
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.3.3 순서도 -->
+        <div class="section">
+            <div class="section-title">3.3.3 🔄 순서도</div>
+            
+            <div class="two-column">
+                <div>
+                    <h3>거래 프로세스 흐름</h3>
+                    <div class="flowchart">
+                        <div class="flow-step">지갑 연결</div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">KYC 인증</div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">자산 입금</div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step" style="background: #764ba2;">거래 주문</div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-decision">유동성<br>충분?</div>
+                        <div style="margin: 10px 0;">
+                            <span style="color: #f44336; font-weight: bold; font-size: 9px;">YES</span>
+                            <div class="flow-step" style="background: #28a745;">거래 체결</div>
+                            <div class="flow-step" style="background: #ff9800;">수수료 징수</div>
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">정산 처리</div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">거래 완료</div>
+                    </div>
+                </div>
+                <div>
+                    <h3>NFT 민팅 상세 흐름</h3>
+                    <div class="flowchart">
+                        <div class="flow-step">아트워크 업로드</div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">IPFS 저장</div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-decision">메타데이터<br>검증?</div>
+                        <div style="margin: 8px;">
+                            <span style="color: #f44336; font-size: 9px;">PASS</span>
+                            <div class="flow-step" style="background: #764ba2;">스마트컨트랙트 호출</div>
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-decision">가스비<br>승인?</div>
+                        <div style="margin: 8px;">
+                            <span style="color: #f44336; font-size: 9px;">YES</span>
+                            <div class="flow-step" style="background: #28a745;">NFT 민팅</div>
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">마켓플레이스 등록</div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">판매 시작</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.3.4 화면 구성도 -->
+        <div class="section">
+            <div class="section-title">3.3.4 🖥️ 화면 구성도</div>
+            
+            <div class="two-column">
+                <div>
+                    <h3>메뉴 구조</h3>
+                    <div class="sitemap">
+                        <div class="sitemap-level1">🏠 대시보드</div>
+                        <div style="margin-left: 10px;">
+                            <div class="sitemap-level2">📊 포트폴리오</div>
+                            <div class="sitemap-level2">📈 시장 현황</div>
+                            <div class="sitemap-level2">🔔 알림</div>
+                        </div>
+                        
+                        <div class="sitemap-level1">💰 거래소</div>
+                        <div style="margin-left: 10px;">
+                            <div class="sitemap-level2">📊 스팟거래</div>
+                            <div class="sitemap-level2">📈 선물거래</div>
+                            <div class="sitemap-level2">💳 마진거래</div>
+                            <div class="sitemap-level2">🤖 자동매매</div>
+                        </div>
+                        
+                        <div class="sitemap-level1">🎨 NFT마켓</div>
+                        <div style="margin-left: 10px;">
+                            <div class="sitemap-level2">🖼️ 갤러리</div>
+                            <div class="sitemap-level2">🔨 경매</div>
+                            <div class="sitemap-level2">✨ 민팅</div>
+                            <div class="sitemap-level2">📝 컬렉션</div>
+                        </div>
+                        
+                        <div class="sitemap-level1">🌾 DeFi</div>
+                        <div style="margin-left: 10px;">
+                            <div class="sitemap-level2">💧 유동성풀</div>
+                            <div class="sitemap-level2">🏦 렌딩</div>
+                            <div class="sitemap-level2">🚜 이자농사</div>
+                            <div class="sitemap-level2">🏛️ 거버넌스</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3>화면별 구성 요소</h3>
+                    <div class="info-box">
+                        <strong>1️⃣ 메인 대시보드</strong><br>
+                        • 상단: 지갑 연결, 네트워크 선택<br>
+                        • 좌측: 네비게이션 메뉴<br>
+                        • 중앙: 포트폴리오 차트 (2x2)<br>
+                        • 우측: 시장 동향, 최신 NFT<br>
+                        • 하단: 최근 거래 내역
+                    </div>
+                    <div class="info-box">
+                        <strong>2️⃣ 거래소</strong><br>
+                        • TradingView 차트<br>
+                        • 주문서 (매수/매도)<br>
+                        • 거래 이력<br>
+                        • 포지션 관리
+                    </div>
+                    <div class="info-box">
+                        <strong>3️⃣ NFT 마켓플레이스</strong><br>
+                        • NFT 갤러리 그리드<br>
+                        • 필터 및 검색<br>
+                        • 상세 정보 모달<br>
+                        • 경매 입찰 시스템
+                    </div>
+                    <div class="info-box">
+                        <strong>4️⃣ DeFi 허브</strong><br>
+                        • 수익률 비교<br>
+                        • 유동성 제공 인터페이스<br>
+                        • 스테이킹 현황<br>
+                        • 보상 청구
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.3.5 목업 -->
+        <div class="section">
+            <div class="section-title">3.3.5 🎨 목업</div>
+            
+            <div class="two-column">
+                <div>
+                    <h3>메인 대시보드</h3>
+                    <div class="mockup-screen">
+                        <div class="mockup-header">🔥 CryptoVault Exchange | 0x1234...abcd | Ethereum Network</div>
+                        
+                        <div style="display: grid; grid-template-columns: 120px 1fr 150px; gap: 8px; height: 100%;">
+                            <div style="background: #f8f9fa; padding: 5px; border-radius: 3px;">
+                                <div style="background: #667eea; color: white; padding: 4px; margin-bottom: 4px; text-align: center; font-size: 8px;">🏠 대시보드</div>
+                                <div style="background: #e9ecef; padding: 3px; margin-bottom: 2px; font-size: 8px;">💰 거래소</div>
+                                <div style="background: #e9ecef; padding: 3px; margin-bottom: 2px; font-size: 8px;">🎨 NFT마켓</div>
+                                <div style="background: #e9ecef; padding: 3px; font-size: 8px;">🌾 DeFi</div>
+                            </div>
+                            
+                            <div>
+                                <h5 style="margin: 0 0 8px 0;">포트폴리오 현황</h5>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
+                                    <div class="mockup-widget">
+                                        <div class="widget-title">💰 총 자산</div>
+                                        <div class="widget-value">$125,430</div>
+                                        <div style="font-size: 7px; color: #28a745;">+12.5% (24h)</div>
+                                    </div>
+                                    <div class="mockup-widget">
+                                        <div class="widget-title">🔥 VAULT 토큰</div>
+                                        <div class="widget-value">15,250</div>
+                                        <div style="font-size: 7px; color: #dc3545;">-2.1% (24h)</div>
+                                    </div>
+                                    <div class="mockup-widget">
+                                        <div class="widget-title">🎨 NFT 가치</div>
+                                        <div class="widget-value">45.2 ETH</div>
+                                        <div style="font-size: 7px; color: #28a745;">+8.3% (7d)</div>
+                                    </div>
+                                    <div class="mockup-widget">
+                                        <div class="widget-title">🌾 DeFi 수익</div>
+                                        <div class="widget-value">$2,890</div>
+                                        <div style="font-size: 7px; color: #17a2b8;">APY: 15.6%</div>
+                                    </div>
+                                </div>
+                                
+                                <div style="background: white; border: 1px dashed #ccc; padding: 8px; margin-top: 8px; text-align: center; font-size: 8px; color: #666;">
+                                    📈 포트폴리오 성과 차트 (최근 30일)
+                                </div>
+                            </div>
+                            
+                            <div style="background: #f8f9fa; padding: 5px; border-radius: 3px;">
+                                <h5 style="margin: 0 0 5px 0; color: #667eea; font-size: 9px;">📊 시장 현황</h5>
+                                <div style="font-size: 8px; margin-bottom: 8px;">
+                                    BTC: <span style="color: #28a745;">●</span> $68,450<br>
+                                    ETH: <span style="color: #28a745;">●</span> $3,890<br>
+                                    VAULT: <span style="color: #dc3545;">●</span> $12.85<br>
+                                    총 시가총액: $2.8T
+                                </div>
+                                
+                                <h5 style="margin: 8px 0 3px 0; color: #ff9800; font-size: 9px;">🎨 인기 NFT</h5>
+                                <div style="font-size: 7px; background: white; padding: 5px; border-radius: 2px;">
+                                    CryptoPunks #7234<br>
+                                    최고가: 45 ETH<br>
+                                    Bored Apes #892<br>
+                                    경매 종료: 2시간
+                                </div>
+                                
+                                <h5 style="margin: 8px 0 3px 0; color: #28a745; font-size: 9px;">🌾 DeFi 수익률</h5>
+                                <div style="font-size: 8px; background: white; padding: 5px; border-radius: 2px;">
+                                    USDC-ETH: 18.2% APY<br>
+                                    VAULT 스테이킹: 15.6%<br>
+                                    DAI 렌딩: 12.3%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3>NFT 마켓플레이스</h3>
+                    <div class="mockup-screen">
+                        <div class="mockup-header">🎨 NFT 마켓플레이스 - 디지털 아트 갤러리</div>
+                        
+                        <div style="display: grid; grid-template-columns: 200px 1fr; gap: 10px;">
+                            <div>
+                                <h5 style="margin: 0 0 5px 0;">🔍 필터</h5>
+                                <div style="background: white; padding: 8px; border-radius: 3px; font-size: 8px;">
+                                    <div style="margin-bottom: 5px;">
+                                        <label style="font-weight: bold;">카테고리:</label>
+                                        <select style="width: 100%; font-size: 8px;">
+                                            <option>🎨 디지털아트</option>
+                                            <option>🎮 게임아이템</option>
+                                            <option>🎵 음악</option>
+                                        </select>
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <label>가격대:</label><br>
+                                        <input type="number" placeholder="최소" style="width: 45%; font-size: 7px;">
+                                        <input type="number" placeholder="최대" style="width: 45%; font-size: 7px;">
+                                    </div>
+                                    <div style="margin-bottom: 5px;">
+                                        <label>
+                                            <input type="checkbox"> 경매중
+                                        </label><br>
+                                        <label>
+                                            <input type="checkbox"> 즉시구매
+                                        </label>
+                                    </div>
+                                    <button style="background: #667eea; color: white; border: none; padding: 4px 8px; border-radius: 3px; width: 100%; font-size: 8px;">검색</button>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h5 style="margin: 0 0 5px 0;">🖼️ NFT 컬렉션</h5>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;">
+                                    <div style="background: white; border: 1px solid #ddd; border-radius: 5px; padding: 5px; text-align: center;">
+                                        <div style="background: #f0f0f0; height: 60px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 7px; color: #666;">
+                                            🎨 Abstract Art #123
+                                        </div>
+                                        <div style="font-size: 8px; margin-top: 3px; font-weight: bold;">Digital Dreams</div>
+                                        <div style="font-size: 7px; color: #666;">by @artist_one</div>
+                                        <div style="font-size: 8px; color: #667eea; font-weight: bold;">2.5 ETH</div>
+                                        <button style="background: #28a745; color: white; border: none; padding: 2px 6px; border-radius: 2px; font-size: 7px; width: 100%; margin-top: 2px;">구매</button>
+                                    </div>
+                                    <div style="background: white; border: 1px solid #ddd; border-radius: 5px; padding: 5px; text-align: center;">
+                                        <div style="background: #f0f0f0; height: 60px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 7px; color: #666;">
+                                            🎵 Music Wave #456
+                                        </div>
+                                        <div style="font-size: 8px; margin-top: 3px; font-weight: bold;">Cyber Beats</div>
+                                        <div style="font-size: 7px; color: #666;">by @dj_crypto</div>
+                                        <div style="font-size: 8px; color: #ff9800; font-weight: bold;">경매: 1.8 ETH</div>
+                                        <button style="background: #ff9800; color: white; border: none; padding: 2px 6px; border-radius: 2px; font-size: 7px; width: 100%; margin-top: 2px;">입찰</button>
+                                    </div>
+                                    <div style="background: white; border: 1px solid #ddd; border-radius: 5px; padding: 5px; text-align: center;">
+                                        <div style="background: #f0f0f0; height: 60px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 7px; color: #666;">
+                                            🎮 Game Item #789
+                                        </div>
+                                        <div style="font-size: 8px; margin-top: 3px; font-weight: bold;">Legendary Sword</div>
+                                        <div style="font-size: 7px; color: #666;">by @game_dev</div>
+                                        <div style="font-size: 8px; color: #dc3545; font-weight: bold;">0.8 ETH</div>
+                                        <button style="background: #dc3545; color: white; border: none; padding: 2px 6px; border-radius: 2px; font-size: 7px; width: 100%; margin-top: 2px;">구매</button>
+                                    </div>
+                                </div>
+                                
+                                <div style="margin-top: 10px;">
+                                    <h5 style="margin: 0 0 5px 0;">🔥 인기 경매</h5>
+                                    <div style="background: white; border: 1px dashed #ccc; padding: 8px; font-size: 8px; color: #666;">
+                                        🎨 "Ethereum Dreams" - 현재가: 15.5 ETH | 종료: 3시간 25분<br>
+                                        🎵 "DeFi Symphony" - 현재가: 8.2 ETH | 종료: 1일 12시간<br>
+                                        🎮 "Crypto Warrior Set" - 현재가: 25.8 ETH | 종료: 6시간 45분
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.3.6 일정표 -->
+        <div class="section">
+            <div class="section-title">3.3.6 📅 일정표</div>
+            
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th style="width: 8%;">단계</th>
+                        <th style="width: 12%;">기간</th>
+                        <th style="width: 25%;">주요 작업</th>
+                        <th style="width: 35%;">상세 내용</th>
+                        <th style="width: 20%;">산출물</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="month-1">
+                        <td><strong>Phase 1</strong></td>
+                        <td>1-2개월</td>
+                        <td>기반 구축</td>
+                        <td>블록체인 인프라, 지갑 연동, 기본 거래소, 사용자 인증</td>
+                        <td>MVP 거래소, 지갑 연동, KYC 시스템</td>
+                    </tr>
+                    <tr class="month-2">
+                        <td><strong>Phase 2</strong></td>
+                        <td>2-3개월</td>
+                        <td>거래소 고도화</td>
+                        <td>고성능 매칭엔진, 차트 시스템, 마진/선물거래, API</td>
+                        <td>완전한 거래소, TradingView 연동, 모바일앱</td>
+                    </tr>
+                    <tr class="month-3">
+                        <td><strong>Phase 3</strong></td>
+                        <td>2-3개월</td>
+                        <td>NFT 마켓플레이스</td>
+                        <td>NFT 민팅, IPFS 연동, 경매시스템, 로열티 분배</td>
+                        <td>NFT 플랫폼, 크리에이터 도구, 갤러리</td>
+                    </tr>
+                    <tr class="month-4">
+                        <td><strong>Phase 4</strong></td>
+                        <td>2-3개월</td>
+                        <td>DeFi 프로토콜</td>
+                        <td>유동성풀, AMM, 렌딩프로토콜, 이자농사, 거버넌스</td>
+                        <td>DeFi 허브, 수익률 최적화, DAO 거버넌스</td>
+                    </tr>
+                    <tr class="month-5">
+                        <td><strong>Phase 5</strong></td>
+                        <td>1-2개월</td>
+                        <td>고도화 및 확장</td>
+                        <td>크로스체인, AI거래신호, 소셜트레이딩, 기관용서비스</td>
+                        <td>멀티체인 지원, AI 도구, 엔터프라이즈 API</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="four-column">
+                <div class="success-box">
+                    <strong>1단계 (1-2개월)</strong><br>
+                    기반 인프라 구축<br>
+                    <span class="milestone">MVP 출시</span>
+                </div>
+                <div class="info-box">
+                    <strong>2단계 (2-3개월)</strong><br>
+                    거래소 완성<br>
+                    <span class="milestone">베타 오픈</span>
+                </div>
+                <div class="warning-box">
+                    <strong>3-4단계 (4-6개월)</strong><br>
+                    NFT + DeFi 통합<br>
+                    <span class="milestone">정식 런칭</span>
+                </div>
+                <div class="danger-box">
+                    <strong>5단계 (8-12개월)</strong><br>
+                    글로벌 확장<br>
+                    <span class="milestone">IPO 준비</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.3.7 테이블 명세서 -->
+        <div class="section">
+            <div class="section-title">3.3.7 🗃️ 테이블 명세서</div>
+            
+            <div class="compact-grid">
+                <div class="table-spec">
+                    <div class="table-header">👤 users - 사용자</div>
+                    <div class="table-content">
+                        <div class="field-row" style="font-weight: bold; background: #f8f9fa;">
+                            <div>필드명</div><div>타입</div><div>NULL</div><div>설명</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">user_id</div>
+                            <div class="field-type">BIGINT PK</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">사용자 고유 ID</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">wallet_address</div>
+                            <div class="field-type">VARCHAR(42)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">지갑 주소 (0x...)</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">email</div>
+                            <div class="field-type">VARCHAR(255)</div>
+                            <div class="field-null">NULL</div>
+                            <div class="field-desc">이메일 주소</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">kyc_status</div>
+                            <div class="field-type">ENUM</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">KYC 상태 (pending/approved/rejected)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-spec">
+                    <div class="table-header">💰 trades - 거래내역</div>
+                    <div class="table-content">
+                        <div class="field-row" style="font-weight: bold; background: #f8f9fa;">
+                            <div>필드명</div><div>타입</div><div>NULL</div><div>설명</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">trade_id</div>
+                            <div class="field-type">BIGINT PK</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">거래 ID</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">user_id</div>
+                            <div class="field-type">BIGINT FK</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">사용자 ID</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">trading_pair</div>
+                            <div class="field-type">VARCHAR(20)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">거래쌍 (ETH/USDT)</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">trade_type</div>
+                            <div class="field-type">ENUM</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">거래유형 (buy/sell)</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">amount</div>
+                            <div class="field-type">DECIMAL(36,18)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">거래량</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">price</div>
+                            <div class="field-type">DECIMAL(36,18)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">거래가격</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-spec">
+                    <div class="table-header">🎨 nfts - NFT정보</div>
+                    <div class="table-content">
+                        <div class="field-row" style="font-weight: bold; background: #f8f9fa;">
+                            <div>필드명</div><div>타입</div><div>NULL</div><div>설명</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">nft_id</div>
+                            <div class="field-type">BIGINT PK</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">NFT ID</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">token_id</div>
+                            <div class="field-type">BIGINT</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">블록체인 토큰 ID</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">contract_address</div>
+                            <div class="field-type">VARCHAR(42)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">컨트랙트 주소</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">creator_id</div>
+                            <div class="field-type">BIGINT FK</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">제작자 ID</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">metadata_uri</div>
+                            <div class="field-type">TEXT</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">IPFS 메타데이터 URI</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">royalty_percentage</div>
+                            <div class="field-type">DECIMAL(5,2)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">로열티 비율 (0.00-99.99)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-spec">
+                    <div class="table-header">🌾 liquidity_pools - 유동성풀</div>
+                    <div class="table-content">
+                        <div class="field-row" style="font-weight: bold; background: #f8f9fa;">
+                            <div>필드명</div><div>타입</div><div>NULL</div><div>설명</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">pool_id</div>
+                            <div class="field-type">BIGINT PK</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">풀 ID</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">token_a</div>
+                            <div class="field-type">VARCHAR(42)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">토큰A 주소</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">token_b</div>
+                            <div class="field-type">VARCHAR(42)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">토큰B 주소</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">reserve_a</div>
+                            <div class="field-type">DECIMAL(36,18)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">토큰A 보유량</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">reserve_b</div>
+                            <div class="field-type">DECIMAL(36,18)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">토큰B 보유량</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">total_supply</div>
+                            <div class="field-type">DECIMAL(36,18)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">LP 토큰 총량</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-spec">
+                    <div class="table-header">🏦 staking_pools - 스테이킹풀</div>
+                    <div class="table-content">
+                        <div class="field-row" style="font-weight: bold; background: #f8f9fa;">
+                            <div>필드명</div><div>타입</div><div>NULL</div><div>설명</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">pool_id</div>
+                            <div class="field-type">BIGINT PK</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">스테이킹 풀 ID</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">token_address</div>
+                            <div class="field-type">VARCHAR(42)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">스테이킹 토큰</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">reward_token</div>
+                            <div class="field-type">VARCHAR(42)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">보상 토큰</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">apy</div>
+                            <div class="field-type">DECIMAL(8,4)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">연간 수익률 (%)</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">total_staked</div>
+                            <div class="field-type">DECIMAL(36,18)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">총 스테이킹량</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-spec">
+                    <div class="table-header">📜 transactions - 블록체인거래</div>
+                    <div class="table-content">
+                        <div class="field-row" style="font-weight: bold; background: #f8f9fa;">
+                            <div>필드명</div><div>타입</div><div>NULL</div><div>설명</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">tx_id</div>
+                            <div class="field-type">BIGINT PK</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">트랜잭션 ID</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">tx_hash</div>
+                            <div class="field-type">VARCHAR(66)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">트랜잭션 해시</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">block_number</div>
+                            <div class="field-type">BIGINT</div>
+                            <div class="field-null">NULL</div>
+                            <div class="field-desc">블록 번호</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">status</div>
+                            <div class="field-type">ENUM</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">상태 (pending/confirmed/failed)</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">gas_used</div>
+                            <div class="field-type">BIGINT</div>
+                            <div class="field-null">NULL</div>
+                            <div class="field-desc">사용된 가스</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.3.8 ERD -->
+        <div class="section">
+            <div class="section-title">3.3.8 🔗 ERD</div>
+            
+            <div class="erd-container">
+                <div class="erd-entity">
+                    <div class="erd-entity-name">👤 USERS</div>
+                    <div class="erd-attributes">
+                        <div class="erd-pk">🔑 user_id (PK)</div>
+                        <div>wallet_address</div>
+                        <div>email</div>
+                        <div>kyc_status</div>
+                        <div>created_at</div>
+                    </div>
+                </div>
+
+                <div class="erd-relation">1:N</div>
+
+                <div class="erd-entity">
+                    <div class="erd-entity-name">💰 TRADES</div>
+                    <div class="erd-attributes">
+                        <div class="erd-pk">🔑 trade_id (PK)</div>
+                        <div class="erd-fk">👤 user_id (FK)</div>
+                        <div>trading_pair</div>
+                        <div>trade_type</div>
+                        <div>amount</div>
+                        <div>price</div>
+                        <div>timestamp</div>
+                    </div>
+                </div>
+
+                <div class="erd-entity">
+                    <div class="erd-entity-name">🎨 NFTS</div>
+                    <div class="erd-attributes">
+                        <div class="erd-pk">🔑 nft_id (PK)</div>
+                        <div class="erd-fk">👤 creator_id (FK)</div>
+                        <div>token_id</div>
+                        <div>contract_address</div>
+                        <div>metadata_uri</div>
+                        <div>royalty_percentage</div>
+                    </div>
+                </div>
+
+                <div class="erd-relation">1:N</div>
+
+                <div class="erd-entity">
+                    <div class="erd-entity-name">🏷️ NFT_SALES</div>
+                    <div class="erd-attributes">
+                        <div class="erd-pk">🔑 sale_id (PK)</div>
+                        <div class="erd-fk">🎨 nft_id (FK)</div>
+                        <div class="erd-fk">👤 seller_id (FK)</div>
+                        <div class="erd-fk">👤 buyer_id (FK)</div>
+                        <div>sale_price</div>
+                        <div>sale_type</div>
+                        <div>timestamp</div>
+                    </div>
+                </div>
+
+                <div class="erd-entity">
+                    <div class="erd-entity-name">🌾 LIQUIDITY_POOLS</div>
+                    <div class="erd-attributes">
+                        <div class="erd-pk">🔑 pool_id (PK)</div>
+                        <div>token_a</div>
+                        <div>token_b</div>
+                        <div>reserve_a</div>
+                        <div>reserve_b</div>
+                        <div>total_supply</div>
+                    </div>
+                </div>
+
+                <div class="erd-relation">1:N</div>
+
+                <div class="erd-entity">
+                    <div class="erd-entity-name">💧 USER_LIQUIDITY</div>
+                    <div class="erd-attributes">
+                        <div class="erd-pk">🔑 position_id (PK)</div>
+                        <div class="erd-fk">👤 user_id (FK)</div>
+                        <div class="erd-fk">🌾 pool_id (FK)</div>
+                        <div>lp_tokens</div>
+                        <div>deposited_at</div>
+                        <div>rewards_earned</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3>주요 관계 설명</h3>
+                    <div class="info-box">
+                        <strong>관계 정의:</strong><br>
+                        • USERS ↔ TRADES (1:N)<br>
+                        • USERS ↔ NFTS (1:N) - 제작자<br>
+                        • NFTS ↔ NFT_SALES (1:N)<br>
+                        • USERS ↔ USER_LIQUIDITY (1:N)<br>
+                        • LIQUIDITY_POOLS ↔ USER_LIQUIDITY (1:N)
+                    </div>
+                    
+                    <h4>인덱스 설계</h4>
+                    <div class="success-box">
+                        • trades: (user_id, timestamp)<br>
+                        • nfts: (creator_id, created_at)<br>
+                        • nft_sales: (nft_id, timestamp)<br>
+                        • users: wallet_address (unique)<br>
+                        • transactions: (tx_hash, block_number)
+                    </div>
+                </div>
+                <div>
+                    <h3>데이터 보존 정책</h3>
+                    <div class="warning-box">
+                        <strong>보존 기간:</strong><br>
+                        • trades: 영구 (세무 목적)<br>
+                        • nft_sales: 영구 (로열티 계산)<br>
+                        • transactions: 영구 (블록체인 감사)<br>
+                        • user_sessions: 30일 후 삭제<br>
+                        • logs: 1년 → 압축 보관
+                    </div>
+                    
+                    <h4>성능 최적화</h4>
+                    <div class="info-box">
+                        • 샤딩: user_id 기반 분산<br>
+                        • 캐싱: Redis 클러스터<br>
+                        • 읽기 복제본: 조회 성능 향상<br>
+                        • 아카이빙: 과거 데이터 별도 저장
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 기술 스택 및 개발 환경 -->
+        <div class="section">
+            <div class="section-title">🛠️ 기술 스택 및 개발 환경</div>
+            
+            <div class="tech-stack-grid">
+                <div class="tech-card blockchain">
+                    <h5 style="margin: 0 0 8px 0; color: #f39c12;">🔗 블록체인 & Web3</h5>
+                    <div style="font-size: 10px;">
+                        <strong>메인체인:</strong> Ethereum (Mainnet)<br>
+                        <strong>레이어2:</strong> Polygon, Arbitrum, Optimism<br>
+                        <strong>사이드체인:</strong> Binance Smart Chain<br>
+                        <strong>스마트컨트랙트:</strong> Solidity 0.8+<br>
+                        <strong>Web3 라이브러리:</strong> ethers.js, web3.js<br>
+                        <strong>지갑 연동:</strong> MetaMask, WalletConnect<br>
+                        <strong>분산저장:</strong> IPFS, Arweave<br>
+                        <strong>인덱싱:</strong> The Graph Protocol
+                    </div>
+                </div>
+                
+                <div class="tech-card frontend">
+                    <h5 style="margin: 0 0 8px 0; color: #e74c3c;">🎨 프론트엔드</h5>
+                    <div style="font-size: 10px;">
+                        <strong>프레임워크:</strong> React 18, Next.js 14<br>
+                        <strong>언어:</strong> TypeScript<br>
+                        <strong>상태관리:</strong> Redux Toolkit, Zustand<br>
+                        <strong>스타일링:</strong> Tailwind CSS, Framer Motion<br>
+                        <strong>차트:</strong> TradingView Chart Library<br>
+                        <strong>모바일:</strong> React Native<br>
+                        <strong>테스팅:</strong> Jest, Cypress<br>
+                        <strong>빌드도구:</strong> Vite, Webpack 5
+                    </div>
+                </div>
+                
+                <div class="tech-card backend">
+                    <h5 style="margin: 0 0 8px 0; color: #3498db;">⚙️ 백엔드</h5>
+                    <div style="font-size: 10px;">
+                        <strong>런타임:</strong> Node.js 20+<br>
+                        <strong>프레임워크:</strong> NestJS, Express.js<br>
+                        <strong>언어:</strong> TypeScript, Go<br>
+                        <strong>API:</strong> GraphQL, REST API<br>
+                        <strong>실시간:</strong> Socket.IO, WebSocket<br>
+                        <strong>큐시스템:</strong> Redis, Bull Queue<br>
+                        <strong>캐싱:</strong> Redis Cluster<br>
+                        <strong>검색엔진:</strong> Elasticsearch
+                    </div>
+                </div>
+                
+                <div class="tech-card database">
+                    <h5 style="margin: 0 0 8px 0; color: #2ecc71;">🗄️ 데이터베이스</h5>
+                    <div style="font-size: 10px;">
+                        <strong>RDBMS:</strong> PostgreSQL 15<br>
+                        <strong>NoSQL:</strong> MongoDB, Redis<br>
+                        <strong>시계열:</strong> InfluxDB<br>
+                        <strong>ORM:</strong> Prisma, TypeORM<br>
+                        <strong>마이그레이션:</strong> Flyway<br>
+                        <strong>백업:</strong> pg_dump, 증분 백업<br>
+                        <strong>모니터링:</strong> pgAdmin, DataDog<br>
+                        <strong>복제:</strong> Master-Slave 구성
+                    </div>
+                </div>
+                
+                <div class="tech-card security">
+                    <h5 style="margin: 0 0 8px 0; color: #9b59b6;">🔒 보안 & 인증</h5>
+                    <div style="font-size: 10px;">
+                        <strong>인증:</strong> JWT, OAuth 2.0<br>
+                        <strong>암호화:</strong> AES-256, RSA-4096<br>
+                        <strong>해싱:</strong> bcrypt, Argon2<br>
+                        <strong>방화벽:</strong> WAF, DDoS Protection<br>
+                        <strong>모니터링:</strong> Sentry, LogRocket<br>
+                        <strong>취약점스캔:</strong> OWASP ZAP<br>
+                        <strong>컨트랙트감사:</strong> Certik, ConsenSys<br>
+                        <strong>KYC/AML:</strong> Jumio, Onfido
+                    </div>
+                </div>
+                
+                <div class="tech-card devops">
+                    <h5 style="margin: 0 0 8px 0; color: #34495e;">☁️ DevOps & 인프라</h5>
+                    <div style="font-size: 10px;">
+                        <strong>클라우드:</strong> AWS, Google Cloud<br>
+                        <strong>컨테이너:</strong> Docker, Kubernetes<br>
+                        <strong>CI/CD:</strong> GitHub Actions, Jenkins<br>
+                        <strong>모니터링:</strong> Prometheus, Grafana<br>
+                        <strong>로그:</strong> ELK Stack (Elasticsearch)<br>
+                        <strong>CDN:</strong> CloudFront, Cloudflare<br>
+                        <strong>로드밸런서:</strong> AWS ALB, NGINX<br>
+                        <strong>IaC:</strong> Terraform, AWS CDK
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 프로젝트 완료 목표 -->
+    <div style="background: linear-gradient(45deg, #667eea, #764ba2); color: white; padding: 20px; border-radius: 10px; text-align: center; margin-top: 20px;">
+        <h2 style="margin: 0 0 10px 0; font-size: 20px;">🎯 프로젝트 완료 목표</h2>
+        <p style="font-size: 16px; margin: 0 0 15px 0;">
+            <strong>2025년 12월 31일까지</strong><br>
+            완전히 동작하는 블록체인 디지털 자산 거래 플랫폼 개발 완료
+        </p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 15px; margin-top: 15px;">
+            <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 5px;">
+                <div style="font-size: 14px; font-weight: bold;">🔥 거래소</div>
+                <div style="font-size: 12px;">월 거래량 $1B+</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 5px;">
+                <div style="font-size: 14px; font-weight: bold;">🎨 NFT마켓</div>
+                <div style="font-size: 12px;">월 거래량 10K+ NFT</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 5px;">
+                <div style="font-size: 14px; font-weight: bold;">🌾 DeFi TVL</div>
+                <div style="font-size: 12px;">$100M+ 유동성</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 5px;">
+                <div style="font-size: 14px; font-weight: bold;">👥 사용자</div>
+                <div style="font-size: 12px;">100K+ 액티브</div>
+            </div>
+        </div>
+        <div style="margin-top: 15px; font-size: 12px; opacity: 0.9;">
+            Web3/DeFi/NFT 통합 생태계 | 멀티체인 지원 | 기관급 보안 | 차세대 디지털 자산 플랫폼 구축! 🚀
+        </div>
+    </div>
+
+    <!-- 추가 성능 목표 -->
+    <div style="margin-top: 10px; padding: 12px; background: #e8f5e8; border-radius: 8px; border-left: 4px solid #667eea;">
+        <h4 style="margin: 0 0 8px 0; color: #2e7d32;">📊 시스템 성능 목표</h4>
+        <div class="four-column">
+            <div style="text-align: center;">
+                <div style="font-size: 18px; font-weight: bold; color: #667eea;">100ms</div>
+                <div style="font-size: 10px;">거래 처리 속도</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 18px; font-weight: bold; color: #764ba2;">100K</div>
+                <div style="font-size: 10px;">동시 사용자</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 18px; font-weight: bold; color: #28a745;">99.9%</div>
+                <div style="font-size: 10px;">시스템 가용성</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 18px; font-weight: bold; color: #f39c12;">24/7</div>
+                <div style="font-size: 10px;">무중단 서비스</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 품질 보증 -->
+    <div style="margin-top: 10px; padding: 12px; background: #fff3e0; border-radius: 8px; border-left: 4px solid #ff9800;">
+        <h4 style="margin: 0 0 8px 0; color: #f57c00;">🏆 품질 보증 계획</h4>
+        <div class="three-column">
+            <div>
+                <h5 style="margin: 0 0 5px 0; font-size: 11px;">스마트컨트랙트 감사</h5>
+                <ul style="margin: 0; padding-left: 12px;">
+                    <li>Certik 감사</li>
+                    <li>ConsenSys Diligence</li>
+                    <li>OpenZeppelin 검증</li>
+                </ul>
+            </div>
+            <div>
+                <h5 style="margin: 0 0 5px 0; font-size: 11px;">보안 테스트</h5>
+                <ul style="margin: 0; padding-left: 12px;">
+                    <li>펜테스팅</li>
+                    <li>취약점 스캔</li>
+                    <li>부하 테스트</li>
+                </ul>
+            </div>
+            <div>
+                <h5 style="margin: 0 0 5px 0; font-size: 11px;">규제 준수</h5>
+                <ul style="margin: 0; padding-left: 12px;">
+                    <li>KYC/AML 인증</li>
+                    <li>GDPR 준수</li>
+                    <li>거래소 라이센스</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

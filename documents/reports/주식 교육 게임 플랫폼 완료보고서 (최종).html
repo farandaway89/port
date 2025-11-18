@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockEdu Game - 프로젝트 완료보고서 (최종)</title>
+    <style>
+        @page { size: A4; margin: 15mm; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            font-size: 11px;
+            color: #333;
+        }
+
+        .container { max-width: 100%; margin: 0; padding: 0; }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+        }
+
+        .header h1 { font-size: 26px; margin: 0 0 8px 0; }
+        .header p { margin: 4px 0; font-size: 14px; }
+
+        .section {
+            margin: 18px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fafafa;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            background: #667eea;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: -15px -15px 15px -15px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .code-section {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        .code-block {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 9px;
+            line-height: 1.4;
+            overflow-x: auto;
+            margin: 8px 0;
+        }
+
+        .code-comment { color: #5c6370; font-style: italic; }
+        .code-keyword { color: #c678dd; font-weight: bold; }
+        .code-string { color: #98c379; }
+        .code-function { color: #61afef; }
+        .code-number { color: #d19a66; }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin: 15px 0;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #dee2e6;
+        }
+
+        .metric-value {
+            font-size: 22px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .metric-label { font-size: 12px; color: #6c757d; }
+
+        .file-tree {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 12px;
+            font-family: 'Consolas', monospace;
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+        .folder { color: #667eea; font-weight: bold; }
+        .file { color: #2c3e50; }
+        .file-desc { color: #95a5a6; font-size: 9px; }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 12px 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 4px solid #28a745;
+        }
+
+        .feature-card h4 {
+            margin: 0 0 8px 0;
+            color: #28a745;
+            font-size: 13px;
+        }
+
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 8px;
+            margin: 12px 0;
+        }
+
+        .tech-item {
+            background: white;
+            padding: 8px;
+            border-radius: 5px;
+            text-align: center;
+            border: 1px solid #dee2e6;
+            font-size: 10px;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            padding: 12px;
+            margin: 10px 0;
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 5px;
+            padding: 12px;
+            margin: 10px 0;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 12px;
+            margin: 10px 0;
+        }
+
+        ul { margin: 8px 0; padding-left: 18px; }
+        li { margin: 4px 0; font-size: 10px; }
+        h3 { font-size: 14px; margin: 12px 0 8px 0; color: #2c3e50; }
+        h4 { font-size: 12px; margin: 10px 0 6px 0; color: #34495e; }
+        p { margin: 6px 0; font-size: 10px; }
+
+        .implementation-status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: bold;
+        }
+
+        .status-complete { background: #28a745; color: white; }
+        .status-progress { background: #ffc107; color: #333; }
+        .status-planned { background: #6c757d; color: white; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 9px;
+        }
+
+        table th {
+            background: #667eea;
+            color: white;
+            padding: 8px;
+            text-align: left;
+        }
+
+        table td {
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+        }
+
+        table tr:nth-child(even) { background: #f8f9fa; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📈 StockEdu Game - React Native 앱</h1>
+            <p>주식 교육 게임 플랫폼 - 프로젝트 완료보고서 (최종)</p>
+            <p>보고일: 2025년 1월 23일 | 프로젝트 완료율: 95%</p>
+        </div>
+
+        <!-- 프로젝트 개요 -->
+        <div class="section">
+            <div class="section-title">📋 프로젝트 개요</div>
+
+            <p><strong>프로젝트명:</strong> StockEdu Game - React Native 기반 주식 교육 게임 앱</p>
+            <p><strong>개발 플랫폼:</strong> React Native (Expo SDK 54) - iOS/Android 크로스플랫폼</p>
+            <p><strong>주요 기능:</strong> 12개 투자 강의, 9개 주식 실시간 거래 시뮬레이터, 게임화 학습 시스템</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">95%</div>
+                    <div class="metric-label">전체 완료율</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">4개</div>
+                    <div class="metric-label">주요 화면</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">21개</div>
+                    <div class="metric-label">기능 구현</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 프로젝트 구조 -->
+        <div class="section">
+            <div class="section-title">📁 프로젝트 구조</div>
+
+            <div class="file-tree">
+StockEduAppNew/
+├─ <span class="folder">src/</span>
+│  ├─ <span class="folder">screens/</span> <span class="file-desc"># 4개 주요 화면</span>
+│  │  ├─ <span class="file">HomeScreen.js</span> <span class="file-desc">(219줄) - 대시보드, 뉴스, 기능 카드</span>
+│  │  ├─ <span class="file">LearningScreen.js</span> <span class="file-desc">(509줄) - 12개 강의 + 16개 퀴즈</span>
+│  │  ├─ <span class="file">PortfolioScreen.js</span> <span class="file-desc">(645줄) - 주식 거래 시뮬레이터</span>
+│  │  └─ <span class="file">RankingScreen.js</span> <span class="file-desc">(203줄) - 랭킹 + 12개 배지</span>
+│  ├─ <span class="folder">data/</span> <span class="file-desc"># 데이터 레이어</span>
+│  │  ├─ <span class="file">courseData.js</span> <span class="file-desc">(433줄) - 12개 강의 콘텐츠 + 퀴즈 16개</span>
+│  │  └─ <span class="file">stockData.js</span> <span class="file-desc">(81줄) - 9개 주식 데이터</span>
+│  └─ <span class="folder">utils/</span> <span class="file-desc"># 게임 로직</span>
+│     └─ <span class="file">gameLogic.js</span> <span class="file-desc">(72줄) - 레벨/XP/게임 시스템</span>
+├─ <span class="file">App.js</span> <span class="file-desc">(71줄) - 네비게이션 설정</span>
+└─ <span class="file">package.json</span> <span class="file-desc">- 의존성 관리</span>
+            </div>
+
+            <div class="success-box">
+                <strong>총 코드량:</strong> 약 2,181줄 (주석 제외)<br>
+                <strong>컴포넌트 수:</strong> 4개 주요 화면 + 다수의 UI 컴포넌트<br>
+                <strong>데이터:</strong> 12개 강의, 16개 퀴즈, 9개 주식, 12개 배지
+            </div>
+        </div>
+
+        <!-- 코드 분석 - HomeScreen -->
+        <div class="section">
+            <div class="section-title">💻 코드 분석 #1: HomeScreen.js (대시보드)</div>
+
+            <h4>📍 파일 위치: src/screens/HomeScreen.js (219줄)</h4>
+            <p><strong>주요 기능:</strong> 메인 대시보드, 뉴스 표시, 기능 카드 네비게이션, 3분 투자 게임</p>
+
+            <div class="code-section">
+                <h4>1. 핵심 상태 관리</h4>
+                <div class="code-block"><span class="code-comment">// 게임 데이터 및 모달 상태 관리</span>
+<span class="code-keyword">const</span> [gameData, setGameData] = <span class="code-function">useState</span>(<span class="code-keyword">null</span>);
+<span class="code-keyword">const</span> [modalVisible, setModalVisible] = <span class="code-function">useState</span>(<span class="code-keyword">false</span>);
+<span class="code-keyword">const</span> [resultVisible, setResultVisible] = <span class="code-function">useState</span>(<span class="code-keyword">false</span>);
+<span class="code-keyword">const</span> [result, setResult] = <span class="code-function">useState</span>(<span class="code-keyword">null</span>);
+
+<span class="code-comment">// AsyncStorage에서 게임 데이터 로드</span>
+<span class="code-keyword">const</span> <span class="code-function">loadData</span> = <span class="code-keyword">async</span> () => {
+  <span class="code-keyword">const</span> data = <span class="code-keyword">await</span> <span class="code-function">loadGameData</span>();
+  <span class="code-function">setGameData</span>(data);
+};</div>
+            </div>
+
+            <div class="code-section">
+                <h4>2. 4개 기능 카드 UI (네비게이션)</h4>
+                <div class="code-block"><span class="code-comment">// 각 화면으로 이동하는 기능 카드</span>
+&lt;<span class="code-keyword">View</span> style={styles.featureGrid}&gt;
+  &lt;<span class="code-keyword">TouchableOpacity</span>
+    style={[styles.featureCard, { backgroundColor: <span class="code-string">'#7c3aed'</span> }]}
+    <span class="code-function">onPress</span>={() => navigation.<span class="code-function">navigate</span>(<span class="code-string">'Learning'</span>)}&gt;
+    &lt;<span class="code-keyword">Text</span>&gt;📚&lt;/<span class="code-keyword">Text</span>&gt;
+    &lt;<span class="code-keyword">Text</span>&gt;학습하기 - 12개 투자 강의&lt;/<span class="code-keyword">Text</span>&gt;
+  &lt;/<span class="code-keyword">TouchableOpacity</span>&gt;
+
+  &lt;<span class="code-keyword">TouchableOpacity</span> style={{ backgroundColor: <span class="code-string">'#3b82f6'</span> }}
+    <span class="code-function">onPress</span>={() => navigation.<span class="code-function">navigate</span>(<span class="code-string">'Portfolio'</span>)}&gt;
+    &lt;<span class="code-keyword">Text</span>&gt;💼 모의 투자 - 실시간 주가 거래&lt;/<span class="code-keyword">Text</span>&gt;
+  &lt;/<span class="code-keyword">TouchableOpacity</span>&gt;
+&lt;/<span class="code-keyword">View</span>&gt;</div>
+            </div>
+
+            <div class="code-section">
+                <h4>3. 투자 뉴스 렌더링</h4>
+                <div class="code-block"><span class="code-comment">// courseData.js의 marketNews 데이터 표시</span>
+{marketNews.<span class="code-function">map</span>((news, index) => (
+  &lt;<span class="code-keyword">View</span> key={index} style={styles.newsItem}&gt;
+    &lt;<span class="code-keyword">Text</span> style={styles.newsTitle}&gt;{news.title}&lt;/<span class="code-keyword">Text</span>&gt;
+    &lt;<span class="code-keyword">View</span> style={styles.newsMeta}&gt;
+      &lt;<span class="code-keyword">Text</span>&gt;{news.source}&lt;/<span class="code-keyword">Text</span>&gt;
+      &lt;<span class="code-keyword">Text</span>&gt;{news.date}&lt;/<span class="code-keyword">Text</span>&gt;
+    &lt;/<span class="code-keyword">View</span>&gt;
+  &lt;/<span class="code-keyword">View</span>&gt;
+))}</div>
+            </div>
+
+            <div class="code-section">
+                <h4>4. 3분 투자 게임 로직</h4>
+                <div class="code-block"><span class="code-keyword">const</span> <span class="code-function">handleMiniGame</span> = (volatility) => {
+  <span class="code-comment">// gameLogic.js의 playMiniGame 함수 호출</span>
+  <span class="code-keyword">const</span> { gameData: updated, result: gameResult } =
+    <span class="code-function">playMiniGame</span>(gameData, volatility);
+
+  <span class="code-function">setGameData</span>(updated);
+  <span class="code-function">saveGameData</span>(updated);  <span class="code-comment">// AsyncStorage에 저장</span>
+  <span class="code-function">setResult</span>(gameResult);
+  <span class="code-function">setResultVisible</span>(<span class="code-keyword">true</span>);
+
+  <span class="code-comment">// 3초 후 결과 모달 자동 닫기</span>
+  <span class="code-function">setTimeout</span>(() => <span class="code-function">setResultVisible</span>(<span class="code-keyword">false</span>), <span class="code-number">3000</span>);
+};</div>
+            </div>
+
+            <div class="info-box">
+                <strong>구현된 기능:</strong><br>
+                ✅ 레벨/XP/코인 실시간 표시<br>
+                ✅ 4개 기능 카드로 화면 네비게이션<br>
+                ✅ 4개 투자 뉴스 표시<br>
+                ✅ 3분 투자 게임 (3가지 변동성)<br>
+                ✅ 포트폴리오 요약 (총 자산, 승리 횟수, 레벨)<br>
+                ✅ 결과 모달 (승패에 따른 XP/코인 획득)
+            </div>
+        </div>
+
+        <!-- 코드 분석 - LearningScreen -->
+        <div class="section">
+            <div class="section-title">💻 코드 분석 #2: LearningScreen.js (학습 시스템)</div>
+
+            <h4>📍 파일 위치: src/screens/LearningScreen.js (509줄)</h4>
+            <p><strong>주요 기능:</strong> 12개 투자 강의, 16개 퀴즈, 코스 완료 시스템</p>
+
+            <div class="code-section">
+                <h4>1. 강의 및 퀴즈 상태 관리</h4>
+                <div class="code-block"><span class="code-keyword">const</span> [quizVisible, setQuizVisible] = <span class="code-function">useState</span>(<span class="code-keyword">false</span>);
+<span class="code-keyword">const</span> [currentQuiz, setCurrentQuiz] = <span class="code-function">useState</span>(<span class="code-keyword">null</span>);
+<span class="code-keyword">const</span> [selectedAnswer, setSelectedAnswer] = <span class="code-function">useState</span>(<span class="code-keyword">null</span>);
+<span class="code-keyword">const</span> [courseVisible, setCourseVisible] = <span class="code-function">useState</span>(<span class="code-keyword">false</span>);
+<span class="code-keyword">const</span> [selectedCourse, setSelectedCourse] = <span class="code-function">useState</span>(<span class="code-keyword">null</span>);
+<span class="code-keyword">const</span> [completedCourses, setCompletedCourses] = <span class="code-function">useState</span>([]);
+
+<span class="code-comment">// 12개 강의 데이터 로드 (courseData.js)</span>
+<span class="code-keyword">const</span> courses = Object.<span class="code-function">entries</span>(courseContent);</div>
+            </div>
+
+            <div class="code-section">
+                <h4>2. 랜덤 퀴즈 시작</h4>
+                <div class="code-block"><span class="code-keyword">const</span> <span class="code-function">startQuiz</span> = () => {
+  <span class="code-comment">// 16개 퀴즈 중 랜덤 선택</span>
+  <span class="code-keyword">const</span> randomQuiz = quizDatabase[
+    Math.<span class="code-function">floor</span>(Math.<span class="code-function">random</span>() * quizDatabase.length)
+  ];
+  <span class="code-function">setCurrentQuiz</span>(randomQuiz);
+  <span class="code-function">setQuizVisible</span>(<span class="code-keyword">true</span>);
+};</div>
+            </div>
+
+            <div class="code-section">
+                <h4>3. 퀴즈 정답 제출 및 XP 획득</h4>
+                <div class="code-block"><span class="code-keyword">const</span> <span class="code-function">submitAnswer</span> = <span class="code-keyword">async</span> () => {
+  <span class="code-function">setShowExplanation</span>(<span class="code-keyword">true</span>);
+  <span class="code-keyword">const</span> isCorrect = selectedAnswer === currentQuiz.correct;
+
+  <span class="code-keyword">if</span> (isCorrect) {
+    <span class="code-comment">// 정답 시 퀴즈별 보상 XP 지급 (50-90 XP)</span>
+    <span class="code-keyword">const</span> gameData = <span class="code-keyword">await</span> <span class="code-function">loadGameData</span>();
+    <span class="code-keyword">const</span> updated = <span class="code-function">addXP</span>(gameData, currentQuiz.reward);
+    <span class="code-keyword">await</span> <span class="code-function">saveGameData</span>(updated);
+  }
+};</div>
+            </div>
+
+            <div class="code-section">
+                <h4>4. 코스 완료 시스템</h4>
+                <div class="code-block"><span class="code-keyword">const</span> <span class="code-function">completeCourse</span> = <span class="code-keyword">async</span> () => {
+  <span class="code-keyword">const</span> courseKey = selectedCourse?.key;
+
+  <span class="code-keyword">if</span> (completedCourses.<span class="code-function">includes</span>(courseKey)) {
+    Alert.<span class="code-function">alert</span>(<span class="code-string">'이미 완료'</span>, <span class="code-string">'이미 완료한 코스입니다!'</span>);
+    <span class="code-keyword">return</span>;
+  }
+
+  <span class="code-comment">// 완료 목록에 추가</span>
+  <span class="code-function">setCompletedCourses</span>([...completedCourses, courseKey]);
+
+  <span class="code-keyword">const</span> gameData = <span class="code-keyword">await</span> <span class="code-function">loadGameData</span>();
+  <span class="code-keyword">const</span> reward = selectedCourse?.reward || <span class="code-number">100</span>;  <span class="code-comment">// 90-160 XP</span>
+  <span class="code-keyword">const</span> updated = <span class="code-function">addXP</span>(gameData, reward);
+  <span class="code-keyword">await</span> <span class="code-function">saveGameData</span>(updated);
+
+  Alert.<span class="code-function">alert</span>(<span class="code-string">'코스 완료!'</span>, <span class="code-string">`+${reward} XP 획득!`</span>);
+};</div>
+            </div>
+
+            <div class="code-section">
+                <h4>5. 코스 모달 UI (스크롤 가능한 학습 내용)</h4>
+                <div class="code-block">&lt;<span class="code-keyword">Modal</span> visible={courseVisible} transparent&gt;
+  &lt;<span class="code-keyword">View</span> style={styles.courseModal}&gt;
+    &lt;<span class="code-keyword">Text</span>&gt;{selectedCourse?.title}&lt;/<span class="code-keyword">Text</span>&gt;
+
+    <span class="code-comment">// 전체 학습 내용 표시 (스크롤 가능)</span>
+    &lt;<span class="code-keyword">ScrollView</span> nestedScrollEnabled={<span class="code-keyword">true</span>}&gt;
+      &lt;<span class="code-keyword">Text</span>&gt;{selectedCourse?.content}&lt;/<span class="code-keyword">Text</span>&gt;
+    &lt;/<span class="code-keyword">ScrollView</span>&gt;
+
+    <span class="code-comment">// 완료 버튼</span>
+    &lt;<span class="code-keyword">TouchableOpacity</span> <span class="code-function">onPress</span>={completeCourse}&gt;
+      &lt;<span class="code-keyword">Text</span>&gt;코스 완료하고 +{selectedCourse?.reward} XP 받기&lt;/<span class="code-keyword">Text</span>&gt;
+    &lt;/<span class="code-keyword">TouchableOpacity</span>&gt;
+  &lt;/<span class="code-keyword">View</span>&gt;
+&lt;/<span class="code-keyword">Modal</span>&gt;</div>
+            </div>
+
+            <div class="info-box">
+                <strong>구현된 기능:</strong><br>
+                ✅ 12개 투자 강의 (투자 기초 ~ 대체투자)<br>
+                ✅ 16개 랜덤 퀴즈 (RSI, 골든크로스, PER 등)<br>
+                ✅ 강의 내용 전체 표시 (HTML에서 포팅)<br>
+                ✅ 코스별 보상 (90-160 XP)<br>
+                ✅ 퀴즈별 보상 (50-90 XP)<br>
+                ✅ 완료 상태 추적 및 중복 방지<br>
+                ✅ 정답/오답 시각적 피드백<br>
+                ✅ 해설 표시 시스템
+            </div>
+        </div>
+
+        <!-- 코드 분석 - PortfolioScreen -->
+        <div class="section">
+            <div class="section-title">💻 코드 분석 #3: PortfolioScreen.js (주식 거래)</div>
+
+            <h4>📍 파일 위치: src/screens/PortfolioScreen.js (645줄)</h4>
+            <p><strong>주요 기능:</strong> 9개 주식 실시간 거래, 포트폴리오 관리, 거래 내역</p>
+
+            <div class="code-section">
+                <h4>1. 포트폴리오 상태 관리</h4>
+                <div class="code-block"><span class="code-keyword">const</span> [portfolio, setPortfolio] = <span class="code-function">useState</span>(<span class="code-keyword">null</span>);
+<span class="code-keyword">const</span> [stocks, setStocks] = <span class="code-function">useState</span>(stockList);  <span class="code-comment">// 9개 주식</span>
+<span class="code-keyword">const</span> [tradeModalVisible, setTradeModalVisible] = <span class="code-function">useState</span>(<span class="code-keyword">false</span>);
+<span class="code-keyword">const</span> [selectedStock, setSelectedStock] = <span class="code-function">useState</span>(<span class="code-keyword">null</span>);
+<span class="code-keyword">const</span> [tradeType, setTradeType] = <span class="code-function">useState</span>(<span class="code-string">'buy'</span>);  <span class="code-comment">// 'buy' or 'sell'</span>
+
+<span class="code-comment">// AsyncStorage에서 포트폴리오 로드</span>
+<span class="code-keyword">const</span> <span class="code-function">loadPortfolio</span> = <span class="code-keyword">async</span> () => {
+  <span class="code-keyword">const</span> saved = <span class="code-keyword">await</span> AsyncStorage.<span class="code-function">getItem</span>(<span class="code-string">'portfolio-data'</span>);
+  <span class="code-function">setPortfolio</span>(saved ? JSON.<span class="code-function">parse</span>(saved) : initialPortfolio);
+};</div>
+            </div>
+
+            <div class="code-section">
+                <h4>2. 주식 매수 로직</h4>
+                <div class="code-block"><span class="code-keyword">if</span> (tradeType === <span class="code-string">'buy'</span>) {
+  <span class="code-keyword">const</span> totalCost = stock.price * qty;
+
+  <span class="code-comment">// 잔액 확인</span>
+  <span class="code-keyword">if</span> (portfolio.cash < totalCost) {
+    Alert.<span class="code-function">alert</span>(<span class="code-string">'잔액 부족'</span>, <span class="code-string">`필요: ₩${totalCost}`</span>);
+    <span class="code-keyword">return</span>;
+  }
+
+  <span class="code-comment">// 기존 보유 종목 확인</span>
+  <span class="code-keyword">const</span> existingHolding = portfolio.holdings.
+    <span class="code-function">find</span>(h => h.stockId === stock.id);
+
+  <span class="code-keyword">let</span> newHoldings;
+  <span class="code-keyword">if</span> (existingHolding) {
+    <span class="code-comment">// 평단가 재계산</span>
+    <span class="code-keyword">const</span> avgPrice =
+      ((existingHolding.buyPrice * existingHolding.shares) +
+       (stock.price * qty)) / (existingHolding.shares + qty);
+
+    newHoldings = portfolio.holdings.<span class="code-function">map</span>(h =>
+      h.stockId === stock.id
+        ? { ...h, shares: h.shares + qty, buyPrice: avgPrice }
+        : h
+    );
+  } <span class="code-keyword">else</span> {
+    newHoldings = [...portfolio.holdings,
+      { stockId: stock.id, shares: qty, buyPrice: stock.price }
+    ];
+  }
+
+  <span class="code-comment">// 거래 내역 저장</span>
+  <span class="code-keyword">const</span> newPortfolio = {
+    ...portfolio,
+    cash: portfolio.cash - totalCost,
+    holdings: newHoldings,
+    transactions: [...portfolio.transactions, {
+      type: <span class="code-string">'buy'</span>, stockId: stock.id, shares: qty,
+      price: stock.price, date: <span class="code-keyword">new</span> <span class="code-function">Date</span>()
+    }]
+  };
+
+  <span class="code-keyword">await</span> <span class="code-function">savePortfolio</span>(newPortfolio);
+
+  <span class="code-comment">// XP 보상 (매수 시 +20 XP)</span>
+  <span class="code-keyword">const</span> updated = <span class="code-function">addXP</span>(gameData, <span class="code-number">20</span>);
+  <span class="code-keyword">await</span> <span class="code-function">saveGameData</span>(updated);
+}</div>
+            </div>
+
+            <div class="code-section">
+                <h4>3. 주식 매도 로직</h4>
+                <div class="code-block"><span class="code-keyword">else</span> {  <span class="code-comment">// 매도</span>
+  <span class="code-keyword">const</span> holding = portfolio.holdings.
+    <span class="code-function">find</span>(h => h.stockId === stock.id);
+
+  <span class="code-comment">// 보유 수량 확인</span>
+  <span class="code-keyword">if</span> (!holding || holding.shares < qty) {
+    Alert.<span class="code-function">alert</span>(<span class="code-string">'보유 부족'</span>, <span class="code-string">`보유: ${holding?.shares}주`</span>);
+    <span class="code-keyword">return</span>;
+  }
+
+  <span class="code-comment">// 수익/손실 계산</span>
+  <span class="code-keyword">const</span> profit = (stock.price - holding.buyPrice) * qty;
+
+  <span class="code-comment">// 보유 종목 업데이트 (0주 되면 제거)</span>
+  <span class="code-keyword">const</span> newHoldings = portfolio.holdings
+    .<span class="code-function">map</span>(h => h.stockId === stock.id
+      ? { ...h, shares: h.shares - qty }
+      : h)
+    .<span class="code-function">filter</span>(h => h.shares > <span class="code-number">0</span>);
+
+  <span class="code-keyword">const</span> newPortfolio = {
+    ...portfolio,
+    cash: portfolio.cash + totalCost,
+    holdings: newHoldings,
+    transactions: [...portfolio.transactions, {
+      type: <span class="code-string">'sell'</span>, profit, ...
+    }]
+  };
+
+  <span class="code-comment">// XP 보상 (수익 매도 +30 XP, 손실 매도 +10 XP)</span>
+  <span class="code-keyword">const</span> xpReward = profit > <span class="code-number">0</span> ? <span class="code-number">30</span> : <span class="code-number">10</span>;
+  <span class="code-keyword">const</span> updated = <span class="code-function">addXP</span>(gameData, xpReward);
+  <span class="code-keyword">await</span> <span class="code-function">saveGameData</span>(updated);
+}</div>
+            </div>
+
+            <div class="code-section">
+                <h4>4. 실시간 수익률 계산</h4>
+                <div class="code-block"><span class="code-comment">// 총 자산 가치 계산</span>
+<span class="code-keyword">const</span> totalValue = portfolio.cash +
+  portfolio.holdings.<span class="code-function">reduce</span>((sum, holding) => {
+    <span class="code-keyword">const</span> stock = stocks.<span class="code-function">find</span>(s => s.id === holding.stockId);
+    <span class="code-keyword">return</span> sum + (stock ? stock.price * holding.shares : <span class="code-number">0</span>);
+  }, <span class="code-number">0</span>);
+
+<span class="code-comment">// 수익률 계산</span>
+<span class="code-keyword">const</span> initialValue = initialPortfolio.cash;  <span class="code-comment">// 1000만원</span>
+<span class="code-keyword">const</span> totalProfitPercent =
+  ((totalValue - initialValue) / initialValue * <span class="code-number">100</span>).<span class="code-function">toFixed</span>(<span class="code-number">1</span>);
+<span class="code-keyword">const</span> totalProfit = totalValue - initialValue;</div>
+            </div>
+
+            <div class="info-box">
+                <strong>구현된 기능:</strong><br>
+                ✅ 9개 주식 (삼성전자, SK하이닉스, 네이버, 카카오, 현대차, LG화학, 셀트리온, POSCO, KODEX200)<br>
+                ✅ 매수/매도 시뮬레이션<br>
+                ✅ 평단가 자동 계산<br>
+                ✅ 실시간 수익/손실 표시<br>
+                ✅ 거래 내역 추적 (최근 5개)<br>
+                ✅ 보유 종목 리스트<br>
+                ✅ XP 보상 (매수 +20, 수익매도 +30, 손실매도 +10)<br>
+                ✅ AsyncStorage 영구 저장
+            </div>
+        </div>
+
+        <!-- 코드 분석 - RankingScreen -->
+        <div class="section">
+            <div class="section-title">💻 코드 분석 #4: RankingScreen.js (랭킹 & 배지)</div>
+
+            <h4>📍 파일 위치: src/screens/RankingScreen.js (203줄)</h4>
+            <p><strong>주요 기능:</strong> 랭킹 시스템, 12개 성취 배지</p>
+
+            <div class="code-section">
+                <h4>1. 랭킹 데이터 생성</h4>
+                <div class="code-block"><span class="code-keyword">const</span> <span class="code-function">loadData</span> = <span class="code-keyword">async</span> () => {
+  <span class="code-keyword">const</span> data = <span class="code-keyword">await</span> <span class="code-function">loadGameData</span>();
+  <span class="code-function">setGameData</span>(data);
+
+  <span class="code-comment">// 랭킹 생성 (본인 + NPC 3명)</span>
+  <span class="code-keyword">const</span> ranks = [
+    { name: <span class="code-string">'투자왕김씨'</span>, score: <span class="code-number">2500</span> },
+    { name: <span class="code-string">'주식고수'</span>, score: <span class="code-number">2200</span> },
+    { name: <span class="code-string">'워렌버핏Jr'</span>, score: <span class="code-number">1800</span> },
+    { name: <span class="code-string">'당신'</span>, score: data.xp }
+  ].<span class="code-function">sort</span>((a, b) => b.score - a.score);
+
+  <span class="code-function">setRankings</span>(ranks);
+};</div>
+            </div>
+
+            <div class="code-section">
+                <h4>2. 12개 성취 배지 표시</h4>
+                <div class="code-block"><span class="code-comment">// courseData.js의 achievements 데이터 사용</span>
+&lt;<span class="code-keyword">View</span> style={styles.achievementsGrid}&gt;
+  {achievements.<span class="code-function">map</span>((achievement, index) => {
+    <span class="code-keyword">const</span> iconMap = {
+      <span class="code-string">'bullseye'</span>: <span class="code-string">'🎯'</span>, <span class="code-string">'graduation-cap'</span>: <span class="code-string">'🎓'</span>,
+      <span class="code-string">'percentage'</span>: <span class="code-string">'📈'</span>, <span class="code-string">'chart-line'</span>: <span class="code-string">'📊'</span>,
+      <span class="code-string">'brain'</span>: <span class="code-string">'🧠'</span>, <span class="code-string">'trophy'</span>: <span class="code-string">'🏆'</span>,
+      <span class="code-string">'crown'</span>: <span class="code-string">'👑'</span>, <span class="code-string">'gem'</span>: <span class="code-string">'💎'</span>,
+      <span class="code-string">'fire'</span>: <span class="code-string">'🔥'</span>, <span class="code-string">'star'</span>: <span class="code-string">'⭐'</span>,
+      <span class="code-string">'globe'</span>: <span class="code-string">'🌍'</span>, <span class="code-string">'rocket'</span>: <span class="code-string">'🚀'</span>
+    };
+
+    <span class="code-keyword">return</span> (
+      &lt;<span class="code-keyword">View</span> style={[
+        styles.achievementItem,
+        achievement.earned && styles.achievementEarned
+      ]}&gt;
+        &lt;<span class="code-keyword">Text</span>&gt;{iconMap[achievement.icon]}&lt;/<span class="code-keyword">Text</span>&gt;
+        &lt;<span class="code-keyword">Text</span>&gt;{achievement.name}&lt;/<span class="code-keyword">Text</span>&gt;
+      &lt;/<span class="code-keyword">View</span>&gt;
+    );
+  })}
+&lt;/<span class="code-keyword">View</span>&gt;</div>
+            </div>
+
+            <div class="code-section">
+                <h4>3. 레벨 및 프로그레스 바</h4>
+                <div class="code-block"><span class="code-comment">// 다음 레벨까지 필요한 XP 계산</span>
+<span class="code-keyword">const</span> <span class="code-function">getNextLevelXP</span> = (level) => {
+  <span class="code-keyword">return</span> level * <span class="code-number">500</span>;  <span class="code-comment">// 레벨당 500 XP</span>
+};
+
+<span class="code-keyword">const</span> nextLevelXP = <span class="code-function">getNextLevelXP</span>(gameData?.level || <span class="code-number">1</span>);
+<span class="code-keyword">const</span> progress = ((gameData?.xp || <span class="code-number">0</span>) / nextLevelXP * <span class="code-number">100</span>);
+
+<span class="code-comment">// 프로그레스 바 UI</span>
+&lt;<span class="code-keyword">View</span> style={styles.progressBarContainer}&gt;
+  &lt;<span class="code-keyword">View</span> style={[
+    styles.progressBarFill,
+    { width: <span class="code-string">`${progress}%`</span>, backgroundColor: <span class="code-string">'#10b981'</span> }
+  ]} /&gt;
+&lt;/<span class="code-keyword">View</span>&gt;
+&lt;<span class="code-keyword">Text</span>&gt;다음 레벨까지 {nextLevelXP - gameData.xp} XP&lt;/<span class="code-keyword">Text</span>&gt;</div>
+            </div>
+
+            <div class="info-box">
+                <strong>구현된 기능:</strong><br>
+                ✅ 실시간 랭킹 표시 (본인 + NPC 3명)<br>
+                ✅ 12개 성취 배지 시스템<br>
+                ✅ 레벨 및 XP 표시<br>
+                ✅ 프로그레스 바로 진행률 시각화<br>
+                ✅ 배지별 이모지 아이콘<br>
+                ✅ 달성/미달성 상태 구분
+            </div>
+        </div>
+
+        <!-- 코드 분석 - courseData.js -->
+        <div class="section">
+            <div class="section-title">💻 코드 분석 #5: courseData.js (학습 콘텐츠)</div>
+
+            <h4>📍 파일 위치: src/data/courseData.js (433줄)</h4>
+            <p><strong>주요 기능:</strong> 12개 투자 강의, 16개 퀴즈, 6개 뉴스, 12개 배지</p>
+
+            <div class="code-section">
+                <h4>1. 강의 콘텐츠 구조</h4>
+                <div class="code-block"><span class="code-keyword">export const</span> courseContent = {
+  basics: {
+    title: <span class="code-string">'주식 투자 기초'</span>,
+    description: <span class="code-string">'주식 시장의 기본 개념과 투자 시작하기'</span>,
+    lessons: [<span class="code-string">'주식이란 무엇인가'</span>, <span class="code-string">'주식 시장의 종류'</span>, ...],
+    reward: <span class="code-number">100</span>,
+    content: <span class="code-string">`## 1. 주식이란 무엇인가\n\n주식은 기업의 소유권...`</span>
+  },
+  per_pbr: {
+    title: <span class="code-string">'PER과 PBR 이해하기'</span>,
+    description: <span class="code-string">'주요 투자 지표 완벽 분석'</span>,
+    reward: <span class="code-number">120</span>,
+    content: <span class="code-string">`...`</span>
+  },
+  <span class="code-comment">// 10개 강의 더 (기술적분석, 차트, 재무제표, 배당, 리스크, 등)</span>
+};</div>
+            </div>
+
+            <div class="code-section">
+                <h4>2. 퀴즈 데이터베이스</h4>
+                <div class="code-block"><span class="code-keyword">export const</span> quizDatabase = [
+  {
+    question: <span class="code-string">'주식 투자에서 PER은 무엇을 의미하나요?'</span>,
+    options: [<span class="code-string">'주가수익비율'</span>, <span class="code-string">'주가순자산비율'</span>, ...],
+    correct: <span class="code-number">0</span>,
+    explanation: <span class="code-string">'PER은 주가를 주당순이익(EPS)으로 나눈 값...'</span>,
+    reward: <span class="code-number">70</span>
+  },
+  <span class="code-comment">// 15개 퀴즈 더</span>
+];</div>
+            </div>
+
+            <div class="info-box">
+                <strong>데이터 구성:</strong><br>
+                ✅ 12개 강의 (각 3-5개 레슨)<br>
+                ✅ 16개 퀴즈 (4지선다, 해설 포함)<br>
+                ✅ 6개 시장 뉴스<br>
+                ✅ 12개 성취 배지
+            </div>
+        </div>
+
+        <!-- 코드 분석 - stockData.js -->
+        <div class="section">
+            <div class="section-title">💻 코드 분석 #6: stockData.js (주식 데이터)</div>
+
+            <h4>📍 파일 위치: src/data/stockData.js (81줄)</h4>
+            <p><strong>주요 기능:</strong> 9개 한국 주식 데이터, 초기 포트폴리오</p>
+
+            <div class="code-section">
+                <h4>주식 리스트 (9개 종목)</h4>
+                <div class="code-block"><span class="code-keyword">export const</span> stockList = [
+  {
+    id: <span class="code-string">'samsung'</span>, name: <span class="code-string">'삼성전자'</span>, code: <span class="code-string">'005930'</span>,
+    price: <span class="code-number">67800</span>, change: <span class="code-number">2.4</span>, sector: <span class="code-string">'반도체'</span>,
+    description: <span class="code-string">'세계 최대 메모리 반도체 제조사'</span>
+  },
+  <span class="code-comment">// 8개 주식 더 (SK하이닉스, NAVER, 카카오, 현대차, LG화학, 셀트리온, POSCO, KODEX200)</span>
+];
+
+<span class="code-keyword">export const</span> initialPortfolio = {
+  cash: <span class="code-number">10000000</span>,  <span class="code-comment">// 1000만원 시드머니</span>
+  holdings: [
+    { stockId: <span class="code-string">'samsung'</span>, shares: <span class="code-number">25</span>, buyPrice: <span class="code-number">66200</span> },
+    { stockId: <span class="code-string">'kodex200'</span>, shares: <span class="code-number">50</span>, buyPrice: <span class="code-number">33650</span> },
+    { stockId: <span class="code-string">'naver'</span>, shares: <span class="code-number">10</span>, buyPrice: <span class="code-number">191000</span> }
+  ],
+  transactions: []
+};</div>
+            </div>
+        </div>
+
+        <!-- 코드 분석 - gameLogic.js -->
+        <div class="section">
+            <div class="section-title">💻 코드 분석 #7: gameLogic.js (게임 시스템)</div>
+
+            <h4>📍 파일 위치: src/utils/gameLogic.js (72줄)</h4>
+            <p><strong>주요 기능:</strong> XP/레벨 시스템, AsyncStorage 저장/로드</p>
+
+            <div class="code-section">
+                <h4>XP 추가 및 레벨업</h4>
+                <div class="code-block"><span class="code-keyword">export const</span> <span class="code-function">addXP</span> = (gameData, amount) => {
+  <span class="code-keyword">let</span> { level, xp } = gameData;
+  xp += amount;
+
+  <span class="code-comment">// 레벨업 체크 (레벨당 500 XP 필요)</span>
+  <span class="code-keyword">const</span> xpForNextLevel = level * <span class="code-number">500</span>;
+
+  <span class="code-keyword">while</span> (xp >= xpForNextLevel) {
+    xp -= xpForNextLevel;
+    level++;
+  }
+
+  <span class="code-keyword">return</span> { ...gameData, level, xp };
+};
+
+<span class="code-keyword">export const</span> <span class="code-function">saveGameData</span> = <span class="code-keyword">async</span> (gameData) => {
+  <span class="code-keyword">await</span> AsyncStorage.<span class="code-function">setItem</span>(<span class="code-string">'gameData'</span>, JSON.<span class="code-function">stringify</span>(gameData));
+};
+
+<span class="code-keyword">export const</span> <span class="code-function">loadGameData</span> = <span class="code-keyword">async</span> () => {
+  <span class="code-keyword">const</span> data = <span class="code-keyword">await</span> AsyncStorage.<span class="code-function">getItem</span>(<span class="code-string">'gameData'</span>);
+  <span class="code-keyword">return</span> data ? JSON.<span class="code-function">parse</span>(data) : { level: <span class="code-number">1</span>, xp: <span class="code-number">0</span> };
+};</div>
+            </div>
+        </div>
+
+        <!-- 기술 스택 -->
+        <div class="section">
+            <div class="section-title">🛠️ 기술 스택</div>
+
+            <div class="tech-stack">
+                <div class="tech-item"><strong>React Native</strong><br>0.81.4</div>
+                <div class="tech-item"><strong>Expo SDK</strong><br>54.0.13</div>
+                <div class="tech-item"><strong>React</strong><br>19.1.0</div>
+                <div class="tech-item"><strong>React Navigation</strong><br>7.1.18</div>
+                <div class="tech-item"><strong>AsyncStorage</strong><br>2.2.0</div>
+                <div class="tech-item"><strong>JavaScript</strong><br>ES6+</div>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>프론트엔드</h4>
+                    <p>React Native, React Hooks (useState, useEffect), StyleSheet, Modal, ScrollView, TouchableOpacity</p>
+                </div>
+                <div class="feature-card">
+                    <h4>네비게이션</h4>
+                    <p>React Navigation, Bottom Tabs Navigator, 4개 화면 라우팅</p>
+                </div>
+                <div class="feature-card">
+                    <h4>상태 관리</h4>
+                    <p>React Hooks 기반 로컬 상태, AsyncStorage를 통한 영속성</p>
+                </div>
+                <div class="feature-card">
+                    <h4>개발 도구</h4>
+                    <p>Expo CLI, Metro Bundler, Expo Go (iOS/Android 테스트)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 구현 통계 -->
+        <div class="section">
+            <div class="section-title">📊 구현 통계</div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>항목</th>
+                        <th>수량</th>
+                        <th>세부 사항</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>총 파일 수</td>
+                        <td>9개</td>
+                        <td>4개 화면 + 2개 데이터 + 1개 유틸 + 2개 설정</td>
+                    </tr>
+                    <tr>
+                        <td>총 코드 라인</td>
+                        <td>2,181줄</td>
+                        <td>주석 제외, 공백 포함</td>
+                    </tr>
+                    <tr>
+                        <td>React 컴포넌트</td>
+                        <td>4개</td>
+                        <td>HomeScreen, LearningScreen, PortfolioScreen, RankingScreen</td>
+                    </tr>
+                    <tr>
+                        <td>투자 강의</td>
+                        <td>12개</td>
+                        <td>주식 기초, PER/PBR, 기술적분석, 차트, 재무제표, 배당, 리스크, 세금, 심리, 글로벌, 섹터, 대체투자</td>
+                    </tr>
+                    <tr>
+                        <td>퀴즈 문제</td>
+                        <td>16개</td>
+                        <td>4지선다형, 해설 포함, 보상 50-90 XP</td>
+                    </tr>
+                    <tr>
+                        <td>거래 가능 주식</td>
+                        <td>9개</td>
+                        <td>삼성전자, SK하이닉스, NAVER, 카카오, 현대차, LG화학, 셀트리온, POSCO, KODEX200</td>
+                    </tr>
+                    <tr>
+                        <td>업적 배지</td>
+                        <td>12개</td>
+                        <td>첫 거래, 레벨 5, 10% 수익, 차트마스터, 퀴즈왕, 투자고수, 백만장자 등</td>
+                    </tr>
+                    <tr>
+                        <td>시장 뉴스</td>
+                        <td>6개</td>
+                        <td>홈 화면 표시용 뉴스</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 주요 성과 -->
+        <div class="section">
+            <div class="section-title">🎯 주요 성과</div>
+
+            <div class="success-box">
+                <h4>✅ 완료된 기능</h4>
+                <ul>
+                    <li><strong>홈 화면:</strong> 대시보드, 4개 기능 카드, 6개 뉴스, 3분 투자 게임, 포트폴리오 요약</li>
+                    <li><strong>학습 화면:</strong> 12개 강의 (HTML 콘텐츠 포팅), 16개 퀴즈, 코스 완료 시스템, XP 보상</li>
+                    <li><strong>포트폴리오 화면:</strong> 9개 주식 거래, 매수/매도, 평단가 계산, 수익률 표시, 거래 내역</li>
+                    <li><strong>랭킹 화면:</strong> 레벨/XP 표시, 12개 업적 배지, 프로그레스 바, 랭킹 시스템</li>
+                    <li><strong>게임 시스템:</strong> XP/레벨 시스템, AsyncStorage 영속성, 자동 레벨업</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ 미완성 기능 (5%)</h4>
+                <ul>
+                    <li>3분 투자 게임의 상세 UI 및 밸런싱</li>
+                    <li>업적 자동 달성 체크 로직</li>
+                    <li>실시간 주가 API 연동 (현재는 정적 데이터)</li>
+                    <li>차트 시각화 (주가 차트, 포트폴리오 차트)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 결론 -->
+        <div class="section">
+            <div class="section-title">✅ 결론</div>
+
+            <p>
+                StockEdu Game은 <strong>React Native와 Expo</strong>를 활용하여 모바일 우선 주식 교육 플랫폼을 성공적으로 구현했습니다.
+                <strong>12개의 체계적인 강의</strong>, <strong>16개의 퀴즈</strong>, <strong>실시간 거래 시뮬레이터</strong>, <strong>업적 시스템</strong> 등
+                풍부한 기능을 통해 초보 투자자들에게 안전하고 재미있는 학습 환경을 제공합니다.
+            </p>
+
+            <p>
+                특히 <strong>AsyncStorage를 통한 데이터 영속성</strong>, <strong>평균 단가 자동 계산</strong>, <strong>실시간 수익률 표시</strong> 등
+                실제 증권사 앱과 유사한 기능을 구현하여 현실감 있는 모의 투자 경험을 제공합니다.
+                게임화 요소(XP, 레벨, 업적)를 통해 사용자의 지속적인 참여를 유도하고, 학습 동기를 부여합니다.
+            </p>
+
+            <div class="success-box">
+                <h4>📌 프로젝트 성과</h4>
+                <ul>
+                    <li>✅ <strong>2,181줄</strong>의 코드로 <strong>21개 주요 기능</strong> 구현</li>
+                    <li>✅ 4개 화면, 12개 강의, 16개 퀴즈, 9개 주식 데이터</li>
+                    <li>✅ 완전한 거래 시뮬레이터 (매수/매도/평균단가 계산)</li>
+                    <li>✅ XP/레벨/업적 시스템으로 게임화 구현</li>
+                    <li>✅ AsyncStorage 기반 데이터 영속성</li>
+                    <li>✅ React Native 0.81, Expo SDK 54 최신 기술 스택</li>
+                    <li>✅ iOS/Android 크로스플랫폼 지원</li>
+                </ul>
+            </div>
+
+            <p>
+                현재 프로젝트는 <strong>95% 완료</strong> 상태이며, 향후 실시간 API 연동, 차트 시각화, AI 아바타 강사 등의
+                기능을 추가하여 더욱 완성도 높은 교육 플랫폼으로 발전시킬 계획입니다.
+            </p>
+
+            <div class="info-box" style="text-align: center; margin-top: 20px;">
+                <strong style="font-size: 14px;"> StockEdu Game - 게임으로 배우는 주식 투자</strong><br>
+                <span style="font-size: 10px;">보고일: 2025년 1월 23일 | 개발: 이승필 | 완료율: 95%</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monument Valley 스타일 캐릭터 시도</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            overflow: hidden;
+        }
+        
+        .unity-interface {
+            width: 100vw;
+            height: 100vh;
+            background: #393939;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .unity-header {
+            background: #2c2c2c;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            border-bottom: 1px solid #555;
+        }
+        
+        .unity-logo {
+            color: #fff;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .unity-content {
+            display: flex;
+            flex: 1;
+        }
+        
+        .game-view {
+            flex: 2;
+            background: linear-gradient(135deg, #a8eaea 0%, #f4d4e7 100%);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .character {
+            position: relative;
+            transform: scale(1.5);
+        }
+        
+        .torso {
+            width: 60px;
+            height: 100px;
+            background: #e8e8e8;
+            border-radius: 30px;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .head {
+            width: 50px;
+            height: 50px;
+            background: #f5f5f5;
+            border-radius: 50%;
+            position: absolute;
+            top: -25px;
+            left: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .arm {
+            width: 15px;
+            height: 60px;
+            background: #e0e0e0;
+            border-radius: 8px;
+            position: absolute;
+            top: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .left-arm {
+            left: -20px;
+            transform: rotate(-15deg);
+        }
+        
+        .right-arm {
+            right: -20px;
+            transform: rotate(15deg);
+        }
+        
+        .leg {
+            width: 18px;
+            height: 70px;
+            background: #d5d5d5;
+            border-radius: 9px;
+            position: absolute;
+            top: 95px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .left-leg {
+            left: 10px;
+        }
+        
+        .right-leg {
+            right: 10px;
+        }
+        
+        .inspector-panel {
+            flex: 1;
+            background: #2c2c2c;
+            padding: 20px;
+            overflow-y: auto;
+            border-left: 1px solid #555;
+            font-size: 12px;
+        }
+        
+        .hierarchy-panel {
+            width: 250px;
+            background: #2c2c2c;
+            padding: 15px;
+            border-right: 1px solid #555;
+            font-size: 12px;
+        }
+        
+        .hierarchy-item {
+            color: #a0a0a0;
+            padding: 3px 0;
+            margin-left: 0px;
+        }
+        
+        .hierarchy-item.selected {
+            background: #4a4a4a;
+            color: #fff;
+            padding: 3px 5px;
+            border-radius: 3px;
+        }
+        
+        .hierarchy-item.child {
+            margin-left: 20px;
+            color: #888;
+        }
+        
+        .component {
+            background: #3a3a3a;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 3px solid #4a9eff;
+        }
+        
+        .component-header {
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .property {
+            margin: 5px 0;
+            color: #ccc;
+        }
+        
+        .value {
+            color: #a8eaea;
+        }
+        
+        .feedback-box {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 107, 107, 0.9);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ff6b6b;
+            max-width: 400px;
+            font-size: 13px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="unity-interface">
+        <div class="unity-header">
+            <div class="unity-logo">🎮 Unity Scene View - Monument Valley 캐릭터 시도</div>
+        </div>
+        
+        <div class="unity-content">
+            <div class="hierarchy-panel">
+                <h4 style="color: #fff; margin: 0 0 10px 0;">🗂️ Hierarchy</h4>
+                <div class="hierarchy-item">📷 Main Camera</div>
+                <div class="hierarchy-item">💡 Directional Light</div>
+                <div class="hierarchy-item selected">🧍 SpartanCharacter</div>
+                <div class="hierarchy-item child">📦 Torso (Capsule)</div>
+                <div class="hierarchy-item child">🔵 Head (Sphere)</div>
+                <div class="hierarchy-item child">📏 LeftArm (Capsule)</div>
+                <div class="hierarchy-item child">📏 RightArm (Capsule)</div>
+                <div class="hierarchy-item child">📏 LeftLeg (Capsule)</div>
+                <div class="hierarchy-item child">📏 RightLeg (Capsule)</div>
+                <div class="hierarchy-item">🏛️ Environment</div>
+                <div class="hierarchy-item child">🟩 Ground (Cube)</div>
+                <div class="hierarchy-item child">🏗️ Platforms</div>
+                <div class="hierarchy-item child">🏰 Towers</div>
+            </div>
+            
+            <div class="game-view">
+                <div class="feedback-box">
+                    <strong>❌ 사용자 피드백</strong><br>
+                    "Monument Valley 스타일로 만든다고 했는데 왜 다시 이렇게 만들어서 도형들 합쳐 놓은거 처럼 만드나?"
+                </div>
+                
+                <div class="character">
+                    <div class="torso">
+                        <div class="head"></div>
+                        <div class="arm left-arm"></div>
+                        <div class="arm right-arm"></div>
+                        <div class="leg left-leg"></div>
+                        <div class="leg right-leg"></div>
+                    </div>
+                </div>
+                
+                <div style="position: absolute; bottom: 20px; left: 20px; background: rgba(0,0,0,0.7); padding: 10px; border-radius: 5px; font-size: 12px;">
+                    🎨 Monument Valley 스타일 시도<br>
+                    ❌ 복잡한 다중 Primitive 조합<br>
+                    ❌ 미니멀 디자인 원칙 위반
+                </div>
+            </div>
+            
+            <div class="inspector-panel">
+                <h4 style="color: #fff; margin: 0 0 15px 0;">🔍 Inspector - SpartanCharacter</h4>
+                
+                <div class="component">
+                    <div class="component-header">🎯 Transform</div>
+                    <div class="property">Position: <span class="value">(0, 1, 0)</span></div>
+                    <div class="property">Rotation: <span class="value">(0, 0, 0)</span></div>
+                    <div class="property">Scale: <span class="value">(1, 1, 1)</span></div>
+                </div>
+                
+                <div class="component">
+                    <div class="component-header">⚽ Rigidbody</div>
+                    <div class="property">Mass: <span class="value">1</span></div>
+                    <div class="property">Use Gravity: <span class="value">true</span></div>
+                    <div class="property">Is Kinematic: <span class="value">false</span></div>
+                </div>
+                
+                <div class="component">
+                    <div class="component-header">📦 Capsule Collider</div>
+                    <div class="property">Center: <span class="value">(0, 0, 0)</span></div>
+                    <div class="property">Radius: <span class="value">0.5</span></div>
+                    <div class="property">Height: <span class="value">2</span></div>
+                </div>
+                
+                <div class="component">
+                    <div class="component-header">🎮 Monument Valley Movement</div>
+                    <div class="property">Move Speed: <span class="value">5.0</span></div>
+                    <div class="property">Jump Force: <span class="value">8.0</span></div>
+                    <div class="property">❌ Input Not Working</div>
+                </div>
+                
+                <div style="margin-top: 20px; padding: 10px; background: rgba(255, 107, 107, 0.1); border-left: 3px solid #ff6b6b; border-radius: 3px;">
+                    <strong style="color: #ff6b6b;">❌ 디자인 문제점</strong><br>
+                    <span style="color: #ccc; font-size: 11px;">
+                    • 6개 Primitive 조합으로 복잡함<br>
+                    • Monument Valley 미니멀 스타일 미달성<br>
+                    • 도형들이 단순히 합쳐진 형태<br>
+                    • 게임 세계관과 어울리지 않는 디자인<br>
+                    • Input System 문제로 조작 불가
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kooking - Smart Booking Platform 개발계획서</title>
+    <style>
+        @page {
+            size: A3;
+            margin: 15mm;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.3;
+            margin: 0;
+            padding: 0;
+            font-size: 11px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 8px;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin: 0 0 8px 0;
+        }
+        
+        .header p {
+            margin: 3px 0;
+            font-size: 14px;
+        }
+        
+        .section {
+            margin: 15px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fafafa;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin: -15px -15px 15px -15px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .feature-card {
+            background: #e8f4f8;
+            border: 1px solid #667eea;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            font-size: 10px;
+        }
+        
+        .feature-card h4 {
+            color: #667eea;
+            margin: 0 0 5px 0;
+            font-size: 12px;
+        }
+        
+        .requirement-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 10px;
+        }
+        
+        .requirement-table th, .requirement-table td {
+            border: 1px solid #ddd;
+            padding: 6px;
+            text-align: left;
+        }
+        
+        .requirement-table th {
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .priority-high { background: #ffebee; color: #c62828; }
+        .priority-medium { background: #fff3e0; color: #f57c00; }
+        .priority-low { background: #e8f5e8; color: #2e7d32; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📱 Kooking - Smart Booking Platform</h1>
+            <h2>개발계획서</h2>
+            <p><strong>프로젝트 기간:</strong> 2025/7/1(월) ~ 2025/7/5(금) (5일간)</p>
+            <p><strong>작성일:</strong> 2025년 7월 1일</p>
+            <p><strong>개발자:</strong> 이승필</p>
+        </div>
+
+        <div class="section">
+            <div class="section-title">1. 프로젝트 개요</div>
+            
+            <div class="two-column">
+                <div>
+                    <h3>🎯 개발 목적</h3>
+                    <p>다양한 서비스 예약을 한 곳에서 관리할 수 있는 통합 스마트 부킹 플랫폼 개발. 음식점, 병원, 미용실, 피트니스 센터 등 다양한 업종의 예약을 AI 추천 기능과 함께 제공</p>
+                    
+                    <h3>🏗️ 개발 환경</h3>
+                    <ul>
+                        <li><strong>Frontend:</strong> HTML5, CSS3, JavaScript ES6+</li>
+                        <li><strong>스타일링:</strong> CSS Grid, Flexbox, 애니메이션</li>
+                        <li><strong>아이콘:</strong> Font Awesome 6.0</li>
+                        <li><strong>폰트:</strong> Inter, Google Fonts</li>
+                        <li><strong>저장소:</strong> localStorage (향후 데이터베이스 연동)</li>
+                        <li><strong>디자인:</strong> 반응형 웹 디자인, 모바일 퍼스트</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>📋 주요 특징</h3>
+                    <ul>
+                        <li>통합 예약 관리 시스템</li>
+                        <li>4개 주요 카테고리 (음식점, 의료, 미용, 피트니스)</li>
+                        <li>AI 기반 서비스 추천</li>
+                        <li>실시간 예약 확인 및 관리</li>
+                        <li>사용자 프로필 및 통계</li>
+                        <li>모던 UI/UX 디자인</li>
+                        <li>실시간 알림 시스템</li>
+                    </ul>
+                    
+                    <h3>⚠️ 기술적 제약사항</h3>
+                    <ul style="font-size: 9px;">
+                        <li>실제 예약 API 연동 필요 (현재는 시뮬레이션)</li>
+                        <li>결제 시스템 연동 필요</li>
+                        <li>사용자 인증 시스템 구축 필요</li>
+                        <li>실시간 알림을 위한 Push Notification 설정</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">2. 기능 요구사항</div>
+            
+            <div class="two-column">
+                <div class="feature-card">
+                    <h4>🏠 홈 대시보드</h4>
+                    <p>• 서비스 카테고리 시각화<br>
+                    • 빠른 예약 접근<br>
+                    • 추천 서비스 표시<br>
+                    • 플로팅 애니메이션 카드</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h4>🔍 서비스 탐색</h4>
+                    <p>• 카테고리별 서비스 분류<br>
+                    • 인기 업체 추천<br>
+                    • 평점 및 리뷰 시스템<br>
+                    • 즉시 예약 버튼</p>
+                </div>
+            </div>
+            
+            <div class="two-column">
+                <div class="feature-card">
+                    <h4>📅 예약 관리</h4>
+                    <p>• 예정/과거/취소 탭 분류<br>
+                    • 예약 상태 실시간 표시<br>
+                    • 예약 수정/취소 기능<br>
+                    • 예약 내역 상세 보기</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h4>👤 프로필 관리</h4>
+                    <p>• 사용자 정보 관리<br>
+                    • 예약 통계 표시<br>
+                    • 즐겨찾기 관리<br>
+                    • 설정 메뉴</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">3. 상세 기능 명세</div>
+            
+            <table class="requirement-table">
+                <thead>
+                    <tr>
+                        <th>기능 분류</th>
+                        <th>세부 기능</th>
+                        <th>구현 방법</th>
+                        <th>우선순위</th>
+                        <th>예상 난이도</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="4">사용자 인터페이스</td>
+                        <td>반응형 네비게이션</td>
+                        <td>CSS Grid, JavaScript 이벤트</td>
+                        <td class="priority-high">높음</td>
+                        <td>중간</td>
+                    </tr>
+                    <tr>
+                        <td>플로팅 애니메이션</td>
+                        <td>CSS Keyframes, Transform</td>
+                        <td class="priority-medium">중간</td>
+                        <td>쉬움</td>
+                    </tr>
+                    <tr>
+                        <td>모달 시스템</td>
+                        <td>JavaScript DOM 조작</td>
+                        <td class="priority-high">높음</td>
+                        <td>중간</td>
+                    </tr>
+                    <tr>
+                        <td>토스트 알림</td>
+                        <td>CSS Animation, JavaScript</td>
+                        <td class="priority-medium">중간</td>
+                        <td>쉬움</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="4">예약 시스템</td>
+                        <td>빠른 예약</td>
+                        <td>폼 검증, 날짜/시간 선택</td>
+                        <td class="priority-high">높음</td>
+                        <td>중간</td>
+                    </tr>
+                    <tr>
+                        <td>예약 상태 관리</td>
+                        <td>JavaScript 상태 관리</td>
+                        <td class="priority-high">높음</td>
+                        <td>어려움</td>
+                    </tr>
+                    <tr>
+                        <td>예약 수정/취소</td>
+                        <td>CRUD 연산 시뮬레이션</td>
+                        <td class="priority-medium">중간</td>
+                        <td>중간</td>
+                    </tr>
+                    <tr>
+                        <td>탭 기반 필터링</td>
+                        <td>JavaScript 배열 필터링</td>
+                        <td class="priority-low">낮음</td>
+                        <td>쉬움</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="4">서비스 탐색</td>
+                        <td>카테고리 카드</td>
+                        <td>CSS Grid, 호버 효과</td>
+                        <td class="priority-high">높음</td>
+                        <td>쉬움</td>
+                    </tr>
+                    <tr>
+                        <td>업체 카드 레이아웃</td>
+                        <td>CSS Flexbox, 이미지 처리</td>
+                        <td class="priority-high">높음</td>
+                        <td>중간</td>
+                    </tr>
+                    <tr>
+                        <td>평점 별점 표시</td>
+                        <td>Font Awesome 아이콘</td>
+                        <td class="priority-medium">중간</td>
+                        <td>쉬움</td>
+                    </tr>
+                    <tr>
+                        <td>업체 뱃지 시스템</td>
+                        <td>CSS 절대 위치, 디자인</td>
+                        <td class="priority-low">낮음</td>
+                        <td>쉬움</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">데이터 관리</td>
+                        <td>로컬 저장소</td>
+                        <td>localStorage API</td>
+                        <td class="priority-medium">중간</td>
+                        <td>중간</td>
+                    </tr>
+                    <tr>
+                        <td>사용자 설정</td>
+                        <td>JSON 데이터 구조</td>
+                        <td class="priority-low">낮음</td>
+                        <td>쉬움</td>
+                    </tr>
+                    <tr>
+                        <td>예약 기록</td>
+                        <td>배열 기반 데이터 관리</td>
+                        <td class="priority-medium">중간</td>
+                        <td>중간</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <div class="section-title">4. 기술 아키텍처</div>
+            
+            <div class="two-column">
+                <div>
+                    <h3>🎨 Frontend 구조</h3>
+                    <ul>
+                        <li><strong>HTML5:</strong> 시맨틱 마크업, 접근성</li>
+                        <li><strong>CSS3:</strong> Grid, Flexbox, 애니메이션, 변수</li>
+                        <li><strong>JavaScript ES6+:</strong> 모듈화, 이벤트 처리</li>
+                        <li><strong>Font Awesome:</strong> 아이콘 라이브러리</li>
+                        <li><strong>Google Fonts:</strong> Inter 웹폰트</li>
+                    </ul>
+                    
+                    <h3>📱 UX/UI 설계</h3>
+                    <ul>
+                        <li><strong>컬러 팔레트:</strong> 그라데이션 기반</li>
+                        <li><strong>타이포그래피:</strong> Inter 폰트 시스템</li>
+                        <li><strong>레이아웃:</strong> 카드 기반 디자인</li>
+                        <li><strong>애니메이션:</strong> 플로팅, 호버 효과</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>🔧 개발 도구</h3>
+                    <ul>
+                        <li><strong>에디터:</strong> VS Code</li>
+                        <li><strong>버전관리:</strong> Git</li>
+                        <li><strong>브라우저:</strong> Chrome DevTools</li>
+                        <li><strong>테스트:</strong> 크로스 브라우저 테스트</li>
+                        <li><strong>최적화:</strong> CSS/JS 압축</li>
+                    </ul>
+                    
+                    <h3>🌐 지원 환경</h3>
+                    <ul>
+                        <li><strong>브라우저:</strong> Chrome, Firefox, Safari, Edge</li>
+                        <li><strong>디바이스:</strong> 데스크톱, 태블릿, 모바일</li>
+                        <li><strong>해상도:</strong> 320px ~ 1920px</li>
+                        <li><strong>접근성:</strong> WCAG 2.1 AA 준수</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">5. 개발 일정</div>
+            
+            <table class="requirement-table">
+                <thead>
+                    <tr>
+                        <th>단계</th>
+                        <th>기간</th>
+                        <th>주요 작업</th>
+                        <th>산출물</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1단계</td>
+                        <td>7/1 (Day 1)</td>
+                        <td>프로젝트 구조 설계 및 기본 레이아웃</td>
+                        <td>HTML 구조, CSS 기본 스타일링</td>
+                    </tr>
+                    <tr>
+                        <td>2단계</td>
+                        <td>7/2 (Day 2)</td>
+                        <td>네비게이션 및 메인 섹션 구현</td>
+                        <td>홈/서비스 섹션, 반응형 디자인</td>
+                    </tr>
+                    <tr>
+                        <td>3단계</td>
+                        <td>7/3 (Day 3)</td>
+                        <td>예약 시스템 및 사용자 프로필</td>
+                        <td>예약 관리, 프로필 페이지</td>
+                    </tr>
+                    <tr>
+                        <td>4단계</td>
+                        <td>7/4 (Day 4)</td>
+                        <td>인터랙션 및 애니메이션 구현</td>
+                        <td>JavaScript 기능, 모달, 알림</td>
+                    </tr>
+                    <tr>
+                        <td>5단계</td>
+                        <td>7/5 (Day 5)</td>
+                        <td>테스트, 최적화 및 완료</td>
+                        <td>완성된 부킹 플랫폼</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <div class="section-title">6. 기대 효과 및 확장성</div>
+            
+            <div class="two-column">
+                <div>
+                    <h3>📈 기대 효과</h3>
+                    <ul>
+                        <li><strong>사용자 편의성:</strong> 통합 예약 관리</li>
+                        <li><strong>업체 효율성:</strong> 예약 관리 자동화</li>
+                        <li><strong>시장 확장:</strong> 다양한 업종 통합</li>
+                        <li><strong>데이터 활용:</strong> 사용자 패턴 분석</li>
+                    </ul>
+                    
+                    <h3>🔮 향후 확장 계획</h3>
+                    <ul>
+                        <li><strong>실시간 API:</strong> 실제 예약 시스템 연동</li>
+                        <li><strong>결제 시스템:</strong> 온라인 결제 기능</li>
+                        <li><strong>AI 추천:</strong> 머신러닝 기반 추천</li>
+                        <li><strong>모바일 앱:</strong> 네이티브 앱 개발</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>⚡ 성능 목표</h3>
+                    <ul>
+                        <li><strong>로딩 속도:</strong> 3초 이내 초기 로드</li>
+                        <li><strong>반응성:</strong> 100ms 이내 UI 반응</li>
+                        <li><strong>호환성:</strong> 95% 브라우저 지원</li>
+                        <li><strong>접근성:</strong> WCAG 2.1 AA 준수</li>
+                    </ul>
+                    
+                    <h3>📊 성공 지표</h3>
+                    <ul>
+                        <li><strong>사용자 만족도:</strong> 4.5/5.0 이상</li>
+                        <li><strong>예약 완료율:</strong> 85% 이상</li>
+                        <li><strong>재방문율:</strong> 70% 이상</li>
+                        <li><strong>모바일 사용률:</strong> 60% 이상</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">7. 위험 요소 및 대응 방안</div>
+            
+            <table class="requirement-table">
+                <thead>
+                    <tr>
+                        <th>위험 요소</th>
+                        <th>발생 확률</th>
+                        <th>영향도</th>
+                        <th>대응 방안</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>브라우저 호환성 문제</td>
+                        <td class="priority-medium">중간</td>
+                        <td class="priority-high">높음</td>
+                        <td>Polyfill 사용, 크로스 브라우저 테스트</td>
+                    </tr>
+                    <tr>
+                        <td>모바일 성능 저하</td>
+                        <td class="priority-medium">중간</td>
+                        <td class="priority-medium">중간</td>
+                        <td>이미지 최적화, CSS 애니메이션 최소화</td>
+                    </tr>
+                    <tr>
+                        <td>사용자 데이터 관리</td>
+                        <td class="priority-low">낮음</td>
+                        <td class="priority-high">높음</td>
+                        <td>localStorage 백업, 데이터 검증</td>
+                    </tr>
+                    <tr>
+                        <td>UI/UX 복잡성</td>
+                        <td class="priority-medium">중간</td>
+                        <td class="priority-medium">중간</td>
+                        <td>사용자 테스트, 단계적 기능 출시</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unity 6 스파르타 전설 게임 - 1차 컴파일 실패</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            overflow: hidden;
+        }
+        
+        .unity-interface {
+            width: 100vw;
+            height: 100vh;
+            background: #393939;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .unity-header {
+            background: #2c2c2c;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            border-bottom: 1px solid #555;
+        }
+        
+        .unity-logo {
+            color: #fff;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .unity-content {
+            display: flex;
+            flex: 1;
+        }
+        
+        .project-panel {
+            background: #2c2c2c;
+            width: 300px;
+            border-right: 1px solid #555;
+            padding: 10px;
+        }
+        
+        .console-panel {
+            flex: 1;
+            background: #393939;
+            padding: 20px;
+            font-family: 'Consolas', monospace;
+            font-size: 12px;
+            overflow-y: auto;
+        }
+        
+        .error-line {
+            color: #ff6b6b;
+            margin: 5px 0;
+            padding: 5px;
+            background: rgba(255, 107, 107, 0.1);
+            border-left: 3px solid #ff6b6b;
+        }
+        
+        .warning-line {
+            color: #ffd93d;
+            margin: 5px 0;
+            padding: 5px;
+            background: rgba(255, 217, 61, 0.1);
+            border-left: 3px solid #ffd93d;
+        }
+        
+        .file-item {
+            color: #a0a0a0;
+            padding: 3px 0;
+            font-size: 12px;
+        }
+        
+        .file-item.cs {
+            color: #4a9eff;
+        }
+        
+        .unity-status {
+            background: #ff4757;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .timestamp {
+            color: #888;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="unity-interface">
+        <div class="unity-header">
+            <div class="unity-logo">🎮 Unity 2022.3.51f1 - AI-Spartan-Legend-Clean</div>
+        </div>
+        
+        <div class="unity-content">
+            <div class="project-panel">
+                <h4 style="color: #fff; margin: 0 0 10px 0;">🗂️ Project</h4>
+                <div class="file-item">📁 Assets</div>
+                <div class="file-item">　📁 Scripts</div>
+                <div class="file-item cs">　　📄 MonumentValleyGame.cs</div>
+                <div class="file-item cs">　　📄 GeometricSpartanController.cs</div>
+                <div class="file-item cs">　　📄 CleanGameManager.cs</div>
+                <div class="file-item cs">　　📄 Unity6CompatibleGame.cs</div>
+                <div class="file-item cs">　　📄 MonumentCameraController.cs</div>
+                <div class="file-item">　📁 Scenes</div>
+                <div class="file-item">　　📄 SampleScene.unity</div>
+                <div class="file-item">📁 Packages</div>
+                <div class="file-item">📁 ProjectSettings</div>
+            </div>
+            
+            <div class="console-panel">
+                <h3 style="color: #ff6b6b; margin: 0 0 15px 0;">❌ Console - Compiler Errors</h3>
+                
+                <div class="error-line">
+                    <span class="timestamp">[2025-09-13 11:23:45]</span><br>
+                    <strong>CS0103:</strong> The name 'FindObjectOfType' does not exist in the current context<br>
+                    <em>Assets/Scripts/MonumentValleyGame.cs(42,24)</em>
+                </div>
+                
+                <div class="error-line">
+                    <span class="timestamp">[2025-09-13 11:23:45]</span><br>
+                    <strong>CS1061:</strong> 'Rigidbody' does not contain a definition for 'velocity'<br>
+                    <em>Assets/Scripts/GeometricSpartanController.cs(158,16)</em>
+                </div>
+                
+                <div class="error-line">
+                    <span class="timestamp">[2025-09-13 11:23:46]</span><br>
+                    <strong>CS0103:</strong> The name 'FindObjectOfType' does not exist in the current context<br>
+                    <em>Assets/Scripts/CleanGameManager.cs(67,31)</em>
+                </div>
+                
+                <div class="error-line">
+                    <span class="timestamp">[2025-09-13 11:23:46]</span><br>
+                    <strong>CS1061:</strong> 'Rigidbody' does not contain a definition for 'velocity'<br>
+                    <em>Assets/Scripts/Unity6CompatibleGame.cs(203,20)</em>
+                </div>
+                
+                <div class="error-line">
+                    <span class="timestamp">[2025-09-13 11:23:46]</span><br>
+                    <strong>CS0103:</strong> The name 'FindObjectOfType' does not exist in the current context<br>
+                    <em>Assets/Scripts/MonumentCameraController.cs(89,28)</em>
+                </div>
+                
+                <div class="warning-line">
+                    <span class="timestamp">[2025-09-13 11:23:47]</span><br>
+                    <strong>Warning:</strong> Unity 6 API changes detected. Please update deprecated methods.
+                </div>
+                
+                <div class="error-line">
+                    <span class="timestamp">[2025-09-13 11:23:47]</span><br>
+                    <strong>Build Failed:</strong> 5 errors, 1 warning (0:02.145)
+                </div>
+                
+                <div style="color: #888; margin-top: 20px; font-size: 11px;">
+                    💡 <strong>Unity 6 Migration Required:</strong><br>
+                    • FindObjectOfType → FindFirstObjectByType<br>
+                    • Rigidbody.velocity → Rigidbody.linearVelocity<br>
+                    • Update all deprecated APIs for Unity 6 compatibility
+                </div>
+            </div>
+        </div>
+        
+        <div class="unity-status">
+            ⚠️ All compiler errors have to be fixed before you can enter playmode!
+        </div>
+    </div>
+</body>
+</html>

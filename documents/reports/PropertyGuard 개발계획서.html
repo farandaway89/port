@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PropertyGuard - 허위매물 탐지 시스템 개발계획서</title>
+    <style>
+        @page {
+            size: A3;
+            margin: 15mm;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.3;
+            margin: 0;
+            padding: 0;
+            font-size: 11px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(45deg, #e74c3c, #f39c12);
+            color: white;
+            border-radius: 8px;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin: 0 0 8px 0;
+        }
+        
+        .header p {
+            margin: 3px 0;
+            font-size: 14px;
+        }
+        
+        .section {
+            margin: 15px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fafafa;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            background: #e74c3c;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin: -15px -15px 15px -15px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .four-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 8px;
+        }
+        
+        .usecase-actor {
+            background: #ffeaa7;
+            border: 1px solid #f39c12;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            font-size: 10px;
+        }
+        
+        .usecase-actor h4 {
+            color: #e17055;
+            margin: 0 0 5px 0;
+            font-size: 12px;
+        }
+        
+        .usecase-item {
+            background: #fff5f5;
+            margin: 5px 0;
+            padding: 8px;
+            border-radius: 3px;
+            border-left: 3px solid #e74c3c;
+            font-size: 10px;
+        }
+        
+        .req-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 9px;
+        }
+        
+        .req-table th {
+            background: #e74c3c;
+            color: white;
+            padding: 6px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        .req-table td {
+            padding: 5px 6px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+        
+        .req-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .priority-high { border-left: 3px solid #e74c3c; }
+        .priority-medium { border-left: 3px solid #f39c12; }
+        .priority-low { border-left: 3px solid #27ae60; }
+        
+        .flowchart {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .flow-step {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 6px 12px;
+            margin: 4px;
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: bold;
+        }
+        
+        .flow-decision {
+            background: #f39c12;
+            color: white;
+            padding: 8px;
+            margin: 4px;
+            border-radius: 50%;
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            line-height: 44px;
+            font-size: 8px;
+            font-weight: bold;
+        }
+        
+        .flow-arrow {
+            font-size: 16px;
+            color: #e74c3c;
+            margin: 0 5px;
+        }
+        
+        .sitemap {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .sitemap-level1 {
+            background: #e74c3c;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            margin: 5px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 11px;
+        }
+        
+        .sitemap-level2 {
+            background: #f39c12;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            margin: 2px 5px;
+            display: inline-block;
+            font-size: 9px;
+        }
+        
+        .mockup-screen {
+            border: 2px solid #333;
+            border-radius: 5px;
+            padding: 10px;
+            background: #f8f9fa;
+            margin: 10px 0;
+            min-height: 200px;
+        }
+        
+        .mockup-header {
+            background: #e74c3c;
+            color: white;
+            padding: 6px;
+            border-radius: 3px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 10px;
+        }
+        
+        .mockup-widget {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            padding: 8px;
+            text-align: center;
+            font-size: 9px;
+        }
+        
+        .widget-title {
+            background: #f39c12;
+            color: white;
+            padding: 3px;
+            border-radius: 2px;
+            font-size: 8px;
+            margin-bottom: 5px;
+        }
+        
+        .widget-value {
+            font-size: 16px;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 9px;
+        }
+        
+        .schedule-table th {
+            background: #e74c3c;
+            color: white;
+            padding: 6px;
+            text-align: center;
+        }
+        
+        .schedule-table td {
+            padding: 5px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+        
+        .day-1 { background: #ffeaa7; }
+        .day-2 { background: #fab1a0; }
+        .day-3 { background: #fd79a8; }
+        .day-4 { background: #fdcb6e; }
+        .day-5 { background: #e17055; }
+        .day-6 { background: #74b9ff; }
+        .day-7 { background: #81ecec; }
+        
+        .table-spec {
+            background: white;
+            border: 1px solid #e74c3c;
+            border-radius: 5px;
+            margin: 8px 0;
+            overflow: hidden;
+        }
+        
+        .table-header {
+            background: #e74c3c;
+            color: white;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .table-content {
+            padding: 10px;
+        }
+        
+        .field-row {
+            display: grid;
+            grid-template-columns: 2fr 1.5fr 0.5fr 2.5fr;
+            gap: 8px;
+            padding: 3px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 9px;
+        }
+        
+        .field-name {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .field-type {
+            color: #e74c3c;
+            font-family: monospace;
+        }
+        
+        .field-null {
+            color: #95a5a6;
+            font-size: 8px;
+        }
+        
+        .field-desc {
+            color: #7f8c8d;
+        }
+        
+        .erd-container {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .erd-entity {
+            display: inline-block;
+            background: #f8f9fa;
+            border: 1px solid #e74c3c;
+            border-radius: 5px;
+            margin: 8px;
+            min-width: 140px;
+            vertical-align: top;
+        }
+        
+        .erd-entity-name {
+            background: #e74c3c;
+            color: white;
+            padding: 6px;
+            font-weight: bold;
+            text-align: center;
+            font-size: 10px;
+        }
+        
+        .erd-attributes {
+            padding: 8px;
+            text-align: left;
+            font-size: 8px;
+            line-height: 1.2;
+        }
+        
+        .erd-pk {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .erd-fk {
+            color: #f39c12;
+            font-style: italic;
+        }
+        
+        .erd-relation {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 12px;
+            color: #f39c12;
+            vertical-align: middle;
+        }
+        
+        .project-period {
+            background: linear-gradient(45deg, #e74c3c, #f39c12);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 15px 0;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .milestone {
+            background: #e74c3c;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 8px;
+            font-weight: bold;
+        }
+        
+        .compact-list {
+            margin: 8px 0;
+            padding-left: 15px;
+        }
+        
+        .compact-list li {
+            margin: 3px 0;
+            font-size: 10px;
+        }
+        
+        .info-box {
+            background: #fff5f5;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 3px solid #e74c3c;
+            margin: 8px 0;
+            font-size: 10px;
+        }
+        
+        .warning-box {
+            background: #fef9e7;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 3px solid #f39c12;
+            margin: 8px 0;
+            font-size: 10px;
+        }
+        
+        .success-box {
+            background: #f0f8e5;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 3px solid #27ae60;
+            margin: 8px 0;
+            font-size: 10px;
+        }
+        
+        h3 {
+            font-size: 14px;
+            margin: 12px 0 8px 0;
+            color: #2c3e50;
+        }
+        
+        h4 {
+            font-size: 12px;
+            margin: 10px 0 6px 0;
+            color: #34495e;
+        }
+        
+        h5 {
+            font-size: 11px;
+            margin: 8px 0 4px 0;
+            color: #34495e;
+        }
+        
+        p {
+            margin: 5px 0;
+            font-size: 10px;
+        }
+        
+        ul, ol {
+            margin: 5px 0;
+            padding-left: 15px;
+        }
+        
+        li {
+            margin: 2px 0;
+            font-size: 10px;
+        }
+        
+        .compact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        @media print {
+            body { 
+                background: white !important;
+                font-size: 10px;
+            }
+            .section {
+                page-break-inside: avoid;
+                margin: 10px 0;
+                padding: 10px;
+            }
+            .container {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏢 PropertyGuard - 허위매물 탐지 시스템</h1>
+            <p>최종 프로젝트 개발계획서 | C++ Qt 기반 데스크톱 애플리케이션 및 머신러닝 통합 시스템</p>
+        </div>
+
+        <div class="project-period">
+            📅 프로젝트 기간: 2025/08/07(수) ~ 2025/08/13(화) 18:30 (7일간)
+        </div>
+
+        <!-- 1.1 유스케이스 -->
+        <div class="section">
+            <div class="section-title">1.1 👥 유스케이스 (Use Case)</div>
+            
+            <h3>시스템 액터</h3>
+            <div class="four-column">
+                <div class="usecase-actor">
+                    <h4>👨‍💼 부동산 중개사</h4>
+                    <p>매물 등록 및 관리</p>
+                </div>
+                <div class="usecase-actor">
+                    <h4>🏠 임대인</h4>
+                    <p>직접 매물 등록</p>
+                </div>
+                <div class="usecase-actor">
+                    <h4>👤 임차인</h4>
+                    <p>매물 검색 및 조회</p>
+                </div>
+                <div class="usecase-actor">
+                    <h4>🔍 시스템 관리자</h4>
+                    <p>탐지 규칙 및 시스템 관리</p>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>주요 유스케이스</h4>
+                    <div class="usecase-item">
+                        <strong>UC01: 매물 정보 등록</strong><br>
+                        <small>부동산 기본정보, 가격, 옵션 등 등록</small>
+                    </div>
+                    <div class="usecase-item">
+                        <strong>UC02: 허위매물 자동 탐지</strong><br>
+                        <small>ML 기반 가격 이상치 및 의심 키워드 분석</small>
+                    </div>
+                    <div class="usecase-item">
+                        <strong>UC03: 매물 검색 및 필터링</strong><br>
+                        <small>지역, 가격, 평수 등 다양한 조건 검색</small>
+                    </div>
+                    <div class="usecase-item">
+                        <strong>UC04: 신뢰도 점수 계산</strong><br>
+                        <small>매물별 신뢰도 지표 자동 산출</small>
+                    </div>
+                </div>
+                <div>
+                    <h4>시나리오 예시 - UC02</h4>
+                    <div class="info-box">
+                        <strong>허위매물 자동 탐지</strong><br>
+                        1. 사용자가 새 매물을 등록합니다<br>
+                        2. 시스템이 매물 정보를 분석합니다<br>
+                        3. 가격 이상치 분석 (지역 평균 대비)<br>
+                        4. 의심 키워드 탐지 ("급매", "헐값" 등)<br>
+                        5. 연락처 및 사진 패턴 분석<br>
+                        6. 신뢰도 점수 계산 후 결과 표시<br>
+                        7. 의심 매물은 별도 관리 대상으로 분류
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.2 요구사항 명세서 -->
+        <div class="section">
+            <div class="section-title">1.2 📋 요구사항 명세서</div>
+            
+            <div class="two-column">
+                <div>
+                    <h3>기능적 요구사항</h3>
+                    <table class="req-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>요구사항</th>
+                                <th>우선순위</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="priority-high">
+                                <td>FR01</td>
+                                <td>매물 등록/수정/삭제 기능</td>
+                                <td>높음</td>
+                            </tr>
+                            <tr class="priority-high">
+                                <td>FR02</td>
+                                <td>머신러닝 기반 가격 이상치 탐지</td>
+                                <td>높음</td>
+                            </tr>
+                            <tr class="priority-high">
+                                <td>FR03</td>
+                                <td>의심 키워드 패턴 분석</td>
+                                <td>높음</td>
+                            </tr>
+                            <tr class="priority-medium">
+                                <td>FR04</td>
+                                <td>매물 검색 및 필터링</td>
+                                <td>중간</td>
+                            </tr>
+                            <tr class="priority-medium">
+                                <td>FR05</td>
+                                <td>신뢰도 점수 시각화</td>
+                                <td>중간</td>
+                            </tr>
+                            <tr class="priority-low">
+                                <td>FR06</td>
+                                <td>통계 분석 및 리포트</td>
+                                <td>낮음</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <h3>비기능적 요구사항</h3>
+                    <table class="req-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>요구사항</th>
+                                <th>목표값</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>NFR01</td>
+                                <td>응답 시간</td>
+                                <td>1초 이내</td>
+                            </tr>
+                            <tr>
+                                <td>NFR02</td>
+                                <td>탐지 정확도</td>
+                                <td>85% 이상</td>
+                            </tr>
+                            <tr>
+                                <td>NFR03</td>
+                                <td>동시 사용자</td>
+                                <td>최대 50명</td>
+                            </tr>
+                            <tr>
+                                <td>NFR04</td>
+                                <td>데이터 저장</td>
+                                <td>10만건 이상</td>
+                            </tr>
+                            <tr>
+                                <td>NFR05</td>
+                                <td>가용성</td>
+                                <td>99.5% 이상</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h4>제약사항</h4>
+                    <div class="warning-box">
+                        • Qt 6.0+, C++17 표준<br>
+                        • SQLite/MySQL 데이터베이스<br>
+                        • 최소 RAM 4GB, 저장공간 2GB<br>
+                        • Windows 10 이상 지원
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.3 시스템 아키텍처 -->
+        <div class="section">
+            <div class="section-title">1.3 🏗️ 시스템 아키텍처</div>
+            
+            <div class="two-column">
+                <div>
+                    <h3>전체 시스템 구조</h3>
+                    <div class="flowchart">
+                        <div class="flow-step">프론트엔드 (Qt GUI)</div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">비즈니스 로직 (C++)</div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">ML 분석 엔진</div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">데이터베이스 (MySQL)</div>
+                    </div>
+                </div>
+                <div>
+                    <h3>핵심 컴포넌트</h3>
+                    <div class="success-box">
+                        <strong>1. GUI 레이어</strong><br>
+                        • Qt Widgets 기반 사용자 인터페이스<br>
+                        • 매물 등록/검색/관리 화면<br>
+                        • 실시간 탐지 결과 표시
+                    </div>
+                    <div class="info-box">
+                        <strong>2. ML 분석 엔진</strong><br>
+                        • Python 연동 머신러닝 모델<br>
+                        • 가격 이상치 탐지 알고리즘<br>
+                        • 자연어 처리 키워드 분석
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.4 화면 구성도 -->
+        <div class="section">
+            <div class="section-title">1.4 🖥️ 화면 구성도</div>
+            
+            <div class="two-column">
+                <div>
+                    <h3>메뉴 구조</h3>
+                    <div class="sitemap">
+                        <div class="sitemap-level1">🏠 메인 대시보드</div>
+                        <div style="margin-left: 10px;">
+                            <div class="sitemap-level2">📊 전체 현황</div>
+                            <div class="sitemap-level2">⚠️ 의심 매물</div>
+                            <div class="sitemap-level2">📈 통계 분석</div>
+                        </div>
+                        
+                        <div class="sitemap-level1">🏢 매물 관리</div>
+                        <div style="margin-left: 10px;">
+                            <div class="sitemap-level2">➕ 매물 등록</div>
+                            <div class="sitemap-level2">📝 매물 편집</div>
+                            <div class="sitemap-level2">🔍 매물 검색</div>
+                        </div>
+                        
+                        <div class="sitemap-level1">🤖 탐지 시스템</div>
+                        <div style="margin-left: 10px;">
+                            <div class="sitemap-level2">⚙️ 탐지 설정</div>
+                            <div class="sitemap-level2">📋 탐지 결과</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3>화면별 구성 요소</h3>
+                    <div class="info-box">
+                        <strong>1️⃣ 메인 대시보드</strong><br>
+                        • 상단: 프로그램 로고, 사용자 정보<br>
+                        • 좌측: 네비게이션 메뉴<br>
+                        • 중앙: 매물 현황 위젯 (2x2)<br>
+                        • 우측: 최근 탐지 결과, 알림<br>
+                        • 하단: 상태바, 진행률 표시
+                    </div>
+                    <div class="info-box">
+                        <strong>2️⃣ 매물 등록</strong><br>
+                        • 매물 기본 정보 입력<br>
+                        • 사진 업로드 및 미리보기<br>
+                        • 실시간 신뢰도 검사<br>
+                        • 저장/취소 버튼
+                    </div>
+                    <div class="info-box">
+                        <strong>3️⃣ 탐지 결과</strong><br>
+                        • 의심 매물 목록<br>
+                        • 신뢰도 점수 차트<br>
+                        • 상세 분석 정보<br>
+                        • 승인/거절 액션
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.5 UI/UX 목업 -->
+        <div class="section">
+            <div class="section-title">1.5 🎨 UI/UX 목업</div>
+            
+            <div class="two-column">
+                <div>
+                    <h3>메인 대시보드</h3>
+                    <div class="mockup-screen">
+                        <div class="mockup-header">🏢 PropertyGuard v1.0 | 관리자 | 2025-08-13 14:30</div>
+                        
+                        <div style="display: grid; grid-template-columns: 120px 1fr 150px; gap: 8px; height: 100%;">
+                            <div style="background: #f8f9fa; padding: 5px; border-radius: 3px;">
+                                <div style="background: #e74c3c; color: white; padding: 4px; margin-bottom: 4px; text-align: center; font-size: 8px;">📊 대시보드</div>
+                                <div style="background: #e9ecef; padding: 3px; margin-bottom: 2px; font-size: 8px;">🏢 매물관리</div>
+                                <div style="background: #e9ecef; padding: 3px; font-size: 8px;">🤖 탐지시스템</div>
+                            </div>
+                            
+                            <div>
+                                <h5 style="margin: 0 0 8px 0;">매물 현황 대시보드</h5>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
+                                    <div class="mockup-widget">
+                                        <div class="widget-title">🏠 전체매물</div>
+                                        <div class="widget-value">1,247</div>
+                                        <div style="font-size: 7px; color: #666;">등록된 매물 수</div>
+                                    </div>
+                                    <div class="mockup-widget">
+                                        <div class="widget-title">⚠️ 의심매물</div>
+                                        <div class="widget-value">23</div>
+                                        <div style="font-size: 7px; color: #666;">탐지된 의심 매물</div>
+                                    </div>
+                                    <div class="mockup-widget">
+                                        <div class="widget-title">✅ 신뢰매물</div>
+                                        <div class="widget-value">1,186</div>
+                                        <div style="font-size: 7px; color: #666;">신뢰도 80% 이상</div>
+                                    </div>
+                                    <div class="mockup-widget">
+                                        <div class="widget-title">📊 탐지율</div>
+                                        <div class="widget-value">87.3%</div>
+                                        <div style="font-size: 7px; color: #666;">ML 모델 정확도</div>
+                                    </div>
+                                </div>
+                                
+                                <div style="background: white; border: 1px dashed #ccc; padding: 8px; margin-top: 8px; text-align: center; font-size: 8px; color: #666;">
+                                    📈 월별 허위매물 탐지 현황 차트
+                                </div>
+                            </div>
+                            
+                            <div style="background: #f8f9fa; padding: 5px; border-radius: 3px;">
+                                <h5 style="margin: 0 0 5px 0; color: #e74c3c; font-size: 9px;">🚨 최근 알림</h5>
+                                <div style="font-size: 8px; margin-bottom: 8px;">
+                                    14:25 의심매물 탐지<br>
+                                    14:20 가격 이상치 발견<br>
+                                    13:45 새 매물 등록<br>
+                                    13:30 시스템 업데이트
+                                </div>
+                                
+                                <h5 style="margin: 8px 0 3px 0; color: #f39c12; font-size: 9px;">📊 오늘의 통계</h5>
+                                <div style="font-size: 8px; background: white; padding: 5px; border-radius: 2px;">
+                                    신규 매물: 12개<br>
+                                    탐지 건수: 3건<br>
+                                    처리 완료: 8건
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3>매물 등록 화면</h3>
+                    <div class="mockup-screen">
+                        <div class="mockup-header">➕ 새 매물 등록</div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <div>
+                                <h5 style="margin: 0 0 5px 0;">🏠 기본 정보</h5>
+                                <div style="background: white; padding: 8px; border-radius: 3px; font-size: 8px;">
+                                    <div style="margin-bottom: 5px;">
+                                        <label style="font-weight: bold;">매물유형:</label>
+                                        <select style="width: 100%; padding: 2px;">
+                                            <option>원룸</option>
+                                        </select>
+                                    </div>
+                                    <div style="margin-bottom: 3px;">
+                                        <label>보증금: </label>
+                                        <input type="text" placeholder="만원" style="width: 60px; font-size: 8px;">
+                                    </div>
+                                    <div style="margin-bottom: 3px;">
+                                        <label>월세: </label>
+                                        <input type="text" placeholder="만원" style="width: 60px; font-size: 8px;">
+                                    </div>
+                                    <div style="margin-bottom: 3px;">
+                                        <label>평수: </label>
+                                        <input type="text" placeholder="평" style="width: 60px; font-size: 8px;">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h5 style="margin: 0 0 5px 0;">🎯 실시간 분석</h5>
+                                <div style="background: #fff5f5; padding: 8px; border-radius: 3px; font-size: 8px;">
+                                    <div style="margin-bottom: 5px;">
+                                        <strong>신뢰도 점수: </strong>
+                                        <span style="color: #e74c3c; font-weight: bold;">73점</span>
+                                    </div>
+                                    <div style="margin-bottom: 3px;">
+                                        ✅ 가격 적정성: 정상<br>
+                                        ⚠️ 키워드 검사: 주의<br>
+                                        ✅ 연락처 유효성: 정상
+                                    </div>
+                                    <div style="background: #fef9e7; padding: 3px; border-radius: 2px; margin-top: 5px;">
+                                        <small>⚠️ "급매" 키워드 발견</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 10px; text-align: center;">
+                            <button style="background: #e74c3c; color: white; border: none; padding: 8px 16px; border-radius: 3px; margin: 0 5px; font-size: 10px;">💾 저장</button>
+                            <button style="background: #95a5a6; color: white; border: none; padding: 8px 16px; border-radius: 3px; margin: 0 5px; font-size: 10px;">❌ 취소</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.6 개발 일정표 -->
+        <div class="section">
+            <div class="section-title">1.6 📅 개발 일정표</div>
+            
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th style="width: 8%;">일차</th>
+                        <th style="width: 12%;">날짜</th>
+                        <th style="width: 25%;">주요 작업</th>
+                        <th style="width: 35%;">상세 내용</th>
+                        <th style="width: 20%;">산출물</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="day-1">
+                        <td><strong>1일차</strong></td>
+                        <td>08/07 (수)</td>
+                        <td>프로젝트 계획 및 설계</td>
+                        <td>요구사항 분석, UI 설계, 데이터베이스 설계, 개발환경 구축</td>
+                        <td>명세서, ERD, UI 목업, 프로젝트 구조</td>
+                    </tr>
+                    <tr class="day-2">
+                        <td><strong>2일차</strong></td>
+                        <td>08/08 (목)</td>
+                        <td>기본 UI 및 DB 구축</td>
+                        <td>Qt 메인윈도우, 기본 위젯, MySQL 연결, 테이블 생성</td>
+                        <td>기본 GUI, DB 스키마, 연결 모듈</td>
+                    </tr>
+                    <tr class="day-3">
+                        <td><strong>3일차</strong></td>
+                        <td>08/09 (금)</td>
+                        <td>매물 관리 기능</td>
+                        <td>매물 등록/조회/수정/삭제, 데이터 검증, 검색 기능</td>
+                        <td>매물 관리 모듈, 검색 기능, CRUD 완성</td>
+                    </tr>
+                    <tr class="day-4">
+                        <td><strong>4일차</strong></td>
+                        <td>08/10 (토)</td>
+                        <td>ML 엔진 개발</td>
+                        <td>가격 이상치 탐지, 키워드 분석, 신뢰도 계산 알고리즘</td>
+                        <td>ML 분석 엔진, 탐지 로직, 점수 계산</td>
+                    </tr>
+                    <tr class="day-5">
+                        <td><strong>5일차</strong></td>
+                        <td>08/11 (일)</td>
+                        <td>통합 및 UI 완성</td>
+                        <td>ML 엔진 통합, UI 개선, 차트 및 통계 화면</td>
+                        <td>통합 시스템, 완성된 UI, 통계 모듈</td>
+                    </tr>
+                    <tr class="day-6">
+                        <td><strong>6일차</strong></td>
+                        <td>08/12 (월)</td>
+                        <td>테스트 및 최적화</td>
+                        <td>기능 테스트, 성능 최적화, 버그 수정, 사용성 개선</td>
+                        <td>테스트 보고서, 최적화 완료, 버그 수정</td>
+                    </tr>
+                    <tr class="day-7">
+                        <td><strong>7일차</strong></td>
+                        <td>08/13 (화)</td>
+                        <td>최종 검수 및 배포</td>
+                        <td>최종 테스트, 문서 작성, 실행파일 생성, 배포 준비</td>
+                        <td>최종 제품, 사용자 매뉴얼 <span class="milestone">18:30 완료</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="four-column">
+                <div class="info-box">
+                    <strong>1단계 (1-2일차)</strong><br>
+                    설계 및 환경 구축<br>
+                    <span class="milestone">08/08 18:00</span>
+                </div>
+                <div class="info-box">
+                    <strong>2단계 (3-4일차)</strong><br>
+                    핵심 기능 개발<br>
+                    <span class="milestone">08/10 18:00</span>
+                </div>
+                <div class="success-box">
+                    <strong>3단계 (5-6일차)</strong><br>
+                    통합 및 테스트<br>
+                    <span class="milestone">08/12 18:00</span>
+                </div>
+                <div class="warning-box">
+                    <strong>최종 (7일차)</strong><br>
+                    완료 및 제출<br>
+                    <span class="milestone">08/13 18:30</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.7 데이터베이스 설계 -->
+        <div class="section">
+            <div class="section-title">1.7 🗃️ 데이터베이스 설계</div>
+            
+            <div class="compact-grid">
+                <div class="table-spec">
+                    <div class="table-header">👤 users - 사용자</div>
+                    <div class="table-content">
+                        <div class="field-row" style="font-weight: bold; background: #f8f9fa;">
+                            <div>필드명</div><div>타입</div><div>NULL</div><div>설명</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">user_id</div>
+                            <div class="field-type">INT PK</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">사용자 ID</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">username</div>
+                            <div class="field-type">VARCHAR(50)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">로그인 아이디</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">password</div>
+                            <div class="field-type">VARCHAR(255)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">암호화 비밀번호</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">role</div>
+                            <div class="field-type">ENUM</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">권한 (admin/user)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-spec">
+                    <div class="table-header">🏠 properties - 매물정보</div>
+                    <div class="table-content">
+                        <div class="field-row" style="font-weight: bold; background: #f8f9fa;">
+                            <div>필드명</div><div>타입</div><div>NULL</div><div>설명</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">property_id</div>
+                            <div class="field-type">INT PK</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">매물 ID</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">title</div>
+                            <div class="field-type">VARCHAR(200)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">매물 제목</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">price</div>
+                            <div class="field-type">DECIMAL(10,2)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">가격 (만원)</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">area</div>
+                            <div class="field-type">DECIMAL(8,2)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">평수</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">location</div>
+                            <div class="field-type">VARCHAR(100)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">위치</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-spec">
+                    <div class="table-header">🔍 detection_results - 탐지결과</div>
+                    <div class="table-content">
+                        <div class="field-row" style="font-weight: bold; background: #f8f9fa;">
+                            <div>필드명</div><div>타입</div><div>NULL</div><div>설명</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">detection_id</div>
+                            <div class="field-type">INT PK</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">탐지 ID</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">property_id</div>
+                            <div class="field-type">INT FK</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">매물 ID</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">trust_score</div>
+                            <div class="field-type">DECIMAL(5,2)</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">신뢰도 점수</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">risk_factors</div>
+                            <div class="field-type">JSON</div>
+                            <div class="field-null">NULL</div>
+                            <div class="field-desc">위험 요소</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-spec">
+                    <div class="table-header">📊 analysis_logs - 분석로그</div>
+                    <div class="table-content">
+                        <div class="field-row" style="font-weight: bold; background: #f8f9fa;">
+                            <div>필드명</div><div>타입</div><div>NULL</div><div>설명</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">log_id</div>
+                            <div class="field-type">INT PK</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">로그 ID</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">property_id</div>
+                            <div class="field-type">INT FK</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">매물 ID</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">analysis_type</div>
+                            <div class="field-type">ENUM</div>
+                            <div class="field-null">NOT NULL</div>
+                            <div class="field-desc">분석 유형</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-name">result</div>
+                            <div class="field-type">TEXT</div>
+                            <div class="field-null">NULL</div>
+                            <div class="field-desc">분석 결과</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.8 ERD -->
+        <div class="section">
+            <div class="section-title">1.8 🔗 ERD</div>
+            
+            <div class="erd-container">
+                <div class="erd-entity">
+                    <div class="erd-entity-name">👤 USERS</div>
+                    <div class="erd-attributes">
+                        <div class="erd-pk">🔑 user_id (PK)</div>
+                        <div>username</div>
+                        <div>password</div>
+                        <div>role</div>
+                        <div>created_at</div>
+                    </div>
+                </div>
+
+                <div class="erd-relation">1:N</div>
+
+                <div class="erd-entity">
+                    <div class="erd-entity-name">🏠 PROPERTIES</div>
+                    <div class="erd-attributes">
+                        <div class="erd-pk">🔑 property_id (PK)</div>
+                        <div class="erd-fk">👤 user_id (FK)</div>
+                        <div>title</div>
+                        <div>price</div>
+                        <div>area</div>
+                        <div>location</div>
+                        <div>description</div>
+                    </div>
+                </div>
+
+                <div class="erd-relation">1:N</div>
+
+                <div class="erd-entity">
+                    <div class="erd-entity-name">🔍 DETECTION_RESULTS</div>
+                    <div class="erd-attributes">
+                        <div class="erd-pk">🔑 detection_id (PK)</div>
+                        <div class="erd-fk">🏠 property_id (FK)</div>
+                        <div>trust_score</div>
+                        <div>risk_factors</div>
+                        <div>analysis_date</div>
+                    </div>
+                </div>
+
+                <div class="erd-entity">
+                    <div class="erd-entity-name">📊 ANALYSIS_LOGS</div>
+                    <div class="erd-attributes">
+                        <div class="erd-pk">🔑 log_id (PK)</div>
+                        <div class="erd-fk">🏠 property_id (FK)</div>
+                        <div>analysis_type</div>
+                        <div>result</div>
+                        <div>timestamp</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3>주요 관계 설명</h3>
+                    <div class="info-box">
+                        <strong>관계 정의:</strong><br>
+                        • USERS ↔ PROPERTIES (1:N)<br>
+                        • PROPERTIES ↔ DETECTION_RESULTS (1:N)<br>
+                        • PROPERTIES ↔ ANALYSIS_LOGS (1:N)<br>
+                    </div>
+                    
+                    <h4>인덱스 설계</h4>
+                    <div class="success-box">
+                        • properties: (price, location, area)<br>
+                        • detection_results: (trust_score, analysis_date)<br>
+                        • analysis_logs: (property_id, timestamp)<br>
+                        • users: username (unique)
+                    </div>
+                </div>
+                <div>
+                    <h3>데이터 보존 정책</h3>
+                    <div class="warning-box">
+                        <strong>보존 기간:</strong><br>
+                        • properties: 영구 보존<br>
+                        • detection_results: 2년<br>
+                        • analysis_logs: 1년<br>
+                        • users: 영구 보존
+                    </div>
+                    
+                    <h4>성능 최적화</h4>
+                    <div class="info-box">
+                        • 가격대별 인덱싱<br>
+                        • 지역별 파티셔닝<br>
+                        • 분석 결과 캐싱<br>
+                        • 배치 처리 최적화
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 프로젝트 마무리 -->
+        <div style="background: linear-gradient(45deg, #e74c3c, #f39c12); color: white; padding: 20px; border-radius: 10px; text-align: center; margin-top: 20px;">
+            <h2 style="margin: 0 0 10px 0; font-size: 20px;">🎯 프로젝트 완료 목표</h2>
+            <p style="font-size: 16px; margin: 0 0 15px 0;">
+                <strong>2025년 8월 13일 18:30까지</strong><br>
+                완전히 동작하는 PropertyGuard 허위매물 탐지 시스템 개발 완료
+            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 15px; margin-top: 15px;">
+                <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 5px;">
+                    <div style="font-size: 14px; font-weight: bold;">📋 명세서</div>
+                    <div style="font-size: 12px;">완료 ✅</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 5px;">
+                    <div style="font-size: 14px; font-weight: bold;">🔧 개발</div>
+                    <div style="font-size: 12px;">진행중 ⏳</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 5px;">
+                    <div style="font-size: 14px; font-weight: bold;">🧪 테스트</div>
+                    <div style="font-size: 12px;">예정 📅</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 5px;">
+                    <div style="font-size: 14px; font-weight: bold;">🎉 완성</div>
+                    <div style="font-size: 12px;">목표 🎯</div>
+                </div>
+            </div>
+            <div style="margin-top: 15px; font-size: 12px; opacity: 0.9;">
+                Qt/C++ 기반 데스크톱 애플리케이션 | 머신러닝 통합 허위매물 탐지 시스템 | 성공적인 프로젝트 완성을 위해! 💪
+            </div>
+        </div>
+
+        <!-- 추가 기술 정보 -->
+        <div style="margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+            <h3 style="margin: 0 0 10px 0; color: #2c3e50;">🔧 기술 스택 및 개발 환경</h3>
+            <div class="four-column">
+                <div style="background: white; padding: 10px; border-radius: 5px; border-left: 3px solid #e74c3c;">
+                    <h5 style="margin: 0 0 5px 0; color: #e74c3c;">Frontend</h5>
+                    <div style="font-size: 10px;">
+                        • Qt 6.0+ (GUI Framework)<br>
+                        • Qt Widgets (UI 컴포넌트)<br>
+                        • Qt Charts (데이터 시각화)<br>
+                        • Custom UI Components
+                    </div>
+                </div>
+                <div style="background: white; padding: 10px; border-radius: 5px; border-left: 3px solid #f39c12;">
+                    <h5 style="margin: 0 0 5px 0; color: #f39c12;">Backend</h5>
+                    <div style="font-size: 10px;">
+                        • C++17 Standard<br>
+                        • Qt SQL (데이터베이스)<br>
+                        • Qt Network (통신)<br>
+                        • Business Logic Layer
+                    </div>
+                </div>
+                <div style="background: white; padding: 10px; border-radius: 5px; border-left: 3px solid #27ae60;">
+                    <h5 style="margin: 0 0 5px 0; color: #27ae60;">Database</h5>
+                    <div style="font-size: 10px;">
+                        • MySQL 8.0 (메인 DB)<br>
+                        • SQLite (로컬 백업)<br>
+                        • 관계형 데이터 모델<br>
+                        • 인덱스 최적화
+                    </div>
+                </div>
+                <div style="background: white; padding: 10px; border-radius: 5px; border-left: 3px solid #3498db;">
+                    <h5 style="margin: 0 0 5px 0; color: #3498db;">AI/ML</h5>
+                    <div style="font-size: 10px;">
+                        • 가격 이상치 탐지<br>
+                        • 자연어 처리<br>
+                        • 패턴 분석<br>
+                        • 신뢰도 점수 계산
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 성능 목표 -->
+        <div style="margin-top: 10px; padding: 12px; background: #fef9e7; border-radius: 8px; border-left: 4px solid #f39c12;">
+            <h4 style="margin: 0 0 8px 0; color: #e17055;">🎯 시스템 성능 목표</h4>
+            <div class="four-column">
+                <div style="text-align: center;">
+                    <div style="font-size: 18px; font-weight: bold; color: #e74c3c;">1초</div>
+                    <div style="font-size: 10px;">ML 분석 시간</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 18px; font-weight: bold; color: #f39c12;">85%</div>
+                    <div style="font-size: 10px;">탐지 정확도</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 18px; font-weight: bold; color: #27ae60;">10만건</div>
+                    <div style="font-size: 10px;">최대 매물 수</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 18px; font-weight: bold; color: #3498db;">99.5%</div>
+                    <div style="font-size: 10px;">시스템 가용성</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

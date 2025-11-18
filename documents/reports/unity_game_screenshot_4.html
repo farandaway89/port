@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4K 해상도 UI 스케일링 구현</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            overflow: hidden;
+        }
+        
+        .unity-interface {
+            width: 100vw;
+            height: 100vh;
+            background: #393939;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .unity-header {
+            background: #2c2c2c;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            border-bottom: 1px solid #555;
+        }
+        
+        .unity-logo {
+            color: #fff;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .unity-content {
+            display: flex;
+            flex: 1;
+        }
+        
+        .code-editor {
+            flex: 1;
+            background: #1e1e1e;
+            padding: 20px;
+            font-family: 'Consolas', monospace;
+            font-size: 13px;
+            color: #d4d4d4;
+            overflow-y: auto;
+        }
+        
+        .game-view {
+            flex: 2;
+            background: linear-gradient(135deg, #a8eaea 0%, #f4d4e7 100%);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .resolution-tabs {
+            background: #2c2c2c;
+            padding: 10px 20px;
+            border-bottom: 1px solid #555;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .resolution-tab {
+            padding: 5px 15px;
+            background: #4a4a4a;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .resolution-tab.active {
+            background: #4a9eff;
+        }
+        
+        .game-viewport {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .gui-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+        
+        .gui-text {
+            position: absolute;
+            background: rgba(0,0,0,0.7);
+            padding: 8px 12px;
+            border-radius: 5px;
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        
+        .gui-small {
+            top: 10px;
+            left: 10px;
+            font-size: 10px;
+        }
+        
+        .gui-normal {
+            top: 10px;
+            left: 200px;
+            font-size: 14px;
+        }
+        
+        .gui-large {
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+        }
+        
+        .code-line {
+            margin: 2px 0;
+            padding: 2px 0;
+        }
+        
+        .line-number {
+            color: #858585;
+            margin-right: 15px;
+            user-select: none;
+        }
+        
+        .keyword {
+            color: #569cd6;
+        }
+        
+        .string {
+            color: #ce9178;
+        }
+        
+        .comment {
+            color: #6a9955;
+        }
+        
+        .method {
+            color: #dcdcaa;
+        }
+        
+        .type {
+            color: #4ec9b0;
+        }
+        
+        .highlight-line {
+            background: rgba(107, 207, 127, 0.1);
+            border-left: 3px solid #6bcf7f;
+        }
+        
+        .resolution-display {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="unity-interface">
+        <div class="unity-header">
+            <div class="unity-logo">🎮 Unity Game View - 4K UI 스케일링 테스트</div>
+        </div>
+        
+        <div class="unity-content">
+            <div class="code-editor">
+                <h4 style="color: #fff; margin: 0 0 15px 0;">📝 GUI 스케일링 코드 구현</h4>
+                
+                <div class="code-line">
+                    <span class="line-number">67</span>
+                    <span class="keyword">void</span> <span class="method">OnGUI</span>()
+                </div>
+                <div class="code-line">
+                    <span class="line-number">68</span>
+                    {
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">69</span>
+                    　　<span class="comment">// 4K 해상도 지원을 위한 동적 스케일링</span>
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">70</span>
+                    　　<span class="keyword">float</span> scaleFactor = <span class="type">Mathf</span>.<span class="method">Max</span>(<span class="type">Screen</span>.width / <span class="string">1920f</span>, <span class="type">Screen</span>.height / <span class="string">1080f</span>);
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">71</span>
+                    　　scaleFactor = <span class="type">Mathf</span>.<span class="method">Clamp</span>(scaleFactor, <span class="string">1f</span>, <span class="string">3f</span>);
+                </div>
+                <div class="code-line">
+                    <span class="line-number">72</span>
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">73</span>
+                    　　<span class="type">Matrix4x4</span> oldMatrix = <span class="type">GUI</span>.matrix;
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">74</span>
+                    　　<span class="type">GUI</span>.matrix = <span class="type">Matrix4x4</span>.<span class="method">Scale</span>(<span class="keyword">new</span> <span class="type">Vector3</span>(scaleFactor, scaleFactor, <span class="string">1f</span>));
+                </div>
+                <div class="code-line">
+                    <span class="line-number">75</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">76</span>
+                    　　<span class="keyword">float</span> width = <span class="string">600f</span>;
+                </div>
+                <div class="code-line">
+                    <span class="line-number">77</span>
+                    　　<span class="keyword">float</span> height = <span class="string">25f</span>;
+                </div>
+                <div class="code-line">
+                    <span class="line-number">78</span>
+                    　　<span class="keyword">float</span> x = <span class="string">10f</span>;
+                </div>
+                <div class="code-line">
+                    <span class="line-number">79</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">80</span>
+                    　　<span class="type">GUI</span>.<span class="method">Label</span>(<span class="keyword">new</span> <span class="type">Rect</span>(x, <span class="string">10</span>, width, height), <span class="string">"🎯 Monument Valley 스파르타 전설"</span>);
+                </div>
+                <div class="code-line">
+                    <span class="line-number">81</span>
+                    　　<span class="type">GUI</span>.<span class="method">Label</span>(<span class="keyword">new</span> <span class="type">Rect</span>(x, <span class="string">40</span>, width, height), <span class="string">"🖱️ WASD: 이동, Space: 점프"</span>);
+                </div>
+                <div class="code-line">
+                    <span class="line-number">82</span>
+                    　　<span class="type">GUI</span>.<span class="method">Label</span>(<span class="keyword">new</span> <span class="type">Rect</span>(x, <span class="string">70</span>, width, height), <span class="string">"⚔️ 마우스 클릭: 공격"</span>);
+                </div>
+                <div class="code-line">
+                    <span class="line-number">83</span>
+                </div>
+                <div class="code-line highlight-line">
+                    <span class="line-number">84</span>
+                    　　<span class="type">GUI</span>.matrix = oldMatrix; <span class="comment">// 매트릭스 복원</span>
+                </div>
+                <div class="code-line">
+                    <span class="line-number">85</span>
+                    }
+                </div>
+                
+                <div style="margin-top: 20px; padding: 10px; background: rgba(107, 207, 127, 0.1); border-left: 3px solid #6bcf7f; border-radius: 3px;">
+                    <strong style="color: #6bcf7f;">✅ 4K UI 스케일링 구현 완료</strong><br>
+                    <span style="color: #ccc; font-size: 11px;">
+                    • GUI.matrix 동적 스케일링<br>
+                    • 모든 해상도에서 일관된 UI 크기<br>
+                    • 1920x1080 기준 자동 비율 계산<br>
+                    • 최소 1배 ~ 최대 3배 스케일링
+                    </span>
+                </div>
+                
+                <div style="margin-top: 15px; padding: 10px; background: rgba(255, 107, 107, 0.1); border-left: 3px solid #ff6b6b; border-radius: 3px;">
+                    <strong style="color: #ff6b6b;">❌ 지속 문제</strong><br>
+                    <span style="color: #ccc; font-size: 11px;">
+                    • Input System 여전히 작동 안함<br>
+                    • 키보드/마우스 입력 완전 실패<br>
+                    • GUI는 표시되지만 상호작용 불가
+                    </span>
+                </div>
+            </div>
+            
+            <div class="game-view">
+                <div class="resolution-tabs">
+                    <div class="resolution-tab">1920x1080 (1x)</div>
+                    <div class="resolution-tab">2560x1440 (1.3x)</div>
+                    <div class="resolution-tab active">3840x2160 (2x) 4K</div>
+                </div>
+                
+                <div class="game-viewport">
+                    <div class="resolution-display">
+                        🖥️ 4K 해상도<br>
+                        3840 x 2160<br>
+                        <span style="font-size: 14px; color: #6bcf7f;">✅ UI 스케일링 적용됨</span>
+                    </div>
+                    
+                    <div class="gui-overlay">
+                        <div class="gui-text gui-small">
+                            ❌ 4K에서 너무 작음<br>
+                            (기존 문제)
+                        </div>
+                        
+                        <div class="gui-text gui-normal">
+                            🎯 Monument Valley 스파르타 전설<br>
+                            🖱️ WASD: 이동, Space: 점프<br>
+                            ⚔️ 마우스 클릭: 공격
+                        </div>
+                        
+                        <div class="gui-text gui-large">
+                            ✅ 스케일링 적용<br>
+                            (해결됨)
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="position: absolute; bottom: 20px; left: 20px; background: rgba(0,0,0,0.8); padding: 15px; border-radius: 8px; font-size: 13px;">
+                    <strong style="color: #6bcf7f;">✅ 4K UI 문제 해결</strong><br>
+                    <span style="color: #ccc; font-size: 12px;">
+                    • 사용자 요청: "4k 옵션을 보면 화면의 텍스트가 너무 작아서 안보인다"<br>
+                    • 해결책: GUI.matrix 동적 스케일링 구현<br>
+                    • 결과: 모든 해상도에서 적절한 UI 크기 유지
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

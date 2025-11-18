@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unity 6 Monument Valley 퍼즐 게임 개발계획서</title>
+    <style>
+        @page {
+            size: A3;
+            margin: 15mm;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.3;
+            margin: 0;
+            padding: 0;
+            font-size: 11px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 8px;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin: 0 0 8px 0;
+        }
+        
+        .header p {
+            margin: 3px 0;
+            font-size: 14px;
+        }
+        
+        .section {
+            margin: 15px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fafafa;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin: -15px -15px 15px -15px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .phase-card {
+            background: #e6f3ff;
+            border: 1px solid #667eea;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 8px 0;
+            font-size: 10px;
+        }
+        
+        .phase-card h4 {
+            color: #667eea;
+            margin: 0 0 5px 0;
+            font-size: 12px;
+        }
+        
+        .risk-card {
+            background: #ffe6e6;
+            border: 1px solid #dc3545;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 8px 0;
+            font-size: 10px;
+        }
+        
+        .risk-card h4 {
+            color: #dc3545;
+            margin: 0 0 5px 0;
+            font-size: 12px;
+        }
+        
+        .info-box {
+            background: #e8f5e8;
+            border-left: 5px solid #28a745;
+            padding: 12px;
+            margin: 12px 0;
+            border-radius: 5px;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 12px;
+            margin: 12px 0;
+            border-radius: 5px;
+        }
+        
+        .tech-spec {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 3px;
+            font-size: 10px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 10px;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 6px;
+            text-align: left;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .timeline {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            margin: 5px 0;
+            font-size: 10px;
+            text-align: center;
+        }
+        
+        ul {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin: 4px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Unity 6 Monument Valley 퍼즐 게임 개발계획서</h1>
+            <p>프로젝트명: Unity 6 Monument Valley 스타일 3D 퍼즐 게임</p>
+            <p>개발 기간: 2025년 9월 9일-11일 (3일 집중 개발)</p>
+            <p>개발자: 이승필 | 목표: Unity 6 호환성 확보 및 게임 완성</p>
+        </div>
+
+        <div class="section">
+            <div class="section-title">📋 1. 프로젝트 개요</div>
+            <div class="two-column">
+                <div>
+                    <div class="info-box">
+                        <h4 style="color: #28a745; margin: 0 0 8px 0;">🎯 프로젝트 목표</h4>
+                        <p><strong>주 목표:</strong> Unity 6과 호환되는 Monument Valley 스타일의 3D 퍼즐 게임 구현</p>
+                        <p><strong>부 목표:</strong> 기존 스파르타 전설 프로젝트를 현대적 게임으로 전환</p>
+                        <p><strong>최종 목표:</strong> 4K 환경에서 완전히 작동하는 게임 제작</p>
+                    </div>
+                    <div class="tech-spec">
+                        <strong>개발 환경 사양</strong><br>
+                        • Unity 버전: Unity 6 (최신)<br>
+                        • 프로그래밍 언어: C#<br>
+                        • 플랫폼: Windows (4K 해상도)<br>
+                        • 아트 스타일: Monument Valley 미니멀리즘
+                    </div>
+                </div>
+                <div>
+                    <div class="warning-box">
+                        <h4 style="color: #856404; margin: 0 0 8px 0;">⚠️ 예상 주요 도전과제</h4>
+                        <p><strong>Unity 6 호환성:</strong> 기존 API 변경사항 대응 필요</p>
+                        <p><strong>Input System:</strong> Legacy vs New Input System 충돌</p>
+                        <p><strong>4K UI:</strong> 고해상도 환경 텍스트 가독성</p>
+                        <p><strong>Monument Valley 스타일:</strong> 정확한 미니멀 디자인 구현</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🗓️ 2. 개발 단계별 계획</div>
+            
+            <div class="phase-card">
+                <h4>1단계: Unity 6 호환성 분석 및 수정 (2시간)</h4>
+                <p><strong>목표:</strong> 기존 스파르타 전설 프로젝트의 Unity 6 호환성 확보</p>
+                <ul>
+                    <li>컴파일 에러 전체 식별 및 목록화</li>
+                    <li>FindObjectOfType → FindFirstObjectByType 변경</li>
+                    <li>Rigidbody.velocity → Rigidbody.linearVelocity 변경</li>
+                    <li>기타 deprecated API 전체 업데이트</li>
+                </ul>
+                <p><strong>성공 기준:</strong> 모든 스크립트 컴파일 성공</p>
+            </div>
+
+            <div class="phase-card">
+                <h4>2단계: Input System 최적화 (2시간)</h4>
+                <p><strong>목표:</strong> Unity Input System 충돌 문제 완전 해결</p>
+                <ul>
+                    <li>Legacy Input Manager vs New Input System 충돌 분석</li>
+                    <li>SafeInputHandler 클래스 구현으로 방어적 프로그래밍</li>
+                    <li>try-catch 예외 처리로 안정성 확보</li>
+                    <li>ProjectSettings.asset 직접 수정으로 Input 방식 통일</li>
+                </ul>
+                <p><strong>성공 기준:</strong> 키보드/마우스 입력 정상 작동</p>
+            </div>
+
+            <div class="phase-card">
+                <h4>3단계: Monument Valley 캐릭터 구현 (1.5시간)</h4>
+                <p><strong>목표:</strong> Monument Valley의 미니멀한 캐릭터 디자인 구현</p>
+                <ul>
+                    <li>기하학적 형태의 단순한 캐릭터 디자인</li>
+                    <li>파스텔 색상 팔레트 적용</li>
+                    <li>4K 해상도에서 명확한 시각성 확보</li>
+                    <li>애니메이션 없는 정적 우아함 추구</li>
+                </ul>
+                <p><strong>성공 기준:</strong> Monument Valley 스타일에 부합하는 캐릭터</p>
+            </div>
+
+            <div class="phase-card">
+                <h4>4단계: 게임 메커니즘 구현 (1.5시간)</h4>
+                <p><strong>목표:</strong> 직관적이고 매력적인 게임플레이 구현</p>
+                <ul>
+                    <li>WASD 키보드 이동 시스템 구현</li>
+                    <li>마우스 클릭 상호작용 시스템</li>
+                    <li>목표 지점 도달 감지 및 성공 처리</li>
+                    <li>기본적인 물리 시뮬레이션 적용</li>
+                </ul>
+                <p><strong>성공 기준:</strong> 완전한 게임 루프 작동</p>
+            </div>
+
+            <div class="phase-card">
+                <h4>5단계: 대안 설계 (구조물 퍼즐) (1시간)</h4>
+                <p><strong>목표:</strong> 캐릭터 구현 실패 시 구조물 기반 게임으로 전환</p>
+                <ul>
+                    <li>회전 가능한 구조물 시스템 (L자, T자, 브릿지)</li>
+                    <li>물리 기반 구슬 굴리기 메커니즘</li>
+                    <li>OnMouseDown 기반 직접 조작</li>
+                    <li>Monument Valley 핵심 요소인 구조물 조작에 집중</li>
+                </ul>
+                <p><strong>성공 기준:</strong> 구조물 회전을 통한 퍼즐 해결</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">⚙️ 3. 기술적 구현 계획</div>
+            
+            <div class="three-column">
+                <div class="tech-spec">
+                    <strong>Unity 6 API 대응</strong><br>
+                    • FindFirstObjectByType 사용<br>
+                    • linearVelocity 속성 활용<br>
+                    • 최신 Physics API 적용<br>
+                    • Component 접근법 업데이트
+                </div>
+                <div class="tech-spec">
+                    <strong>Input System 전략</strong><br>
+                    • Legacy Input 우선 적용<br>
+                    • New Input System 백업<br>
+                    • 방어적 예외 처리<br>
+                    • 다중 입력 방식 지원
+                </div>
+                <div class="tech-spec">
+                    <strong>UI/UX 최적화</strong><br>
+                    • 4K 동적 스케일링<br>
+                    • GUI.matrix 활용<br>
+                    • 텍스트 가독성 보장<br>
+                    • 해상도 무관 UI
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4 style="color: #667eea;">핵심 스크립트 구조</h4>
+                    <ul>
+                        <li><strong>MonumentPuzzleGame.cs:</strong> 메인 게임 매니저</li>
+                        <li><strong>RotatableStructure.cs:</strong> 구조물 회전 시스템</li>
+                        <li><strong>GoalTrigger.cs:</strong> 목표 달성 감지</li>
+                        <li><strong>PuzzleCameraController.cs:</strong> 카메라 제어</li>
+                        <li><strong>SafeInputHandler.cs:</strong> 안전한 입력 처리</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #667eea;">물리 시스템 설계</h4>
+                    <ul>
+                        <li><strong>Rigidbody:</strong> 구슬 물리 시뮬레이션</li>
+                        <li><strong>Collider:</strong> 구조물 충돌 감지</li>
+                        <li><strong>PhysicMaterial:</strong> 마찰 및 반발 조정</li>
+                        <li><strong>Gravity:</strong> 현실적인 중력 효과</li>
+                        <li><strong>Constraints:</strong> 불필요한 회전 제한</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🎨 4. Monument Valley 스타일 가이드</div>
+            
+            <div class="two-column">
+                <div>
+                    <div class="info-box">
+                        <h4 style="color: #28a745; margin: 0 0 8px 0;">🎨 디자인 원칙</h4>
+                        <p><strong>미니멀리즘:</strong> 불필요한 요소 완전 제거</p>
+                        <p><strong>기하학적 형태:</strong> 간단한 도형 조합</p>
+                        <p><strong>파스텔 색상:</strong> 부드럽고 우아한 색조</p>
+                        <p><strong>정적 우아함:</strong> 과도한 애니메이션 지양</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="tech-spec">
+                        <strong>색상 팔레트</strong><br>
+                        • 주 색상: #a8eaea (파스텔 청록)<br>
+                        • 보조 색상: #f4d4e7 (파스텔 핑크)<br>
+                        • 구조물: #d4a574 (따뜻한 베이지)<br>
+                        • 배경: #f0f8ff (연한 하늘색)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">⚠️ 5. 위험 요소 및 대응 방안</div>
+            
+            <div class="two-column">
+                <div class="risk-card">
+                    <h4>🔴 높은 위험도</h4>
+                    <p><strong>Unity Input System 충돌</strong></p>
+                    <p>Legacy와 New Input System 동시 존재로 인한 InvalidOperationException 발생 가능성</p>
+                    <p><strong>대응방안:</strong> ProjectSettings 직접 수정, 방어적 프로그래밍, 다중 백업 시스템</p>
+                </div>
+                <div class="risk-card">
+                    <h4>🟡 중간 위험도</h4>
+                    <p><strong>4K 해상도 UI 문제</strong></p>
+                    <p>고해상도에서 텍스트가 너무 작아 가독성 저하</p>
+                    <p><strong>대응방안:</strong> GUI.matrix를 이용한 동적 스케일링 구현</p>
+                </div>
+            </div>
+            
+            <div class="two-column">
+                <div class="risk-card">
+                    <h4>🟡 중간 위험도</h4>
+                    <p><strong>Monument Valley 스타일 구현 실패</strong></p>
+                    <p>복잡한 캐릭터 디자인으로 미니멀 스타일 위배 가능성</p>
+                    <p><strong>대응방안:</strong> 구조물 중심 퍼즐로 완전 방향 전환</p>
+                </div>
+                <div class="risk-card">
+                    <h4>🟢 낮은 위험도</h4>
+                    <p><strong>물리 시뮬레이션 불안정</strong></p>
+                    <p>Rigidbody 동작 예측 어려움 및 비현실적 움직임</p>
+                    <p><strong>대응방안:</strong> 적절한 mass, drag 값 조정 및 Constraints 활용</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🎯 6. 품질 보증 및 테스트 계획</div>
+            
+            <table>
+                <tr>
+                    <th>테스트 영역</th>
+                    <th>테스트 내용</th>
+                    <th>성공 기준</th>
+                    <th>소요 시간</th>
+                </tr>
+                <tr>
+                    <td>컴파일 테스트</td>
+                    <td>모든 스크립트 오류 없는 컴파일</td>
+                    <td>Build Successful 메시지</td>
+                    <td>30분</td>
+                </tr>
+                <tr>
+                    <td>입력 시스템 테스트</td>
+                    <td>키보드/마우스 모든 입력 확인</td>
+                    <td>WASD, 클릭 정상 반응</td>
+                    <td>30분</td>
+                </tr>
+                <tr>
+                    <td>4K 해상도 테스트</td>
+                    <td>고해상도 환경 UI/UX 확인</td>
+                    <td>텍스트 명확한 가독성</td>
+                    <td>20분</td>
+                </tr>
+                <tr>
+                    <td>게임플레이 테스트</td>
+                    <td>전체 게임 루프 작동 확인</td>
+                    <td>시작→진행→완료 흐름</td>
+                    <td>40분</td>
+                </tr>
+            </table>
+            
+            <div class="warning-box">
+                <h4 style="color: #856404; margin: 0 0 8px 0;">📋 최종 품질 기준</h4>
+                <p><strong>완성도 최우선 원칙:</strong> 속도보다 완성도와 안정성을 최우선으로 함</p>
+                <p><strong>사용자 피드백 반영:</strong> 객관적 어조 유지 및 실질적 문제 해결에 집중</p>
+                <p><strong>기술적 한계 인정:</strong> 해결 불가능한 문제는 명확히 문서화</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">📅 7. 일정 및 마일스톤</div>
+            
+            <div class="timeline">🕘 09:00 - 11:00 | 1단계: Unity 6 호환성 분석 및 수정</div>
+            <div class="timeline">🕘 11:00 - 13:00 | 2단계: Input System 최적화</div>
+            <div class="timeline">🕘 14:00 - 15:30 | 3단계: Monument Valley 캐릭터 구현</div>
+            <div class="timeline">🕘 15:30 - 17:00 | 4단계: 게임 메커니즘 구현</div>
+            <div class="timeline">🕘 17:00 - 18:00 | 5단계: 대안 설계 (구조물 퍼즐)</div>
+            <div class="timeline">🕘 18:00 - 20:00 | 6단계: 품질 보증 및 테스트</div>
+            
+            <div class="info-box" style="margin-top: 15px;">
+                <p><strong>예상 총 개발 시간:</strong> 8시간 (점심시간 1시간 제외)</p>
+                <p><strong>버퍼 시간:</strong> 각 단계별 30분씩 추가로 예상 문제 해결</p>
+                <p><strong>최종 목표:</strong> 2025년 9월 11일 20:00까지 완전히 작동하는 게임 완성</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">📈 8. 성공 지표 및 학습 목표</div>
+            
+            <div class="two-column">
+                <div>
+                    <h4 style="color: #667eea;">기술적 성공 지표</h4>
+                    <ul>
+                        <li>Unity 6 완전 호환성 확보</li>
+                        <li>Input System 안정적 작동</li>
+                        <li>4K 환경 완벽 지원</li>
+                        <li>Monument Valley 스타일 구현</li>
+                        <li>완전한 게임 루프 작동</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #667eea;">학습 목표</h4>
+                    <ul>
+                        <li>Unity 6 최신 API 마스터</li>
+                        <li>Input System 복잡성 이해</li>
+                        <li>방어적 프로그래밍 습득</li>
+                        <li>고해상도 UI 최적화</li>
+                        <li>게임 설계 유연성 향상</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

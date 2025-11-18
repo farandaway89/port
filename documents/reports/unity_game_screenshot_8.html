@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게임 컨셉 완전 변경 - 구조물 퍼즐</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            overflow: hidden;
+        }
+        
+        .unity-interface {
+            width: 100vw;
+            height: 100vh;
+            background: #393939;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .unity-header {
+            background: #2c2c2c;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            border-bottom: 1px solid #555;
+        }
+        
+        .unity-logo {
+            color: #fff;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .unity-content {
+            display: flex;
+            flex: 1;
+        }
+        
+        .concept-panel {
+            flex: 1;
+            background: #2c2c2c;
+            padding: 25px;
+            overflow-y: auto;
+        }
+        
+        .design-view {
+            flex: 2;
+            background: linear-gradient(135deg, #a8eaea 0%, #f4d4e7 100%);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .concept-box {
+            background: rgba(255, 217, 61, 0.15);
+            border-left: 4px solid #ffd93d;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+        
+        .concept-header {
+            color: #ffd93d;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .user-suggestion {
+            background: rgba(107, 207, 127, 0.15);
+            border-left: 4px solid #6bcf7f;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+        
+        .suggestion-header {
+            color: #6bcf7f;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .game-scene {
+            position: relative;
+            width: 80%;
+            height: 80%;
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .structure {
+            position: absolute;
+            background: #d4a574;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .structure:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+        
+        .l-shape {
+            width: 80px;
+            height: 80px;
+            top: 30%;
+            left: 15%;
+        }
+        
+        .l-shape:after {
+            content: '';
+            position: absolute;
+            right: -40px;
+            bottom: 0;
+            width: 40px;
+            height: 30px;
+            background: #d4a574;
+            border-radius: 5px;
+        }
+        
+        .t-shape {
+            width: 100px;
+            height: 30px;
+            top: 20%;
+            right: 20%;
+        }
+        
+        .t-shape:after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -50px;
+            width: 30px;
+            height: 50px;
+            background: #d4a574;
+            border-radius: 5px;
+        }
+        
+        .bridge {
+            width: 120px;
+            height: 20px;
+            top: 60%;
+            left: 35%;
+        }
+        
+        .bridge:before,
+        .bridge:after {
+            content: '';
+            position: absolute;
+            bottom: -40px;
+            width: 15px;
+            height: 40px;
+            background: #d4a574;
+            border-radius: 5px;
+        }
+        
+        .bridge:before {
+            left: 20px;
+        }
+        
+        .bridge:after {
+            right: 20px;
+        }
+        
+        .ball {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: radial-gradient(circle at 30% 30%, #ffeb3b, #ffc107);
+            border-radius: 50%;
+            top: 15%;
+            left: 10%;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+            animation: bounce 2s infinite ease-in-out;
+        }
+        
+        .goal {
+            position: absolute;
+            width: 50px;
+            height: 15px;
+            background: radial-gradient(ellipse, #4caf50, #2e7d32);
+            border-radius: 50%;
+            bottom: 15%;
+            right: 15%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes glow {
+            0% { box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+            100% { box-shadow: 0 4px 20px rgba(76, 175, 80, 0.6); }
+        }
+        
+        .concept-features {
+            background: #3a3a3a;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 3px solid #4a9eff;
+        }
+        
+        .features-header {
+            color: #4a9eff;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            margin: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #ccc;
+        }
+        
+        .feature-list li:before {
+            content: "🎯";
+            position: absolute;
+            left: 0;
+        }
+        
+        .game-instructions {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.8);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 12px;
+            max-width: 200px;
+        }
+        
+        .rotation-hint {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+    </style>
+</head>
+<body>
+    <div class="unity-interface">
+        <div class="unity-header">
+            <div class="unity-logo">🔄 Game Concept Redesign - Structure-Based Puzzle</div>
+        </div>
+        
+        <div class="unity-content">
+            <div class="concept-panel">
+                <h3 style="color: #fff; margin: 0 0 20px 0;">💡 컨셉 전환 과정</h3>
+                
+                <div class="user-suggestion">
+                    <div class="suggestion-header">💬 사용자 제안</div>
+                    <div style="color: #fff; font-size: 14px; line-height: 1.6;">
+                        "사람을 구현하는 것은 <strong>불가능 하니</strong> 이 구도에서 <strong>사물, 구조를 통해서 하는 게임</strong> 고안해봐라"
+                    </div>
+                </div>
+                
+                <div class="concept-box">
+                    <div class="concept-header">✅ 개발자 동의</div>
+                    <div style="color: #fff; font-size: 14px;">
+                        "응"<br><br>
+                        → 캐릭터 기반에서 구조물 조작 퍼즐로 완전 방향 전환 결정
+                    </div>
+                </div>
+                
+                <div class="concept-features">
+                    <div class="features-header">🎮 새로운 게임 컨셉</div>
+                    <ul class="feature-list">
+                        <li>Monument Valley 스타일 구조물 회전 퍼즐</li>
+                        <li>마우스 클릭으로 구조물 90도 회전</li>
+                        <li>물리 기반 구슬 굴리기 메커니즘</li>
+                        <li>L자형, T자형, 다리형 3가지 구조물</li>
+                        <li>단순한 목표: 노란 구슬을 초록 목표까지</li>
+                    </ul>
+                </div>
+                
+                <div class="concept-features">
+                    <div class="features-header">🔧 기술적 이점</div>
+                    <ul class="feature-list">
+                        <li>복잡한 캐릭터 애니메이션 불필요</li>
+                        <li>단순한 마우스 클릭 입력만 필요</li>
+                        <li>Input System 문제 우회 가능성</li>
+                        <li>Monument Valley 미니멀 스타일 부합</li>
+                        <li>물리 엔진 활용으로 자연스러운 움직임</li>
+                    </ul>
+                </div>
+                
+                <div class="concept-features">
+                    <div class="features-header">🎯 예상 효과</div>
+                    <div style="color: #ccc; font-size: 14px; line-height: 1.6;">
+                        <strong style="color: #6bcf7f;">긍정적 예상:</strong><br>
+                        • 단순한 상호작용으로 Input 문제 해결<br>
+                        • Monument Valley 정통 스타일 구현<br>
+                        • 직관적이고 명확한 게임플레이<br><br>
+                        
+                        <strong style="color: #ffd93d;">우려사항:</strong><br>
+                        • OnMouseDown 작동 여부 불확실<br>
+                        • Input System 근본 문제 지속 가능성<br>
+                        • Raycast 클릭 감지 실패 위험
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px; padding: 15px; background: rgba(107, 207, 127, 0.1); border-radius: 8px; border: 1px solid #6bcf7f;">
+                    <strong style="color: #6bcf7f;">✅ 컨셉 변경 합의 완료</strong><br>
+                    <span style="color: #ccc; font-size: 13px; margin-top: 8px; display: block;">
+                    캐릭터 중심 게임에서 구조물 퍼즐로<br>
+                    완전한 패러다임 전환 결정됨.
+                    </span>
+                </div>
+            </div>
+            
+            <div class="design-view">
+                <div class="game-scene">
+                    <div class="game-instructions">
+                        🎯 <strong>Monument Valley 퍼즐</strong><br>
+                        🖱️ 구조물 클릭으로 회전<br>
+                        🟡 노란 구슬을 🟢 목표까지<br>
+                        🔄 물리 기반 굴리기
+                    </div>
+                    
+                    <div class="structure l-shape" title="L자 구조물 - 클릭으로 회전"></div>
+                    <div class="structure t-shape" title="T자 구조물 - 클릭으로 회전"></div>
+                    <div class="structure bridge" title="다리 구조물 - 클릭으로 회전"></div>
+                    
+                    <div class="ball" title="물리 구슬"></div>
+                    <div class="goal" title="목표 지점"></div>
+                    
+                    <div class="rotation-hint">
+                        🔄 클릭하여 구조물 회전<br>
+                        길을 만들어 구슬을 굴려보세요
+                    </div>
+                </div>
+                
+                <div style="position: absolute; bottom: 30px; left: 30px; background: rgba(0,0,0,0.8); padding: 20px; border-radius: 10px; font-size: 14px;">
+                    <strong style="color: #6bcf7f;">🔄 핵심 변화</strong><br>
+                    <span style="color: #ccc; font-size: 13px;">
+                    <strong>Before:</strong> 복잡한 캐릭터 + 다양한 입력<br>
+                    <strong>After:</strong> 단순한 구조물 + 마우스 클릭만<br><br>
+                    기술적 복잡성을 최소화하여<br>
+                    Input System 문제 우회 시도
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
