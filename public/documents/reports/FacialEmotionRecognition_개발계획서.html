@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facial Emotion Recognition AI - JavaScript & TensorFlow.js 기반 실시간 얼굴 표정 감정 인식 AI 시스템 개발계획서</title>
+    <style>
+        @page {
+            size: A3;
+            margin: 15mm;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.3;
+            margin: 0;
+            padding: 0;
+            font-size: 11px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 8px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin: 0 0 8px 0;
+        }
+
+        .header p {
+            margin: 3px 0;
+            font-size: 14px;
+        }
+
+        .section {
+            margin: 15px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fafafa;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin: -15px -15px 15px -15px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        .four-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 8px;
+        }
+
+        .usecase-actor {
+            background: #e3f2fd;
+            border: 1px solid #667eea;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            font-size: 10px;
+        }
+
+        .usecase-actor h4 {
+            color: #764ba2;
+            margin: 0 0 5px 0;
+            font-size: 12px;
+        }
+
+        .usecase-item {
+            background: #f0f8ff;
+            margin: 5px 0;
+            padding: 8px;
+            border-radius: 3px;
+            border-left: 3px solid #667eea;
+            font-size: 10px;
+        }
+
+        .req-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 9px;
+        }
+
+        .req-table th {
+            background: #667eea;
+            color: white;
+            padding: 6px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .req-table td {
+            padding: 5px 6px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+
+        .req-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .priority-high { border-left: 3px solid #f44336; }
+        .priority-medium { border-left: 3px solid #ff9800; }
+        .priority-low { border-left: 3px solid #4caf50; }
+
+        .flowchart {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .flow-step {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            margin: 3px;
+            font-size: 9px;
+        }
+
+        .flow-arrow {
+            display: inline-block;
+            margin: 0 5px;
+            font-size: 14px;
+            color: #667eea;
+        }
+
+        .tech-tag {
+            background: #764ba2;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            margin: 2px 5px;
+            display: inline-block;
+            font-size: 9px;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 9px;
+        }
+
+        .schedule-table th {
+            background: #667eea;
+            color: white;
+            padding: 6px;
+            text-align: center;
+        }
+
+        .schedule-table td {
+            padding: 5px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+
+        .day-1 { background: #e3f2fd; }
+        .day-2 { background: #f3e5f5; }
+        .day-3 { background: #e8f5e8; }
+        .day-4 { background: #fff3e0; }
+        .day-5 { background: #fce4ec; }
+        .day-6 { background: #e1f5fe; }
+        .day-7 { background: #e8f5e8; }
+        .day-8 { background: #fff3e0; }
+
+        .table-spec {
+            background: white;
+            border: 1px solid #667eea;
+            border-radius: 5px;
+            margin: 8px 0;
+            overflow: hidden;
+        }
+
+        .table-header {
+            background: #667eea;
+            color: white;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .table-content {
+            padding: 10px;
+        }
+
+        .field-row {
+            display: grid;
+            grid-template-columns: 150px 100px 1fr;
+            gap: 10px;
+            padding: 5px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 9px;
+        }
+
+        .field-name {
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .field-type {
+            background: #e3f2fd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            text-align: center;
+        }
+
+        .mockup-screen {
+            border: 2px solid #333;
+            border-radius: 5px;
+            padding: 10px;
+            background: #f8f9fa;
+            margin: 10px 0;
+            min-height: 150px;
+        }
+
+        .mockup-header {
+            background: #667eea;
+            color: white;
+            padding: 6px;
+            border-radius: 3px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 10px;
+        }
+
+        .emotion-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            margin: 3px;
+            border-radius: 15px;
+            font-size: 9px;
+            font-weight: bold;
+        }
+
+        .emotion-happy { background: #ffeb3b; color: #333; }
+        .emotion-sad { background: #2196f3; color: white; }
+        .emotion-angry { background: #f44336; color: white; }
+        .emotion-fearful { background: #9c27b0; color: white; }
+        .emotion-surprised { background: #ff9800; color: white; }
+        .emotion-disgusted { background: #4caf50; color: white; }
+        .emotion-neutral { background: #9e9e9e; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Facial Emotion Recognition AI System</h1>
+            <p>JavaScript & TensorFlow.js 기반 실시간 얼굴 표정 감정 인식 AI 시스템</p>
+            <p>프로젝트 개발계획서</p>
+            <p>개발 기간: 2025.11.10 - 2025.11.17 (8일)</p>
+            <p>개발자: 이승필</p>
+        </div>
+
+        <!-- 프로젝트 개요 -->
+        <div class="section">
+            <div class="section-title">1. 프로젝트 개요</div>
+            <h2 style="margin: 0 0 10px 0; font-size: 18px;">프로젝트 목표</h2>
+            <p style="margin-bottom: 15px;">
+                TensorFlow.js와 Face-API.js를 활용하여 웹 브라우저에서 실시간으로 얼굴 표정을 분석하고 감정을 인식하는 AI 시스템 개발.
+                웹캠을 통해 수집된 비디오 스트림에서 7가지 감정(행복, 슬픔, 화남, 두려움, 놀람, 혐오, 중립)을 분류하고,
+                Chart.js를 통한 실시간 시각화 및 jsPDF를 활용한 임상 리포트 생성 기능을 제공합니다.
+            </p>
+
+            <h3 style="margin: 15px 0 10px 0; font-size: 14px;">주요 기능</h3>
+            <div class="three-column">
+                <div class="usecase-item">
+                    <strong>실시간 얼굴 표정 분석</strong><br>
+                    웹캠 기반 실시간 얼굴 감지 및 표정 분류
+                </div>
+                <div class="usecase-item">
+                    <strong>7가지 감정 인식</strong><br>
+                    딥러닝 모델을 통한 정확한 감정 분류
+                </div>
+                <div class="usecase-item">
+                    <strong>감정 변화 트래킹</strong><br>
+                    Chart.js 기반 실시간 감정 변화 시각화
+                </div>
+                <div class="usecase-item">
+                    <strong>통계 분석</strong><br>
+                    분석 시간, 감정 변화 횟수, 평균 신뢰도 제공
+                </div>
+                <div class="usecase-item">
+                    <strong>임상 리포트 생성</strong><br>
+                    jsPDF를 활용한 전문적인 PDF 리포트 출력
+                </div>
+                <div class="usecase-item">
+                    <strong>데이터 내보내기</strong><br>
+                    JSON, CSV 형식으로 분석 데이터 저장
+                </div>
+            </div>
+
+            <h3 style="margin: 15px 0 10px 0; font-size: 14px;">7가지 감정 분류</h3>
+            <div style="text-align: center; margin: 10px 0;">
+                <span class="emotion-badge emotion-happy">Happy (행복)</span>
+                <span class="emotion-badge emotion-sad">Sad (슬픔)</span>
+                <span class="emotion-badge emotion-angry">Angry (화남)</span>
+                <span class="emotion-badge emotion-fearful">Fearful (두려움)</span>
+                <span class="emotion-badge emotion-surprised">Surprised (놀람)</span>
+                <span class="emotion-badge emotion-disgusted">Disgusted (혐오)</span>
+                <span class="emotion-badge emotion-neutral">Neutral (중립)</span>
+            </div>
+
+            <h3 style="margin: 15px 0 10px 0; font-size: 14px;">기술 스택</h3>
+            <div style="text-align: center; margin: 10px 0;">
+                <span class="tech-tag">JavaScript ES6+</span>
+                <span class="tech-tag">TensorFlow.js 4.11.0</span>
+                <span class="tech-tag">Face-API.js 0.22.2</span>
+                <span class="tech-tag">Chart.js</span>
+                <span class="tech-tag">jsPDF</span>
+                <span class="tech-tag">HTML5 Canvas</span>
+                <span class="tech-tag">CSS3</span>
+            </div>
+
+            <h3 style="margin: 15px 0 10px 0; font-size: 14px;">AI 모델 구성</h3>
+            <div class="four-column">
+                <div class="usecase-item">
+                    <strong>TinyFaceDetector</strong><br>
+                    경량 얼굴 감지 모델
+                </div>
+                <div class="usecase-item">
+                    <strong>FaceLandmark68Net</strong><br>
+                    68개 얼굴 랜드마크 추출
+                </div>
+                <div class="usecase-item">
+                    <strong>FaceRecognitionNet</strong><br>
+                    얼굴 특징 벡터 생성
+                </div>
+                <div class="usecase-item">
+                    <strong>FaceExpressionNet</strong><br>
+                    7가지 감정 표현 분류
+                </div>
+            </div>
+
+            <h3 style="margin: 15px 0 10px 0; font-size: 14px;">프로젝트 정보</h3>
+            <div class="two-column">
+                <div class="usecase-item">
+                    <strong>Demo URL</strong><br>
+                    https://realtimefacial.vercel.app/
+                </div>
+                <div class="usecase-item">
+                    <strong>GitHub Repository</strong><br>
+                    https://github.com/farandaway89/-Real-time-Facial-Expression-Emotion-Recognition-AI-System-using-TensorFlow.js-
+                </div>
+            </div>
+        </div>
+
+        <!-- 사용 사례 -->
+        <div class="section">
+            <div class="section-title">2. 사용 사례 (Use Case)</div>
+            <h3>시스템 액터</h3>
+            <div class="three-column">
+                <div class="usecase-actor">
+                    <h4>심리 상담사</h4>
+                    <div class="usecase-item">내담자 감정 상태 실시간 모니터링</div>
+                    <div class="usecase-item">상담 세션 감정 변화 분석</div>
+                    <div class="usecase-item">임상 리포트 생성 및 기록</div>
+                    <div class="usecase-item">장기 감정 패턴 추적</div>
+                </div>
+                <div class="usecase-actor">
+                    <h4>교육자/강사</h4>
+                    <div class="usecase-item">학습자 참여도 및 이해도 측정</div>
+                    <div class="usecase-item">강의 중 감정 반응 분석</div>
+                    <div class="usecase-item">교육 콘텐츠 효과성 평가</div>
+                    <div class="usecase-item">학습 집중도 모니터링</div>
+                </div>
+                <div class="usecase-actor">
+                    <h4>연구자/개발자</h4>
+                    <div class="usecase-item">감정 인식 알고리즘 테스트</div>
+                    <div class="usecase-item">데이터셋 수집 및 분석</div>
+                    <div class="usecase-item">HCI 연구용 감정 데이터 확보</div>
+                    <div class="usecase-item">AI 모델 성능 평가</div>
+                </div>
+            </div>
+
+            <h3 style="margin: 15px 0 10px 0; font-size: 14px;">주요 유스케이스 시나리오</h3>
+            <div class="two-column">
+                <div class="usecase-item">
+                    <strong>UC-01: 실시간 감정 분석</strong><br>
+                    사용자가 웹캠을 활성화하면 시스템이 얼굴을 감지하고 실시간으로 7가지 감정의 확률을 표시합니다.
+                </div>
+                <div class="usecase-item">
+                    <strong>UC-02: 감정 변화 기록</strong><br>
+                    감정 변화를 시간 순서대로 기록하고 Chart.js로 시각화하여 감정 흐름을 파악합니다.
+                </div>
+                <div class="usecase-item">
+                    <strong>UC-03: 통계 분석</strong><br>
+                    총 분석 시간, 감정 변화 횟수, 각 감정의 평균 신뢰도를 계산하여 제공합니다.
+                </div>
+                <div class="usecase-item">
+                    <strong>UC-04: 리포트 생성</strong><br>
+                    jsPDF를 활용하여 분석 결과를 전문적인 PDF 임상 리포트로 출력합니다.
+                </div>
+            </div>
+        </div>
+
+        <!-- 요구사항 명세서 -->
+        <div class="section">
+            <div class="section-title">3. 요구사항 명세서</div>
+            <h3>기능적 요구사항</h3>
+            <table class="req-table">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">ID</th>
+                        <th style="width: 20%;">기능</th>
+                        <th style="width: 50%;">설명</th>
+                        <th style="width: 10%;">우선순위</th>
+                        <th style="width: 10%;">난이도</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="priority-high">
+                        <td>FR-001</td>
+                        <td>웹캠 비디오 스트림</td>
+                        <td>HTML5 getUserMedia API를 통해 웹캠 비디오 스트림을 캡처하고 Canvas에 렌더링</td>
+                        <td>High</td>
+                        <td>Low</td>
+                    </tr>
+                    <tr class="priority-high">
+                        <td>FR-002</td>
+                        <td>얼굴 감지</td>
+                        <td>TinyFaceDetector 모델을 사용하여 실시간으로 얼굴 영역을 감지</td>
+                        <td>High</td>
+                        <td>Medium</td>
+                    </tr>
+                    <tr class="priority-high">
+                        <td>FR-003</td>
+                        <td>표정 분석</td>
+                        <td>FaceExpressionNet을 통해 7가지 감정(Happy, Sad, Angry, Fearful, Surprised, Disgusted, Neutral)의 확률 계산</td>
+                        <td>High</td>
+                        <td>High</td>
+                    </tr>
+                    <tr class="priority-high">
+                        <td>FR-004</td>
+                        <td>실시간 시각화</td>
+                        <td>Chart.js를 활용하여 감정 확률을 실시간 바 차트로 표시</td>
+                        <td>High</td>
+                        <td>Medium</td>
+                    </tr>
+                    <tr class="priority-high">
+                        <td>FR-005</td>
+                        <td>감정 변화 트래킹</td>
+                        <td>주요 감정 변화를 시계열로 기록하고 라인 차트로 시각화</td>
+                        <td>High</td>
+                        <td>Medium</td>
+                    </tr>
+                    <tr class="priority-medium">
+                        <td>FR-006</td>
+                        <td>얼굴 랜드마크 표시</td>
+                        <td>68개 얼굴 랜드마크를 Canvas에 오버레이로 표시</td>
+                        <td>Medium</td>
+                        <td>Low</td>
+                    </tr>
+                    <tr class="priority-medium">
+                        <td>FR-007</td>
+                        <td>통계 분석</td>
+                        <td>총 분석 시간, 감정 변화 횟수, 각 감정의 평균 신뢰도 계산</td>
+                        <td>Medium</td>
+                        <td>Low</td>
+                    </tr>
+                    <tr class="priority-medium">
+                        <td>FR-008</td>
+                        <td>PDF 리포트 생성</td>
+                        <td>jsPDF를 사용하여 분석 결과를 임상 리포트 형식의 PDF로 출력</td>
+                        <td>Medium</td>
+                        <td>Medium</td>
+                    </tr>
+                    <tr class="priority-low">
+                        <td>FR-009</td>
+                        <td>데이터 내보내기</td>
+                        <td>분석 데이터를 JSON, CSV 형식으로 다운로드</td>
+                        <td>Low</td>
+                        <td>Low</td>
+                    </tr>
+                    <tr class="priority-low">
+                        <td>FR-010</td>
+                        <td>스냅샷 캡처</td>
+                        <td>현재 프레임을 이미지 파일로 저장</td>
+                        <td>Low</td>
+                        <td>Low</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>비기능적 요구사항</h3>
+            <table class="req-table">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">ID</th>
+                        <th style="width: 20%;">항목</th>
+                        <th style="width: 60%;">요구사항</th>
+                        <th style="width: 10%;">목표치</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>NFR-001</td>
+                        <td>실시간 처리 성능</td>
+                        <td>비디오 프레임 처리 및 감정 인식이 실시간으로 동작</td>
+                        <td>&gt; 15 FPS</td>
+                    </tr>
+                    <tr>
+                        <td>NFR-002</td>
+                        <td>모델 로딩 시간</td>
+                        <td>TensorFlow.js 모델 로딩 시간 최소화</td>
+                        <td>&lt; 5초</td>
+                    </tr>
+                    <tr>
+                        <td>NFR-003</td>
+                        <td>감정 분류 정확도</td>
+                        <td>7가지 감정 분류의 평균 신뢰도 유지</td>
+                        <td>&gt; 70%</td>
+                    </tr>
+                    <tr>
+                        <td>NFR-004</td>
+                        <td>브라우저 호환성</td>
+                        <td>Chrome, Firefox, Edge, Safari 최신 버전 지원</td>
+                        <td>100% 호환</td>
+                    </tr>
+                    <tr>
+                        <td>NFR-005</td>
+                        <td>반응형 UI</td>
+                        <td>다양한 화면 크기(데스크톱, 태블릿, 모바일)에서 정상 작동</td>
+                        <td>Responsive</td>
+                    </tr>
+                    <tr>
+                        <td>NFR-006</td>
+                        <td>개인정보 보호</td>
+                        <td>비디오 데이터는 로컬에서만 처리, 서버 전송 없음</td>
+                        <td>100% 로컬</td>
+                    </tr>
+                    <tr>
+                        <td>NFR-007</td>
+                        <td>메모리 효율성</td>
+                        <td>장시간 실행 시 메모리 누수 방지</td>
+                        <td>&lt; 500MB</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 시스템 아키텍처 -->
+        <div class="section">
+            <div class="section-title">4. 시스템 아키텍처</div>
+            <h3>전체 시스템 구조</h3>
+            <div class="flowchart">
+                <div class="flow-step">웹캠 비디오 스트림</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">HTML5 Canvas</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">Face-API.js</div>
+                <br><br>
+                <span class="flow-arrow">↓</span>
+                <br><br>
+                <div class="flow-step">TinyFaceDetector</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">FaceLandmark68Net</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">FaceExpressionNet</div>
+                <br><br>
+                <span class="flow-arrow">↓</span>
+                <br><br>
+                <div class="flow-step">감정 데이터 처리</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">Chart.js 시각화</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">통계 분석</div>
+                <br><br>
+                <span class="flow-arrow">↓</span>
+                <br><br>
+                <div class="flow-step">jsPDF 리포트 생성</div>
+                <span class="flow-arrow">+</span>
+                <div class="flow-step">JSON/CSV 내보내기</div>
+            </div>
+
+            <h3>모듈 구조</h3>
+            <div class="three-column">
+                <div class="usecase-item">
+                    <strong>Video Capture Module</strong><br>
+                    - getUserMedia API<br>
+                    - Canvas 렌더링<br>
+                    - 프레임 캡처
+                </div>
+                <div class="usecase-item">
+                    <strong>Face Detection Module</strong><br>
+                    - TensorFlow.js 모델 로딩<br>
+                    - 얼굴 감지 및 랜드마크 추출<br>
+                    - 표정 분석
+                </div>
+                <div class="usecase-item">
+                    <strong>Data Processing Module</strong><br>
+                    - 감정 데이터 저장<br>
+                    - 통계 계산<br>
+                    - 변화 감지 알고리즘
+                </div>
+                <div class="usecase-item">
+                    <strong>Visualization Module</strong><br>
+                    - Chart.js 바 차트<br>
+                    - Chart.js 라인 차트<br>
+                    - 실시간 업데이트
+                </div>
+                <div class="usecase-item">
+                    <strong>Report Generation Module</strong><br>
+                    - jsPDF PDF 생성<br>
+                    - JSON/CSV 변환<br>
+                    - 파일 다운로드
+                </div>
+                <div class="usecase-item">
+                    <strong>UI Control Module</strong><br>
+                    - 시작/중지 제어<br>
+                    - 설정 관리<br>
+                    - 이벤트 핸들링
+                </div>
+            </div>
+
+            <h3>데이터 흐름</h3>
+            <div class="flowchart">
+                <div class="flow-step">비디오 프레임</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">얼굴 감지</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">표정 분석</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">감정 확률 계산</div>
+                <br><br>
+                <span class="flow-arrow">↓</span>
+                <br><br>
+                <div class="flow-step">주요 감정 추출</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">변화 감지</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">데이터 저장</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">차트 업데이트</div>
+            </div>
+        </div>
+
+        <!-- 화면 설계 -->
+        <div class="section">
+            <div class="section-title">5. 화면 설계</div>
+            <h3>메인 화면 레이아웃</h3>
+            <div class="mockup-screen">
+                <div class="mockup-header">Facial Emotion Recognition AI - Main Interface</div>
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px;">
+                    <div style="background: white; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <div style="background: #667eea; color: white; padding: 5px; border-radius: 3px; margin-bottom: 5px; font-size: 10px; font-weight: bold;">
+                            비디오 캔버스 (Video Canvas)
+                        </div>
+                        <div style="font-size: 9px; color: #666;">
+                            • 웹캠 실시간 비디오 스트림<br>
+                            • 얼굴 감지 박스 (Bounding Box)<br>
+                            • 68개 얼굴 랜드마크 오버레이<br>
+                            • 현재 감정 레이블 표시<br>
+                            • Canvas 크기: 640x480
+                        </div>
+                    </div>
+                    <div style="background: white; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <div style="background: #764ba2; color: white; padding: 5px; border-radius: 3px; margin-bottom: 5px; font-size: 10px; font-weight: bold;">
+                            실시간 감정 확률 (Emotion Probabilities)
+                        </div>
+                        <div style="font-size: 9px; color: #666;">
+                            • 7가지 감정 바 차트 (Chart.js)<br>
+                            • 실시간 확률 업데이트 (0-100%)<br>
+                            • 색상 코딩 (감정별 고유 색상)<br>
+                            • 애니메이션 전환 효과
+                        </div>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                    <div style="background: white; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <div style="background: #4caf50; color: white; padding: 5px; border-radius: 3px; margin-bottom: 5px; font-size: 10px; font-weight: bold;">
+                            감정 변화 타임라인 (Emotion Timeline)
+                        </div>
+                        <div style="font-size: 9px; color: #666;">
+                            • 시간별 주요 감정 변화 라인 차트<br>
+                            • X축: 시간 (초), Y축: 신뢰도 (%)<br>
+                            • 다중 라인 (감정별 색상 구분)<br>
+                            • 변화 포인트 마커 표시
+                        </div>
+                    </div>
+                    <div style="background: white; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <div style="background: #ff9800; color: white; padding: 5px; border-radius: 3px; margin-bottom: 5px; font-size: 10px; font-weight: bold;">
+                            통계 및 제어 패널 (Statistics & Controls)
+                        </div>
+                        <div style="font-size: 9px; color: #666;">
+                            • 총 분석 시간 (mm:ss)<br>
+                            • 감정 변화 횟수<br>
+                            • 평균 신뢰도 (감정별)<br>
+                            • 시작/중지/초기화 버튼<br>
+                            • PDF/JSON/CSV 내보내기 버튼
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>UI 컴포넌트 상세</h3>
+            <div class="four-column">
+                <div class="usecase-item">
+                    <strong>제어 버튼</strong><br>
+                    시작, 중지, 초기화<br>
+                    스냅샷 캡처
+                </div>
+                <div class="usecase-item">
+                    <strong>감정 표시</strong><br>
+                    현재 감정 레이블<br>
+                    신뢰도 퍼센트
+                </div>
+                <div class="usecase-item">
+                    <strong>통계 정보</strong><br>
+                    분석 시간<br>
+                    변화 횟수
+                </div>
+                <div class="usecase-item">
+                    <strong>내보내기</strong><br>
+                    PDF 리포트<br>
+                    JSON, CSV
+                </div>
+            </div>
+        </div>
+
+        <!-- 개발 일정 -->
+        <div class="section">
+            <div class="section-title">6. 개발 일정 (8일)</div>
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>날짜</th>
+                        <th>주요 작업</th>
+                        <th>세부 내용</th>
+                        <th>결과물</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="day-1">
+                        <td>Day 1</td>
+                        <td>11.10</td>
+                        <td>프로젝트 설정 및<br>기본 UI 구성</td>
+                        <td>
+                            • HTML/CSS/JS 프로젝트 구조 설정<br>
+                            • TensorFlow.js, Face-API.js 라이브러리 설치<br>
+                            • Chart.js, jsPDF 라이브러리 추가<br>
+                            • 기본 HTML 레이아웃 구성<br>
+                            • CSS 스타일링 (반응형 디자인)
+                        </td>
+                        <td>
+                            index.html<br>
+                            style.css<br>
+                            프로젝트 구조
+                        </td>
+                    </tr>
+                    <tr class="day-2">
+                        <td>Day 2</td>
+                        <td>11.11</td>
+                        <td>웹캠 비디오 스트림<br>및 Canvas 렌더링</td>
+                        <td>
+                            • getUserMedia API 구현<br>
+                            • 비디오 스트림을 Canvas에 렌더링<br>
+                            • 카메라 권한 처리<br>
+                            • 비디오 해상도 설정 (640x480)<br>
+                            • 시작/중지 버튼 이벤트 핸들러
+                        </td>
+                        <td>
+                            videoCapture.js<br>
+                            웹캠 연동
+                        </td>
+                    </tr>
+                    <tr class="day-3">
+                        <td>Day 3</td>
+                        <td>11.12</td>
+                        <td>Face-API.js 모델 통합<br>및 얼굴 감지</td>
+                        <td>
+                            • TensorFlow.js 모델 로딩<br>
+                            • TinyFaceDetector 얼굴 감지<br>
+                            • FaceLandmark68Net 랜드마크 추출<br>
+                            • Canvas에 얼굴 박스 및 랜드마크 그리기<br>
+                            • 감지 옵션 최적화 (inputSize, scoreThreshold)
+                        </td>
+                        <td>
+                            faceDetection.js<br>
+                            얼굴 감지 기능
+                        </td>
+                    </tr>
+                    <tr class="day-4">
+                        <td>Day 4</td>
+                        <td>11.13</td>
+                        <td>감정 인식 및<br>실시간 분석</td>
+                        <td>
+                            • FaceExpressionNet 모델 적용<br>
+                            • 7가지 감정 확률 계산<br>
+                            • 주요 감정 추출 로직<br>
+                            • 감정 변화 감지 알고리즘<br>
+                            • 감정 데이터 배열에 저장
+                        </td>
+                        <td>
+                            emotionAnalysis.js<br>
+                            감정 인식 엔진
+                        </td>
+                    </tr>
+                    <tr class="day-5">
+                        <td>Day 5</td>
+                        <td>11.14</td>
+                        <td>Chart.js 시각화<br>구현</td>
+                        <td>
+                            • Chart.js 바 차트 (실시간 감정 확률)<br>
+                            • Chart.js 라인 차트 (감정 변화 타임라인)<br>
+                            • 차트 실시간 업데이트 로직<br>
+                            • 감정별 색상 매핑<br>
+                            • 애니메이션 옵션 설정
+                        </td>
+                        <td>
+                            chartVisualization.js<br>
+                            실시간 차트
+                        </td>
+                    </tr>
+                    <tr class="day-6">
+                        <td>Day 6</td>
+                        <td>11.15</td>
+                        <td>통계 분석 및<br>데이터 처리</td>
+                        <td>
+                            • 총 분석 시간 계산 (타이머)<br>
+                            • 감정 변화 횟수 카운팅<br>
+                            • 각 감정의 평균 신뢰도 계산<br>
+                            • 통계 UI 업데이트<br>
+                            • 데이터 구조 최적화
+                        </td>
+                        <td>
+                            statistics.js<br>
+                            통계 분석 모듈
+                        </td>
+                    </tr>
+                    <tr class="day-7">
+                        <td>Day 7</td>
+                        <td>11.16</td>
+                        <td>리포트 생성 및<br>데이터 내보내기</td>
+                        <td>
+                            • jsPDF를 활용한 PDF 리포트 생성<br>
+                            • 리포트 레이아웃 디자인 (헤더, 차트, 통계)<br>
+                            • JSON 데이터 내보내기<br>
+                            • CSV 데이터 내보내기<br>
+                            • 스냅샷 이미지 저장 기능
+                        </td>
+                        <td>
+                            reportGenerator.js<br>
+                            dataExport.js
+                        </td>
+                    </tr>
+                    <tr class="day-8">
+                        <td>Day 8</td>
+                        <td>11.17</td>
+                        <td>테스트, 최적화 및<br>배포</td>
+                        <td>
+                            • 브라우저 호환성 테스트<br>
+                            • 성능 최적화 (FPS, 메모리)<br>
+                            • UI/UX 개선 및 버그 수정<br>
+                            • README.md 작성<br>
+                            • Vercel 배포
+                        </td>
+                        <td>
+                            완료 보고서<br>
+                            배포 URL<br>
+                            문서화
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 데이터 구조 명세 -->
+        <div class="section">
+            <div class="section-title">7. 데이터 구조 명세</div>
+            <div class="table-spec">
+                <div class="table-header">EmotionData Object (감정 데이터 객체)</div>
+                <div class="table-content">
+                    <div class="field-row">
+                        <div class="field-name">timestamp</div>
+                        <div class="field-type">Number</div>
+                        <div>데이터 수집 시각 (Unix timestamp, milliseconds)</div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-name">emotions</div>
+                        <div class="field-type">Object</div>
+                        <div>7가지 감정의 확률 {happy: 0.85, sad: 0.05, angry: 0.02, ...}</div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-name">dominantEmotion</div>
+                        <div class="field-type">String</div>
+                        <div>주요 감정 레이블 (가장 높은 확률의 감정)</div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-name">confidence</div>
+                        <div class="field-type">Number</div>
+                        <div>주요 감정의 신뢰도 (0.0 - 1.0)</div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-name">faceDetected</div>
+                        <div class="field-type">Boolean</div>
+                        <div>얼굴 감지 여부 (true/false)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-spec">
+                <div class="table-header">FaceDetection Object (얼굴 감지 객체)</div>
+                <div class="table-content">
+                    <div class="field-row">
+                        <div class="field-name">box</div>
+                        <div class="field-type">Object</div>
+                        <div>얼굴 영역 좌표 {x, y, width, height}</div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-name">landmarks</div>
+                        <div class="field-type">Array</div>
+                        <div>68개 얼굴 랜드마크 포인트 [{x, y}, ...]</div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-name">expressions</div>
+                        <div class="field-type">Object</div>
+                        <div>표정 분석 결과 (EmotionData.emotions와 동일)</div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-name">detection</div>
+                        <div class="field-type">Object</div>
+                        <div>감지 정보 {score, classScore, className}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-spec">
+                <div class="table-header">Statistics Object (통계 객체)</div>
+                <div class="table-content">
+                    <div class="field-row">
+                        <div class="field-name">totalAnalysisTime</div>
+                        <div class="field-type">Number</div>
+                        <div>총 분석 시간 (초)</div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-name">emotionChangeCount</div>
+                        <div class="field-type">Number</div>
+                        <div>감정 변화 횟수 (주요 감정이 바뀐 횟수)</div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-name">averageConfidence</div>
+                        <div class="field-type">Object</div>
+                        <div>각 감정의 평균 신뢰도 {happy: 0.75, sad: 0.45, ...}</div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-name">emotionFrequency</div>
+                        <div class="field-type">Object</div>
+                        <div>각 감정의 출현 빈도 {happy: 120, sad: 45, ...}</div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-name">startTime</div>
+                        <div class="field-type">Number</div>
+                        <div>분석 시작 시각 (timestamp)</div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-name">endTime</div>
+                        <div class="field-type">Number</div>
+                        <div>분석 종료 시각 (timestamp)</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin: 15px 0 10px 0; font-size: 14px;">데이터 저장 구조</h3>
+            <table class="req-table">
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">변수명</th>
+                        <th style="width: 15%;">타입</th>
+                        <th style="width: 55%;">설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>emotionHistory</td>
+                        <td>Array</td>
+                        <td>시간 순서대로 저장된 감정 데이터 배열 (EmotionData[])</td>
+                    </tr>
+                    <tr>
+                        <td>currentEmotion</td>
+                        <td>Object</td>
+                        <td>현재 프레임의 감정 데이터 (EmotionData)</td>
+                    </tr>
+                    <tr>
+                        <td>previousEmotion</td>
+                        <td>String</td>
+                        <td>이전 프레임의 주요 감정 (변화 감지용)</td>
+                    </tr>
+                    <tr>
+                        <td>emotionChanges</td>
+                        <td>Array</td>
+                        <td>감정 변화 포인트 배열 [{timestamp, from, to, confidence}, ...]</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 기술적 고려사항 -->
+        <div class="section">
+            <div class="section-title">8. 기술적 고려사항</div>
+            <h3>TensorFlow.js 모델 최적화</h3>
+            <div class="usecase-item">
+                <strong>모델 로딩 전략:</strong> TinyFaceDetector 사용으로 모델 크기 최소화 (경량화), 초기 로딩 시간 단축
+            </div>
+            <div class="usecase-item">
+                <strong>추론 최적화:</strong> requestAnimationFrame을 활용한 효율적인 프레임 처리, GPU 가속 활용 (WebGL 백엔드)
+            </div>
+            <div class="usecase-item">
+                <strong>캐싱 전략:</strong> 모델 파일을 브라우저 캐시에 저장하여 재방문 시 빠른 로딩
+            </div>
+
+            <h3>실시간 처리 성능</h3>
+            <div class="usecase-item">
+                <strong>프레임 스킵:</strong> 감지 간격 조정 (예: 100ms마다 처리)하여 CPU 부하 감소
+            </div>
+            <div class="usecase-item">
+                <strong>Canvas 최적화:</strong> OffscreenCanvas 사용 고려, 필요한 영역만 다시 그리기
+            </div>
+            <div class="usecase-item">
+                <strong>비동기 처리:</strong> async/await 패턴으로 UI 블로킹 방지, Web Workers 사용 검토
+            </div>
+
+            <h3>Chart.js 시각화</h3>
+            <div class="usecase-item">
+                <strong>차트 업데이트 전략:</strong> addData/removeData 메서드로 부분 업데이트, 불필요한 리렌더링 방지
+            </div>
+            <div class="usecase-item">
+                <strong>애니메이션 최적화:</strong> duration 조정으로 부드러운 전환 효과, 성능 모드 옵션 제공
+            </div>
+            <div class="usecase-item">
+                <strong>데이터 포인트 제한:</strong> 타임라인 차트에서 일정 개수 이상 시 오래된 데이터 제거 (슬라이딩 윈도우)
+            </div>
+
+            <h3>브라우저 호환성</h3>
+            <div class="usecase-item">
+                <strong>getUserMedia 폴백:</strong> 구형 브라우저를 위한 navigator.getUserMedia 폴리필
+            </div>
+            <div class="usecase-item">
+                <strong>WebGL 지원:</strong> TensorFlow.js WebGL 백엔드 지원 여부 체크, CPU 백엔드 폴백
+            </div>
+            <div class="usecase-item">
+                <strong>ES6+ 트랜스파일:</strong> Babel 사용으로 최신 JavaScript 기능 지원 (옵션)
+            </div>
+
+            <h3>개인정보 보호 및 보안</h3>
+            <div class="usecase-item">
+                <strong>로컬 처리:</strong> 모든 비디오 및 감정 데이터는 브라우저 내에서만 처리, 서버 전송 없음
+            </div>
+            <div class="usecase-item">
+                <strong>권한 관리:</strong> 카메라 권한 요청 시 명확한 안내 메시지, 사용자 동의 필수
+            </div>
+            <div class="usecase-item">
+                <strong>데이터 삭제:</strong> 세션 종료 시 메모리에서 모든 데이터 자동 삭제, 명시적 초기화 기능 제공
+            </div>
+
+            <h3>에러 처리 및 예외 상황</h3>
+            <div class="usecase-item">
+                <strong>카메라 미지원:</strong> getUserMedia 실패 시 사용자 친화적 오류 메시지 표시
+            </div>
+            <div class="usecase-item">
+                <strong>모델 로딩 실패:</strong> 네트워크 오류 시 재시도 로직, CDN 장애 대비 로컬 모델 파일 백업
+            </div>
+            <div class="usecase-item">
+                <strong>얼굴 미감지:</strong> 얼굴이 감지되지 않을 때 안내 메시지 표시, 이전 데이터 유지
+            </div>
+
+            <h3>메모리 관리</h3>
+            <div class="usecase-item">
+                <strong>Tensor 메모리 해제:</strong> TensorFlow.js dispose() 메서드로 사용하지 않는 텐서 정리
+            </div>
+            <div class="usecase-item">
+                <strong>데이터 배열 제한:</strong> emotionHistory 배열 크기 제한 (예: 최근 1000개), 오래된 데이터 자동 삭제
+            </div>
+            <div class="usecase-item">
+                <strong>이벤트 리스너 정리:</strong> 컴포넌트 언마운트 시 이벤트 리스너 제거, 메모리 누수 방지
+            </div>
+        </div>
+
+        <!-- 기대 효과 -->
+        <div class="section">
+            <div class="section-title">9. 기대 효과</div>
+            <h3>프로젝트 활용 분야</h3>
+            <div class="three-column">
+                <div class="usecase-item">
+                    <strong>심리 상담 및 치료</strong><br>
+                    내담자의 감정 상태 객관적 측정<br>
+                    상담 효과성 데이터 기반 평가
+                </div>
+                <div class="usecase-item">
+                    <strong>교육 및 이러닝</strong><br>
+                    학습자 참여도 실시간 모니터링<br>
+                    콘텐츠 개선을 위한 피드백 수집
+                </div>
+                <div class="usecase-item">
+                    <strong>고객 서비스</strong><br>
+                    고객 만족도 실시간 분석<br>
+                    서비스 품질 개선 인사이트
+                </div>
+                <div class="usecase-item">
+                    <strong>HCI 연구</strong><br>
+                    사용자 경험 연구<br>
+                    감정 인식 알고리즘 개선
+                </div>
+                <div class="usecase-item">
+                    <strong>엔터테인먼트</strong><br>
+                    게임 플레이어 반응 분석<br>
+                    인터랙티브 콘텐츠 개발
+                </div>
+                <div class="usecase-item">
+                    <strong>건강 관리</strong><br>
+                    정신 건강 셀프 모니터링<br>
+                    스트레스 수준 추적
+                </div>
+            </div>
+
+            <h3>기술적 성과</h3>
+            <div class="two-column">
+                <div class="usecase-item">
+                    <strong>클라이언트 사이드 AI</strong><br>
+                    서버 없이 브라우저에서 완전한 AI 구동<br>
+                    개인정보 보호 및 낮은 운영 비용
+                </div>
+                <div class="usecase-item">
+                    <strong>실시간 처리</strong><br>
+                    15+ FPS로 즉각적인 감정 분석<br>
+                    사용자 경험 최적화
+                </div>
+                <div class="usecase-item">
+                    <strong>데이터 시각화</strong><br>
+                    직관적인 Chart.js 그래프<br>
+                    복잡한 감정 데이터를 쉽게 이해
+                </div>
+                <div class="usecase-item">
+                    <strong>전문 리포트 생성</strong><br>
+                    임상 수준의 PDF 리포트<br>
+                    분석 결과의 전문적 활용
+                </div>
+            </div>
+
+            <h3>학습 목표 달성</h3>
+            <div class="three-column">
+                <div class="usecase-item">
+                    <strong>딥러닝 실무</strong><br>
+                    TensorFlow.js 모델 통합<br>
+                    Face-API.js 활용
+                </div>
+                <div class="usecase-item">
+                    <strong>실시간 데이터 처리</strong><br>
+                    비디오 스트림 처리<br>
+                    비동기 프로그래밍
+                </div>
+                <div class="usecase-item">
+                    <strong>데이터 시각화</strong><br>
+                    Chart.js 차트 구현<br>
+                    Canvas API 활용
+                </div>
+                <div class="usecase-item">
+                    <strong>JavaScript ES6+</strong><br>
+                    최신 JavaScript 문법<br>
+                    모듈화 아키텍처
+                </div>
+                <div class="usecase-item">
+                    <strong>브라우저 API</strong><br>
+                    getUserMedia<br>
+                    Canvas, WebGL
+                </div>
+                <div class="usecase-item">
+                    <strong>문서 생성</strong><br>
+                    jsPDF PDF 생성<br>
+                    JSON/CSV 변환
+                </div>
+            </div>
+
+            <h3>사회적 기여</h3>
+            <div class="two-column">
+                <div class="usecase-item">
+                    <strong>접근성 향상</strong><br>
+                    누구나 무료로 사용 가능한 웹 기반 도구<br>
+                    설치 불필요, 즉시 활용 가능
+                </div>
+                <div class="usecase-item">
+                    <strong>정신 건강 지원</strong><br>
+                    감정 인식을 통한 자기 이해 증진<br>
+                    조기 스트레스 감지 및 관리
+                </div>
+                <div class="usecase-item">
+                    <strong>교육 효과성 증대</strong><br>
+                    학습자 참여도 기반 교육 개선<br>
+                    맞춤형 학습 경험 제공
+                </div>
+                <div class="usecase-item">
+                    <strong>오픈소스 기여</strong><br>
+                    GitHub 공개로 커뮤니티 기여<br>
+                    다른 개발자의 학습 자료 제공
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 8px; margin-top: 20px;">
+            <p style="margin: 0; color: #667eea; font-size: 14px; font-weight: bold;">
+                Facial Emotion Recognition AI System Development Plan
+            </p>
+            <p style="margin: 5px 0 0 0; color: #666; font-size: 11px;">
+                2025 이승필 | JavaScript • TensorFlow.js • Face-API.js • Real-time AI
+            </p>
+            <p style="margin: 5px 0 0 0; color: #666; font-size: 10px;">
+                Demo: https://realtimefacial.vercel.app/
+            </p>
+        </div>
+    </div>
+</body>
+</html>

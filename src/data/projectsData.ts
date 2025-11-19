@@ -293,7 +293,7 @@ export const projectsData: ProjectItem[] = [
   {
     id: 23,
     title: "프로젝트 23: C#, WPF, MongoDB 기반 스마트 빌딩 에너지 모니터링 솔루션",
-    period: "2025.11.10 - 2025.11.17 (8일 완성)",
+    period: "2025.11.03 - 2025.11.09 (7일 완성)",
     description: "실시간 센서 데이터 수집 및 시각화를 통한 스마트 빌딩 에너지 관리 시스템입니다. 30개 센서의 데이터를 MongoDB에 저장하고, 2D 차트(OxyPlot)와 3D 시각화(HelixToolkit)를 통해 직관적인 모니터링 환경을 제공합니다.",
     tech: ["C# 9.0", "WPF", ".NET 9.0", "MongoDB", "OxyPlot", "HelixToolkit.Wpf", "MVVM Pattern", "Real-time Visualization"],
     links: {
@@ -302,5 +302,21 @@ export const projectsData: ProjectItem[] = [
       report: "https://port-ashy-iota.vercel.app/documents/reports/SmartBuildingMonitor_완료보고서.html"
     },
     achievement: "MeshBuilder 최적화로 Draw Call 90% 감소, 240 FPS 실시간 렌더링 달성"
+  },
+  {
+    id: 24,
+    title: "프로젝트 24: JavaScript & TensorFlow.js 기반 실시간 얼굴 표정 감정 인식 AI 시스템",
+    period: "2025.11.10 - 2025.11.17 (8일 완성)",
+    description: "브라우저에서 실시간으로 얼굴 표정을 인식하고 7가지 감정을 분류하는 AI 시스템입니다. TensorFlow.js와 Face-API.js를 활용하여 웹캠을 통해 실시간으로 감정을 분석하고, Chart.js로 시각화하며 jsPDF로 리포트를 생성합니다.",
+    tech: ["JavaScript ES6+", "TensorFlow.js 4.11.0", "Face-API.js 0.22.2", "Chart.js", "jsPDF", "HTML5", "CSS3", "Real-time AI"],
+    links: {
+      demo: "https://realtimefacial.vercel.app/",
+      plan: "https://port-ashy-iota.vercel.app/documents/reports/FacialEmotionRecognition_개발계획서.html",
+      report: "https://port-ashy-iota.vercel.app/documents/reports/FacialEmotionRecognition_완료보고서.html",
+      additional: [
+        { label: "GitHub Repository", url: "https://github.com/farandaway89/-Real-time-Facial-Expression-Emotion-Recognition-AI-System-using-TensorFlow.js-" }
+      ]
+    },
+    achievement: "브라우저 기반 실시간 7가지 감정 분류 AI 시스템 구현, 순수 JavaScript로 ML 모델 통합"
   },
 ];
