@@ -18,7 +18,7 @@ export const experienceData: ExperienceItem[] = [
     id: 1,
     title: "Overseas business · 차장/팀장",
     company: "KAS Holdings Co,.Ltd (Viet Nam)",
-    period: "2021.07 - 2024.09",
+    period: "2021.07 - 2025.09",
     duration: "3년 3개월",
     location: "베트남",
     salary: "5,500만원",
